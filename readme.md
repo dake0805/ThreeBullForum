@@ -1,3 +1,15 @@
+
+
+
+
+## Init
+
+![image-20191122130635151](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122130635151.png)
+
+![image-20191122130711983](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122130711983.png)
+
+
+
 ## Run Configuration
 
 ![image-20191122125711400](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122125711400.png)
