@@ -4,19 +4,27 @@
 
 ## Init
 
-![image-20191122130635151](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122130635151.png)
-
-![image-20191122130711983](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122130711983.png)
 
 
+![image-20191122132043139](pic/image-20191122132043139.png)
+
+
+
+![image-20191122130711983](pic/image-20191122130711983.png)
+
+![image-20191122132934001](pic/image-20191122132934001.png)
+
+
+
+![image-20191122132950974](pic/image-20191122132950974.png)
 
 ## Run Configuration
 
-![image-20191122125711400](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122125711400.png)
+![image-20191122125711400](pic/image-20191122125711400.png)
 
-![image-20191122125733470](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122125733470.png)
+![image-20191122125733470](pic/image-20191122125733470.png)
 
-![image-20191122125747591](C:\Users\zy\AppData\Roaming\Typora\typora-user-images\image-20191122125747591.png)
+![image-20191122125747591](pic/image-20191122125747591.png)
 
 
 
