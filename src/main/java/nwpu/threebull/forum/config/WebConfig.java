@@ -10,12 +10,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * WebMVC配置
  *
- * @version: 1.0
  * Created in 2019/11/17 17:05
  */
 @Configuration  //定义为配置类
 @EnableWebMvc   //启用Spring MVC
 @ComponentScan
+@ComponentScan("nwpu.threebull.forum.controller")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     /**

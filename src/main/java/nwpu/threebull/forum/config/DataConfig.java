@@ -16,15 +16,22 @@ import java.util.ResourceBundle;
 @ComponentScan(basePackages = {"nwpu.threebull.forum"}, excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 public class DataConfig {
     // 读取数据库配置文件
-    private static ResourceBundle resource = ResourceBundle.getBundle("nwpu.threebull.forum.config.dbconfig");
+//    private static ResourceBundle resource = ResourceBundle.getBundle("/dbconfig.properties");
 
     // 获取数据库配置
-    private static String DRIVER = resource.getString("DRIVER");
-    private static String URL = resource.getString("URL");
-    private static String DBNAME = resource.getString("DBNAME");
-    private static String DBCONFIG = resource.getString("DBCONFIG");
-    private static String USER = resource.getString("USER");
-    private static String PASSWORD = resource.getString("PASSWORD");
+//    private static String DRIVER = resource.getString("DRIVER");
+//    private static String URL = resource.getString("URL");
+//    private static String DBNAME = resource.getString("DBNAME");
+//    private static String DBCONFIG = resource.getString("DBCONFIG");
+//    private static String USER = resource.getString("USER");
+//    private static String PASSWORD = resource.getString("PASSWORD");
+
+    private static String DRIVER = "com.mysql.jdbc.Driver";
+    private static String URL = "jdbc:mysql://localhost:3306/";
+    private static String DBNAME = "threebullfourm";
+    private static String DBCONFIG = "?useSSL=false&serverTimezone=UTC";
+    private static String USER = "root";
+    private static String PASSWORD = "admin";
 
     /**
      * 数据源设置，采用MySQL数据库，此处运用了数据源连接池BasicDataSource

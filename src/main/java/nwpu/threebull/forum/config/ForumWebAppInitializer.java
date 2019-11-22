@@ -1,5 +1,7 @@
 package nwpu.threebull.forum.config;
 
+import nwpu.threebull.forum.config.RootConfig;
+import nwpu.threebull.forum.config.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ForumWebAppInitializer

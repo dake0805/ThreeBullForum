@@ -13,6 +13,7 @@ public class Admin {
 
     /**
      * Constructor
+     *
      * @param id
      * @param userName
      * @param password
@@ -45,5 +46,10 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return this.getId() + " " + this.getPassword() + " " + this.getUserName();
     }
 }
