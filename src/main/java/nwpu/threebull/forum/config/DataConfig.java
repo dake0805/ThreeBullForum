@@ -28,7 +28,7 @@ public class DataConfig {
 
     private static String DRIVER = "com.mysql.jdbc.Driver";
     private static String URL = "jdbc:mysql://localhost:3306/";
-    private static String DBNAME = "threebullfourm";
+    private static String DBNAME = "threebullforum";
     private static String DBCONFIG = "?useSSL=false&serverTimezone=UTC";
     private static String USER = "root";
     private static String PASSWORD = "admin";
