@@ -9,14 +9,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * WebMVC配置
- *
+ * <p>
  * Created in 2019/11/17 17:05
  */
 @Configuration  //定义为配置类
 @EnableWebMvc   //启用Spring MVC
 @ComponentScan
 @ComponentScan("nwpu.threebull.forum.controller")
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 自定义视图解析器
@@ -51,7 +51,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        super.addResourceHandlers(registry);
+        WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 
     /**
@@ -61,6 +61,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
+        WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
