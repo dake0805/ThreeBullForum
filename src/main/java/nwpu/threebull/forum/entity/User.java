@@ -62,4 +62,8 @@ public class User {
     public void setLocked(boolean locked) {
         isLocked = locked;
     }
+
+    public boolean equals(User user) {
+        return user.getId() == this.id;
+    }
 }

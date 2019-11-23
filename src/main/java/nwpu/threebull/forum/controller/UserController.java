@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import nwpu.threebull.forum.entity.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 @SessionAttributes({"user"})
@@ -71,11 +72,17 @@ public class UserController {
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
 
         Topic topic = topicService.findByTopicId(topicId);
+        User user = (User) session.getAttribute("user");
         if (null != topic) {
             topicService.updateClickNumByTopic(topic);
+            if (user.equals(topic.getUser())) {
+                model.addAttribute("isMyself", true);
+            } else {
+                model.addAttribute("isMyself", false);
+            }
             model.addAttribute("singleTopic", topic);
             model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
             return "user/topic";
@@ -85,7 +92,22 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
+    public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            model.addAttribute("singleTopic", topic);
+            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
+            return "user/editTopic";
+        } else {
+            return "redirect:/user/home";
+        }
+
+    }
+
+    @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
     public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
                       @RequestParam(value = "content", defaultValue = "") String content, Model model) {
         topicService.updateTitleByTopicId(topicId, title, content);
@@ -93,6 +115,7 @@ public class UserController {
         if (null != topic) {
             model.addAttribute("singleTopic", topic);
             model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+            model.addAttribute("isMyself", true);
             return "user/topic";
         } else {
             return "redirect:/";

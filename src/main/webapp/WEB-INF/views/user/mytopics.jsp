@@ -31,10 +31,10 @@
 </div>
 每页${MyTopics.pageSize}条主题， 第${MyTopics.currentPageNo}/${MyTopics.totalPageCount}页,共${MyTopics.totalCount}条主题
 <c:if test="${MyTopics.previousPage}">
-    <a href="<c:url value="/user/topic/?pageNo=${MyTopics.currentPageNo-1}" />">上一页</a>
+    <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo-1}" />">上一页</a>
 </c:if>
 <c:if test="${MyTopics.nextPage}">
-    <a href="<c:url value="/user/topic/?pageNo=${MyTopics.currentPageNo+1}" />">下一页</a>
+    <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo+1}" />">下一页</a>
 </c:if>
 <br>
 <a href="<c:url value="/user/home"/>">返回主页</a>
