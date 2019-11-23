@@ -1,4 +1,97 @@
 package nwpu.threebull.forum.dao.jdbc;
 
-public class JdbcTopicRepository {
+import nwpu.threebull.forum.dao.support.PaginationSupport;
+import nwpu.threebull.forum.entity.Topic;
+import nwpu.threebull.forum.dao.TopicRepository;
+import nwpu.threebull.forum.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.ArrayList;
+
+@Repository
+public class JdbcTopicRepository implements TopicRepository {
+
+    private JdbcTemplate jdbc;
+
+    @Autowired
+    public JdbcTopicRepository(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
+
+    @Override
+    public int countByUserId(int userId) {
+        int count = jdbc.queryForObject("select count(*) from topic where user_id = ?", new Object[]{userId}, Integer.class);
+        return count;
+    }
+
+    @Override
+    public void updateClickNumByTopic(Topic topic) {
+        int clickNum = topic.getClickNum();
+        clickNum++;
+        jdbc.update("update topic set click_number = ? where id = ?", clickNum, topic.getId());
+    }
+
+
+    @Override
+    public List<Topic> findByUserId(int userId) {
+        return jdbc.query(SELECT_TOPIC_BY_USERID, new TopicRowMapper(), userId);
+    }
+
+
+    public Topic findByTopicId(int topicId) {
+        return jdbc.queryForObject(SELECT_TOPIC_BY_TOPICID, new TopicRowMapper(), topicId);
+    }
+
+    public void updateTitleByTopicId(int topicId, String title, String content) {
+        jdbc.update("update topic set name = ?, content = ? where id = ?", title, content, topicId);
+    }
+
+    @Override
+    public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
+        int totalCount = countByUserId(userId);
+        int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+        if (totalCount < 1)
+            return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
+
+        List<Topic> items = jdbc.query(SELECT_PAGE_TOPIC_BY_USERID, new TopicRowMapper(), userId, pageSize, startIndex);
+        PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
+        return ps;
+    }
+
+    private static final class TopicRowMapper implements RowMapper<Topic> {
+        public Topic mapRow(ResultSet rs, int rowNum) throws SQLException {
+            int id = rs.getInt("id");
+            String title = rs.getString("name");
+            String content = rs.getString("content");
+            boolean topicStatus = rs.getBoolean("top_status");
+            Timestamp topTime = rs.getTimestamp("top_time");
+            Timestamp postTime = rs.getTimestamp("post_time");
+            int clickNum = rs.getInt("click_number");
+            int followNum = rs.getInt("follow_number");
+
+            int userId = rs.getInt("userId");
+            String userName = rs.getString("username");
+            String password = rs.getString("password");
+            boolean isLocked = rs.getBoolean("lock_status");
+
+            User user = new User(userId, userName, password, isLocked);
+            return new Topic(id, title, content, user, topicStatus, topTime,
+                    postTime, clickNum, followNum);
+        }
+    }
+
+    private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
+    private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
+    private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
+    private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
+            + " order by t.post_time desc limit ? offset  ?";
+
 }

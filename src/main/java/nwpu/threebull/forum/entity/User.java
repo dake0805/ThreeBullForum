@@ -24,6 +24,13 @@ public class User {
         this.isLocked = false;
     }
 
+    public User(int id, String userName, String password, boolean isLocked) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.isLocked = isLocked;
+    }
+
     public int getId() {
         return id;
     }

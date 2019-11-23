@@ -1,10 +1,8 @@
-package nwpu.threebull.forum.dao;
+package nwpu.threebull.forum.service;
 
-import org.springframework.stereotype.Repository;
 import nwpu.threebull.forum.entity.User;
 
-@Repository
-public interface UserRepository {
+public interface UserService {
     User findUserByUserName(String userName);
 
     User findUserByUserNameAndPassword(String userName, String password);
