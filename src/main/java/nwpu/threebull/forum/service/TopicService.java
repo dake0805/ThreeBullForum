@@ -1,14 +1,11 @@
-package nwpu.threebull.forum.dao;
-
-import nwpu.threebull.forum.entity.Topic;
-import org.springframework.stereotype.Repository;
-
-import java.util.*;
+package nwpu.threebull.forum.service;
 
 import nwpu.threebull.forum.dao.support.PaginationSupport;
+import nwpu.threebull.forum.entity.Topic;
 
-public interface TopicRepository {
+import java.util.List;
 
+public interface TopicService {
     int countByUserId(int userId);
 
     void updateClickNumByTopic(Topic topic);
