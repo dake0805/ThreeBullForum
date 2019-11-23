@@ -28,13 +28,21 @@ public class JdbcTopicRepository implements TopicRepository {
 
     @Override
     public int countByUserId(int userId) {
-        int count = jdbc.queryForObject("select count(*) from topic where user_id = ?", new Object[]{userId}, Integer.class);
+        int count = jdbc.queryForObject("select count(*) from topic where user_id = ?", Integer.class, new Object[]{userId});
         return count;
     }
 
     @Override
     public int countAllTopics() {
         int count = jdbc.queryForObject("select count(*) from topic", Integer.class);
+        return count;
+    }
+
+    @Override
+    public int countSearchTopics(String info) {
+        //参数原型为public <T> T queryForObject(String sql, Class<T> requiredType, Object... args)
+        //TODO 这里可能有问题
+        int count = jdbc.queryForObject("select count(*) from topic where name like  '%" + "?" + "%' or content like '%" + "?" + "%'", Integer.class, new Object[]{info}, new Object[]{info});
         return count;
     }
 
@@ -84,6 +92,18 @@ public class JdbcTopicRepository implements TopicRepository {
         return ps;
     }
 
+    @Override
+    public PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, int pageNo, int pageSize) {
+        int totalCount = countSearchTopics(info);
+        int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+        if (totalCount < 1) {
+            return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
+        }
+        List<Topic> items = jdbc.query(SELECT_PAGE_TOPIC_BY_INFO, new TopicRowMapper(), info, info, pageSize, startIndex);
+        PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
+        return ps;
+    }
+
     private static final class TopicRowMapper implements RowMapper<Topic> {
         public Topic mapRow(ResultSet rs, int rowNum) throws SQLException {
             int id = rs.getInt("id");
@@ -109,8 +129,14 @@ public class JdbcTopicRepository implements TopicRepository {
     private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
+    private static final String SELECT_TOPIC_BY_INFO = SELECT_TOPIC + " and t.name like '%?%' or t.content like '%?%'";
+
     private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
             + " order by t.post_time desc limit ? offset  ?";
+
+    private static final String SELECT_PAGE_TOPIC_BY_INFO = SELECT_TOPIC_BY_INFO
+            + " order by t.post_time desc limit ? offset  ?";
+
     private static final String SELECT_PAGE_TOPIC = SELECT_TOPIC
             + " order by t.post_time desc limit ? offset  ?";
 

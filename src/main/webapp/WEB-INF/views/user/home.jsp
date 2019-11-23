@@ -16,6 +16,11 @@
 <a href="<c:url value="/user/logout"/>">注销登录</a>
 
 <div class="topicList">
+    <form method="POST" action="/user/searchTopic">
+        <input name="info" class="text" type="text"
+               placeholder="输入你所要搜索的内容">
+        <input type="submit" value="搜索"/>
+    </form>
     <h1>所有主题</h1>
     <ul class="topicList">
         <c:forEach items="${AllTopics.items}" var="topic">

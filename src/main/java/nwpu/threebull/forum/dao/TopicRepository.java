@@ -13,6 +13,8 @@ public interface TopicRepository {
 
     int countAllTopics();
 
+    int countSearchTopics(String info);
+
     void updateClickNumByTopic(Topic topic);
 
     List<Topic> findByUserId(int userId);
@@ -24,4 +26,6 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
 
     PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
+
+    PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, int pageNo, int pageSize);
 }

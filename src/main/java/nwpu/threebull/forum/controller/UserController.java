@@ -122,6 +122,14 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/searchTopic", method = RequestMethod.POST)
+    public String searchTopic(@RequestParam(value = "info") String info, Model model,
+                              @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, pageNo, pageSize));
+        return "user/searchTopic";
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("user");

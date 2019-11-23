@@ -48,4 +48,9 @@ public class TopicServiceImpl implements TopicService {
     public PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize) {
         return topicRepository.findPageTopics(pageNo, pageSize);
     }
+
+    @Override
+    public PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, int pageNo, int pageSize) {
+        return topicRepository.findPageTopicsByTitleOrContent(info, pageNo, pageSize);
+    }
 }
