@@ -48,6 +48,7 @@ public class DataConfig {
         dataSource.setPassword(PASSWORD);
         dataSource.setInitialSize(5);
         dataSource.setMaxTotal(10);
+
         return dataSource;
     }
 
