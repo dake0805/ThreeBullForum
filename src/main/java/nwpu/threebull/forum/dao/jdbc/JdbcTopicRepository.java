@@ -33,6 +33,12 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     @Override
+    public int countAllTopics() {
+        int count = jdbc.queryForObject("select count(*) from topic", Integer.class);
+        return count;
+    }
+
+    @Override
     public void updateClickNumByTopic(Topic topic) {
         int clickNum = topic.getClickNum();
         clickNum++;
@@ -66,6 +72,18 @@ public class JdbcTopicRepository implements TopicRepository {
         return ps;
     }
 
+    @Override
+    public PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize) {
+        int totalCount = countAllTopics();
+        int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+        if (totalCount < 1) {
+            return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
+        }
+        List<Topic> items = jdbc.query(SELECT_PAGE_TOPIC, new TopicRowMapper(), pageSize, startIndex);
+        PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
+        return ps;
+    }
+
     private static final class TopicRowMapper implements RowMapper<Topic> {
         public Topic mapRow(ResultSet rs, int rowNum) throws SQLException {
             int id = rs.getInt("id");
@@ -92,6 +110,8 @@ public class JdbcTopicRepository implements TopicRepository {
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
     private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
+            + " order by t.post_time desc limit ? offset  ?";
+    private static final String SELECT_PAGE_TOPIC = SELECT_TOPIC
             + " order by t.post_time desc limit ? offset  ?";
 
 }

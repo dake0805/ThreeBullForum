@@ -17,4 +17,6 @@ public interface TopicService {
     void updateTitleByTopicId(int topicId, String title, String content);
 
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
+
+    PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
 }

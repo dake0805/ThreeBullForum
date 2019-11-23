@@ -37,18 +37,22 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
-                               @RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
+                               @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
         User user;
         user = userService.findUserByUserNameAndPassword(userName, password);
         if (null != user) {
             model.addAttribute(user);
+            model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
             return "user/home";
         }
         return "/user/loginError";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String showHome(Model model) {
+    public String showHome(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
         return "user/home";
     }
 
@@ -65,7 +69,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
@@ -76,7 +80,7 @@ public class UserController {
             model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
             return "user/topic";
         } else {
-            return "redirect:/user/mytopics";
+            return "redirect:/user/home";
         }
 
     }

@@ -38,6 +38,7 @@ public class JdbcUserRepository implements UserRepository {
             user = jdbc.queryForObject(SELECT_USER + " where username=? and password=?", new UserRowMapper(),
                     userName, password);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return user;
     }
