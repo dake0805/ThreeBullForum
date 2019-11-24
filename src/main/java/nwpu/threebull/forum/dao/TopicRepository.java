@@ -19,5 +19,7 @@ public interface TopicRepository {
 
     void updateTitleByTopicId(int topicId, String title, String content);
 
+    void newTopic(Topic topic);
+
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
 }

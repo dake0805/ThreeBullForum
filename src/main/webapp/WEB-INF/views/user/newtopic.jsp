@@ -21,8 +21,10 @@
 <body>
 <div class="spittleForm">
     <h1>发表评论</h1>
-    <form method="POST" name="spittleForm">
-        <textarea name="name" cols="80" rows="5"></textarea><br/><br/>
+    <form method="POST" name="">
+        <h2>主题名称</h2>
+        <textarea name="title" cols="80" rows="5"></textarea><br/><br/>
+        <h2>主题内容</h2>
         <textarea name="content" cols="80" rows="5"></textarea><br/><br/>
         <input type="submit" value="发表" />
     </form>

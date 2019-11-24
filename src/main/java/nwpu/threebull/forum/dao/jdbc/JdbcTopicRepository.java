@@ -54,6 +54,11 @@ public class JdbcTopicRepository implements TopicRepository {
         jdbc.update("update topic set name = ?, content = ? where id = ?", title, content, topicId);
     }
 
+    public void newTopic(Topic topic) {
+        jdbc.update(INSERT_TOPIC,topic.getId(),topic.getTitle(),topic.getContent(),topic.getUser().getId(),topic.isTopicStatus(),topic.getTopTime(),
+                topic.getPostTime(),topic.getFollowNum(),topic.getClickNum());
+    }
+
     @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         int totalCount = countByUserId(userId);
@@ -66,6 +71,7 @@ public class JdbcTopicRepository implements TopicRepository {
         return ps;
     }
 
+    //    public
     private static final class TopicRowMapper implements RowMapper<Topic> {
         public Topic mapRow(ResultSet rs, int rowNum) throws SQLException {
             int id = rs.getInt("id");
@@ -88,10 +94,13 @@ public class JdbcTopicRepository implements TopicRepository {
         }
     }
 
+
     private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
     private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
             + " order by t.post_time desc limit ? offset  ?";
+    private static final String INSERT_TOPIC = "insert into topic ( id,name, content, user_id,top_status,top_time," +
+            "post_time,follow_number,click_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 }

@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import nwpu.threebull.forum.entity.User;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Controller
 @SessionAttributes({"user"})
@@ -78,6 +81,30 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/newtopic",method = RequestMethod.POST)
+    public String creatNewTopics(Model model,HttpSession httpSession,
+                                 @RequestParam(value = "title", defaultValue = "") String title,
+                                 @RequestParam(value = "content", defaultValue = "") String content){
+        User user=(User)httpSession.getAttribute("user");
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        Topic topic=new Topic(0,title,content,user,false,null,timestamp,0,0);
+        topicService.newTopic(topic);
+        return "/user/home";
+    }
+//    @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.POST)
+//    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
+//                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
+//        topicService.updateTitleByTopicId(topicId, title, content);
+//        Topic topic = topicService.findByTopicId(topicId);
+//        if (null != topic) {
+//            model.addAttribute("singleTopic", topic);
+//            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+//            return "user/topic";
+//        } else {
+//            return "redirect:/";
+//        }
+//    }
 
 
     @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.GET)
