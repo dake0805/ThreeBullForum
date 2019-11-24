@@ -172,7 +172,7 @@ public class UserController {
         model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, type, pageNo, pageSize));
         model.addAttribute("info", info);
         model.addAttribute("type", type);
-        return "user/searchTopic";
+        return "/user/searchTopic";
     }
 
 
