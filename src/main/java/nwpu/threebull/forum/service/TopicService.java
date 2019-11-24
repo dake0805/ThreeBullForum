@@ -20,5 +20,5 @@ public interface TopicService {
 
     PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
 
-    PaginationSupport<Topic> findPageByTopicTitleOrContent(String info,int pageNo,int pageSize);
+    PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, String type, int pageNo, int pageSize);
 }

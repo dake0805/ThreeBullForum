@@ -50,7 +50,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, int pageNo, int pageSize) {
-        return topicRepository.findPageTopicsByTitleOrContent(info, pageNo, pageSize);
+    public PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, String type, int pageNo, int pageSize) {
+        return topicRepository.findPageTopicsByTitleOrContent(info, type, pageNo, pageSize);
     }
 }

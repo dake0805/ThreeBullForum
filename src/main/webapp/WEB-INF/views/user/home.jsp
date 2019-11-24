@@ -17,6 +17,13 @@
 
 <div class="topicList">
     <form method="POST" action="/user/searchTopic">
+        <span>
+            <select name="type">
+                <option value="TITLE">title</option>
+                <option value="CONTENT">content</option>
+                <option value="TITLEORCONTENT">title or content</option>
+            </select>
+        </span>
         <input name="info" class="text" type="text"
                placeholder="输入你所要搜索的内容">
         <input type="submit" value="搜索"/>

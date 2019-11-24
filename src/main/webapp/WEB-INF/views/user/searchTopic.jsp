@@ -23,12 +23,13 @@
         </c:forEach>
     </ul>
 </div>
-每页${MyTopics.pageSize}条主题， 第${MyTopics.currentPageNo}/${MyTopics.totalPageCount}页,共${MyTopics.totalCount}条主题
-<c:if test="${MyTopics.previousPage}">
-    <a href="<c:url value="/user/searchTopic?pageNo=${MyTopics.currentPageNo-1}" />">上一页</a>
+每页${searchTopics.pageSize}条主题，
+第${searchTopics.currentPageNo}/${searchTopics.totalPageCount}页,共${searchTopics.totalCount}条主题
+<c:if test="${searchTopics.previousPage}">
+    <a href="<c:url value="/user/searchTopic?pageNo=${searchTopics.currentPageNo-1}&type=${type}&info=${info}" />">上一页</a>
 </c:if>
-<c:if test="${MyTopics.nextPage}">
-    <a href="<c:url value="/user/searchTopic?pageNo=${MyTopics.currentPageNo+1}" />">下一页</a>
+<c:if test="${searchTopics.nextPage}">
+    <a href="<c:url value="/user/searchTopic?pageNo=${searchTopics.currentPageNo+1}&type=${type}&info=${info}" />">下一页</a>
 </c:if>
 <br>
 <a href="<c:url value="/user/home"/>">返回主页</a>

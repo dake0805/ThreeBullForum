@@ -122,11 +122,14 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/searchTopic", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
+                              @RequestParam(value = "type") String type,
                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, pageNo, pageSize));
+        model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, type, pageNo, pageSize));
+        model.addAttribute("info", info);
+        model.addAttribute("type", type);
         return "user/searchTopic";
     }
 
