@@ -65,6 +65,21 @@ public class UserController {
         }
     }
 
+
+
+    @RequestMapping(value = "/newtopic",method = RequestMethod.GET)
+    public String newTopics(Model model,HttpSession httpSession){
+        User user=(User)httpSession.getAttribute("user");
+        if(null!=user){
+            return "user/newtopic";
+        }
+        else{
+            return "redirect:/";
+        }
+    }
+
+
+
     @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {

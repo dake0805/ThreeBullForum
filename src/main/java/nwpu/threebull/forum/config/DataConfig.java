@@ -27,11 +27,11 @@ public class DataConfig {
 //    private static String PASSWORD = resource.getString("PASSWORD");
 
     private static String DRIVER = "com.mysql.jdbc.Driver";
-    private static String URL = "jdbc:mysql://localhost:3307/";
+    private static String URL = "jdbc:mysql://localhost:3306/";
     private static String DBNAME = "threebullforum";
     private static String DBCONFIG = "?useSSL=false&serverTimezone=UTC";
     private static String USER = "root";
-    private static String PASSWORD = "123456";
+    private static String PASSWORD = "101072";
 
     /**
      * 数据源设置，采用MySQL数据库，此处运用了数据源连接池BasicDataSource

@@ -13,6 +13,7 @@
     </c:if>
 </h1>
 <a href="<c:url value="/user/mytopics"/>">查看我的主题</a>
+<a href="<c:url value="/user/newtopic"/>">新建主题</a>
 <a href="<c:url value="/user/logout"/>">注销登录</a>
 </body>
 </html>
