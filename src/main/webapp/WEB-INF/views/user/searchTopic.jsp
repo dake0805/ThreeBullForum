@@ -4,18 +4,12 @@
 <%@ page session="true" %>
 <html>
 <head>
-    <title>我发表过的主题</title>
+    <title>搜索结果</title>
 </head>
 <body>
-<h1>欢迎
-    <c:if test="${not empty sessionScope.user && not empty sessionScope.user.id }">
-        ，<c:out value="${user.userName}"/> <br/>
-    </c:if>
-</h1>
 <div class="topicList">
-    <h1>我发表过的主题</h1>
     <ul class="topicList">
-        <c:forEach items="${MyTopics.items}" var="topic">
+        <c:forEach items="${searchTopics.items}" var="topic">
             <li id="topic_<c:out value="${topic.id}"/>">
                 <div class="topicTitle"><a href="<c:url value="/user/topic/${topic.id}" />"><c:out
                         value="${topic.title}"/></a></div>
@@ -29,12 +23,13 @@
         </c:forEach>
     </ul>
 </div>
-每页${MyTopics.pageSize}条主题， 第${MyTopics.currentPageNo}/${MyTopics.totalPageCount}页,共${MyTopics.totalCount}条主题
-<c:if test="${MyTopics.previousPage}">
-    <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo-1}" />">上一页</a>
+每页${searchTopics.pageSize}条主题，
+第${searchTopics.currentPageNo}/${searchTopics.totalPageCount}页,共${searchTopics.totalCount}条主题
+<c:if test="${searchTopics.previousPage}">
+    <a href="<c:url value="/user/searchTopic?pageNo=${searchTopics.currentPageNo-1}&type=${type}&info=${info}" />">上一页</a>
 </c:if>
-<c:if test="${MyTopics.nextPage}">
-    <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo+1}" />">下一页</a>
+<c:if test="${searchTopics.nextPage}">
+    <a href="<c:url value="/user/searchTopic?pageNo=${searchTopics.currentPageNo+1}&type=${type}&info=${info}" />">下一页</a>
 </c:if>
 <br>
 <a href="<c:url value="/user/home"/>">返回主页</a>

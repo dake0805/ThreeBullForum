@@ -7,22 +7,19 @@
     <title>主题</title>
 </head>
 <body>
-<a href="<c:url value="/user/home"/>">返回首页</a>
+<a href="<c:url value="/user/topic/${singleTopic.id}"/>">取消编辑</a>
 <br>
 <div class="spittleForm">
-    <h2>主题:
-        <c:out value="${singleTopic.title}"/>
-    </h2>
-    <br/><br/>
-    <h3>
-        内容:
-        <c:out value="${singleTopic.content}"/>
-    </h3>
-    <br/><br/>
-    <c:if test="${isMyself}">
-        <a href="<c:url value="/user/editTopic/${singleTopic.id}"/>"> 编辑主题内容</a>
-    </c:if>
-    <div class=" topicList">
+    <h1>编辑主题</h1>
+    <form method="POST" name="TopicForm">
+        主题：<br/>
+        <textarea name="title" cols="80" rows="5"><c:out value="${singleTopic.title}"/></textarea>
+        <br/>内容：<br/>
+        <textarea name="content" cols="80" rows="10"><c:out value="${singleTopic.content}"/></textarea>
+        <br/><br/>
+        <input type="submit" value="确定"/>
+    </form>
+    <div class="topicList">
         评论：<br>
         <ul class="replyList">
             <c:forEach items="${replys.items}" var="reply">
@@ -38,10 +35,10 @@
     </div>
     每页${replys.pageSize}条回复， 第${replys.currentPageNo}/${replys.totalPageCount}页,共${replys.totalCount}条回复
     <c:if test="${replys.previousPage}">
-        <a href="<c:url value="/user/topic/${singleTopic.id}?pageNo=${replys.currentPageNo-1}" />">上一页</a>
+        <a href="<c:url value="/user/mytopics/${singleTopic.id}?pageNo=${replys.currentPageNo-1}" />">上一页</a>
     </c:if>
     <c:if test="${replys.nextPage}">
-        <a href="<c:url value="/user/topic/${singleTopic.id}?pageNo=${replys.currentPageNo+1}" />">下一页</a>
+        <a href="<c:url value="/user/mytopics/${singleTopic.id}?pageNo=${replys.currentPageNo+1}" />">下一页</a>
     </c:if>
 </div>
 </body>
