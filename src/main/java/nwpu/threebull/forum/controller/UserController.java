@@ -107,7 +107,7 @@ public class UserController {
         Timestamp timestamp = new Timestamp(date.getTime());
         Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
         topicService.newTopic(topic);
-        return "/user/home";
+        return "redirect:/user/home";
     }
 
 
