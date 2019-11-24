@@ -35,19 +35,6 @@ public class UserController {
     @Autowired
     private ReplyService replyService;
 
-//
-//    @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
-//    public String creatNewTopics(Model model, HttpSession httpSession,
-//                                 @RequestParam(value = "title", defaultValue = "") String title,
-//                                 @RequestParam(value = "content", defaultValue = "") String content) {
-//        User user = (User) httpSession.getAttribute("user");
-//        Date date = new Date();
-//        Timestamp timestamp = new Timestamp(date.getTime());
-//        Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
-//        topicService.newTopic(topic);
-//        return "/user/home";
-//    }
-//
 
     @RequestMapping(value = "/topic/{topicId}",method = RequestMethod.POST)
     public String  newReply(Model model, HttpSession session,
@@ -58,11 +45,6 @@ public class UserController {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Reply reply=new Reply(0,topic.getId(),content,user,timestamp);
-        System.out.println(reply.getId());
-        System.out.println(reply.getTopicId());
-        System.out.println(reply.getContent());
-        System.out.println(reply.getUser().getId());
-        System.out.println(reply.getTime());
         replyService.newReply(reply);
         return "redirect:/user/topic/{topicId}";
     }
