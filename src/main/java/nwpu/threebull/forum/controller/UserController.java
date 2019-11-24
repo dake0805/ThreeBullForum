@@ -1,5 +1,6 @@
 package nwpu.threebull.forum.controller;
 
+import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -34,6 +35,19 @@ public class UserController {
     @Autowired
     private ReplyService replyService;
 
+
+    @RequestMapping(value = "/topic/{topicId}",method = RequestMethod.POST)
+    public String  newReply(Model model, HttpSession session,
+                            @RequestParam(value = "content", defaultValue = "") String content,
+                            @PathVariable int topicId){
+        User user=(User)session.getAttribute("user");
+        Topic topic = topicService.findByTopicId(topicId);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        Reply reply=new Reply(0,topic.getId(),content,user,timestamp);
+        replyService.newReply(reply);
+        return "redirect:/user/topic/{topicId}";
+    }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "user/login";
@@ -74,48 +88,35 @@ public class UserController {
     }
 
 
-
-    @RequestMapping(value = "/newtopic",method = RequestMethod.GET)
-    public String newTopics(Model model,HttpSession httpSession){
-        User user=(User)httpSession.getAttribute("user");
-        if(null!=user){
+    @RequestMapping(value = "/newtopic", method = RequestMethod.GET)
+    public String newTopics(Model model, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("user");
+        if (null != user) {
             return "user/newtopic";
-        }
-        else{
+        } else {
             return "redirect:/";
         }
     }
 
-    @RequestMapping(value = "/newtopic",method = RequestMethod.POST)
-    public String creatNewTopics(Model model,HttpSession httpSession,
+    @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
+    public String creatNewTopics(Model model, HttpSession httpSession,
                                  @RequestParam(value = "title", defaultValue = "") String title,
-                                 @RequestParam(value = "content", defaultValue = "") String content){
-        User user=(User)httpSession.getAttribute("user");
+                                 @RequestParam(value = "content", defaultValue = "") String content) {
+        User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        Topic topic=new Topic(0,title,content,user,false,null,timestamp,0,0);
+        Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
         topicService.newTopic(topic);
         return "/user/home";
     }
-//    @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.POST)
-//    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
-//                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
-//        topicService.updateTitleByTopicId(topicId, title, content);
-//        Topic topic = topicService.findByTopicId(topicId);
-//        if (null != topic) {
-//            model.addAttribute("singleTopic", topic);
-//            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-//            return "user/topic";
-//        } else {
-//            return "redirect:/";
-//        }
-//    }
 
 
-    @RequestMapping(value = "/mytopics/{topicId}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
 
+        User user = (User) session.getAttribute("user");
         Topic topic = topicService.findByTopicId(topicId);
         if (null != topic) {
             topicService.updateClickNumByTopic(topic);
@@ -173,6 +174,7 @@ public class UserController {
         model.addAttribute("type", type);
         return "user/searchTopic";
     }
+
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {

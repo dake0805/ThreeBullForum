@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="spittleForm">
-    <h1>发表评论</h1>
+    <h1>发表新的主题</h1>
     <form method="POST" name="">
         <h2>主题名称</h2>
         <textarea name="title" cols="80" rows="5"></textarea><br/><br/>
