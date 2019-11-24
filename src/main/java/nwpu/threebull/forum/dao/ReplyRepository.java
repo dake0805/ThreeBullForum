@@ -9,6 +9,8 @@ import java.util.List;
 public interface ReplyRepository {
     int countByTopicId(int TopicId);
 
+    void newReply(Reply reply);
+
     List<Reply> findByTopicId(int TopicId);
 
     PaginationSupport<Reply> findPageByTopicId(int TopicId, int pageNo, int pageSize);
