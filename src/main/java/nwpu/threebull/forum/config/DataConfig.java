@@ -46,9 +46,9 @@ public class DataConfig {
         dataSource.setUrl(URL + DBNAME + DBCONFIG);
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);
-        dataSource.setInitialSize(5);
-        dataSource.setMaxTotal(10);
-
+//        dataSource.setInitialSize(5);
+//        dataSource.setMaxTotal(10);
+//        dataSource.setRemoveAbandonedTimeout(2000);
         return dataSource;
     }
 
