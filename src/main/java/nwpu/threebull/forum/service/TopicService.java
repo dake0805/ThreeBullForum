@@ -16,5 +16,11 @@ public interface TopicService {
 
     void updateTitleByTopicId(int topicId, String title, String content);
 
+    void newTopic(Topic topic);
+
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
+
+    PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
+
+    PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, String type, int pageNo, int pageSize);
 }

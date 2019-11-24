@@ -28,7 +28,31 @@ public class JdbcTopicRepository implements TopicRepository {
 
     @Override
     public int countByUserId(int userId) {
-        int count = jdbc.queryForObject("select count(*) from topic where user_id = ?", new Object[]{userId}, Integer.class);
+        int count = jdbc.queryForObject("select count(*) from topic where user_id = ?", Integer.class, new Object[]{userId});
+        return count;
+    }
+
+    @Override
+    public int countAllTopics() {
+        int count = jdbc.queryForObject("select count(*) from topic", Integer.class);
+        return count;
+    }
+
+    @Override
+    public int countSearchTopics(String info, String type) {
+        //参数原型为public <T> T queryForObject(String sql, Class<T> requiredType, Object... args)
+        int count = 0;
+        switch (type) {
+            case "TITLE":
+                count = jdbc.queryForObject("select count(*) from topic where name like  ?", Integer.class, new Object[]{"%" + info + "%"});
+                break;
+            case "CONTENT":
+                count = jdbc.queryForObject("select count(*) from topic where content like  ?", Integer.class, new Object[]{"%" + info + "%"});
+                break;
+            case "TITLEORCONTENT":
+                count = jdbc.queryForObject("select count(*) from topic where content like  ? or name like ?", Integer.class, new Object[]{"%" + info + "%", "%" + info + "%"});
+                break;
+        }
         return count;
     }
 
@@ -54,6 +78,11 @@ public class JdbcTopicRepository implements TopicRepository {
         jdbc.update("update topic set name = ?, content = ? where id = ?", title, content, topicId);
     }
 
+    public void newTopic(Topic topic) {
+        jdbc.update(INSERT_TOPIC,topic.getId(),topic.getTitle(),topic.getContent(),topic.getUser().getId(),topic.isTopicStatus(),topic.getTopTime(),
+                topic.getPostTime(),topic.getFollowNum(),topic.getClickNum());
+    }
+
     @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         int totalCount = countByUserId(userId);
@@ -62,6 +91,46 @@ public class JdbcTopicRepository implements TopicRepository {
             return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
 
         List<Topic> items = jdbc.query(SELECT_PAGE_TOPIC_BY_USERID, new TopicRowMapper(), userId, pageSize, startIndex);
+        PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
+        return ps;
+    }
+
+    @Override
+    public PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize) {
+        int totalCount = countAllTopics();
+        int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+        if (totalCount < 1) {
+            return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
+        }
+        List<Topic> items = jdbc.query(SELECT_PAGE_TOPIC, new TopicRowMapper(), pageSize, startIndex);
+        PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
+        return ps;
+    }
+
+    @Override
+    public PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, String type, int pageNo, int pageSize) {
+        int totalCount = countSearchTopics(info, type);
+        int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+        if (totalCount < 1) {
+            return new PaginationSupport<Topic>(new ArrayList<Topic>(0), 0);
+        }
+        String sql = null;
+        List<Topic> items = null;
+        switch (type) {
+            case "TITLE":
+                sql = SELECT_PAGE_TOPIC_BY_TITLE;
+                items = jdbc.query(sql, new TopicRowMapper(), "%" + info + "%", pageSize, startIndex);
+                break;
+            case "CONTENT":
+                sql = SELECT_PAGE_TOPIC_BY_CONTENT;
+                items = jdbc.query(sql, new TopicRowMapper(), "%" + info + "%", pageSize, startIndex);
+                break;
+            case "TITLEORCONTENT":
+                sql = SELECT_PAGE_TOPIC_BY_INFO;
+                items = jdbc.query(sql, new TopicRowMapper(), "%" + info + "%", "%" + info + "%", pageSize, startIndex);
+                break;
+            default:
+        }
         PaginationSupport<Topic> ps = new PaginationSupport<Topic>(items, totalCount, pageSize, startIndex);
         return ps;
     }
@@ -88,10 +157,29 @@ public class JdbcTopicRepository implements TopicRepository {
         }
     }
 
+
     private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
+
+    private static final String SELECT_TOPIC_BY_TITLE = SELECT_TOPIC + " and t.name like ?";
+    private static final String SELECT_TOPIC_BY_CONTENT = SELECT_TOPIC + " and t.content like ?";
+    private static final String SELECT_TOPIC_BY_INFO = SELECT_TOPIC + " and( t.name like ? or t.content like ?)";
+
     private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
             + " order by t.post_time desc limit ? offset  ?";
+
+    private static final String SELECT_PAGE_TOPIC_BY_TITLE = SELECT_TOPIC_BY_TITLE
+            + " order by t.post_time desc limit ? offset  ?";
+    private static final String SELECT_PAGE_TOPIC_BY_CONTENT = SELECT_TOPIC_BY_CONTENT
+            + " order by t.post_time desc limit ? offset  ?";
+    private static final String SELECT_PAGE_TOPIC_BY_INFO = SELECT_TOPIC_BY_INFO
+            + " order by t.post_time desc limit ? offset  ?";
+
+
+    private static final String SELECT_PAGE_TOPIC = SELECT_TOPIC
+            + " order by t.post_time desc limit ? offset  ?";
+    private static final String INSERT_TOPIC = "insert into topic ( id,name, content, user_id,top_status,top_time," +
+            "post_time,follow_number,click_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 }
