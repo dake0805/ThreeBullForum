@@ -89,13 +89,21 @@ public class UserController {
 
 
     @RequestMapping(value = "/newtopic", method = RequestMethod.GET)
-    public String newTopics(Model model, HttpSession httpSession) {
+    public String newTopics(Model model, HttpSession httpSession,
+                            @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if (null != user) {
-            return "user/newtopic";
-        } else {
-            return "redirect:/";
+        //normal
+//        if (null != user) {
+//            return "user/newtopic";
+//        } else {
+//            return "redirect:/user/newtopic";
+//        }
+        //异常操作
+        if (info != null){
+            model.addAttribute(info);
         }
+        return "user/newtopic";
+
     }
 
     @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
@@ -105,9 +113,14 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
-        topicService.newTopic(topic);
-        return "redirect:/user/home";
+        if(title.length()>0&&content.length()>0){
+            Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
+            topicService.newTopic(topic);
+            return "redirect:/user/home";
+        }else {
+            return "redirect:/user/newtopic?info=empty_titleOrContent";
+        }
+
     }
 
 

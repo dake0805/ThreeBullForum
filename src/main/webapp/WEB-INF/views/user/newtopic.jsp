@@ -33,3 +33,9 @@
 
 </body>
 </html>
+<script>
+    var info = '<%=request.getParameter("info")%>';
+    if (info == 'empty_titleOrContent') {
+        alert("主题或内容不能为空!");
+    }
+</script>
