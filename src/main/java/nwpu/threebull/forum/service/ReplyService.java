@@ -8,5 +8,7 @@ import java.util.List;
 public interface ReplyService {
     List<Reply> findByTopicId(int TopicId);
 
+    void newReply(Reply reply);
+
     PaginationSupport<Reply> findPageByTopicId(int TopicId, int pageNo, int pageSize);
 }

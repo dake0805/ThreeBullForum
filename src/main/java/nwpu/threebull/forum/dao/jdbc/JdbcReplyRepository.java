@@ -48,6 +48,12 @@ public class JdbcReplyRepository implements ReplyRepository {
         return ps;
     }
 
+    @Override
+    public void newReply(Reply reply){
+
+        jdbc.update(INSERT_REPLY,reply.getId(),reply.getTopicId(),reply.getContent(),reply.getUser().getId(),reply.getTime());
+    }
+
     private static final class ReplyRowMapper implements RowMapper<Reply> {
         public Reply mapRow(ResultSet rs, int rowNum) throws SQLException {
             int id = rs.getInt("id");
@@ -69,5 +75,5 @@ public class JdbcReplyRepository implements ReplyRepository {
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_REPLYS + " and r.topic_id=?";
     private static final String SELECT_PAGE_REPLY_BY_TOPICID = SELECT_TOPIC_BY_TOPICID
             + " order by r.time desc limit ? offset  ?";
-
+    private static final String INSERT_REPLY ="insert into reply(id,topic_id,content,user_id,time) values( ?, ?, ?, ?, ?)";
 }

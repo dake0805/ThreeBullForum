@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/threebullforum?useUnicode=true&amp;characterEncoding=UTF-8</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="gcp" uuid="1bab9728-eca6-45b3-9cf8-3faa31205750">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://35.236.167.156:3306/threebullforum?useUnicode=true&amp;characterEncoding=UTF-8</jdbc-url>
+    </data-source>
   </component>
 </project>
