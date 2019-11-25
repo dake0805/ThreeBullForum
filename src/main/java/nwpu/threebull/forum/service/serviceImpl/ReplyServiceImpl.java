@@ -21,6 +21,11 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
+    public void newReply(Reply reply) {
+        replyRepository.newReply(reply);
+    }
+
+    @Override
     public PaginationSupport<Reply> findPageByTopicId(int TopicId, int pageNo, int pageSize) {
         return replyRepository.findPageByTopicId(TopicId, pageNo, pageSize);
     }

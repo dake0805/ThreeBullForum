@@ -36,6 +36,17 @@
             </c:forEach>
         </ul>
     </div>
+
+    <div class="spittleForm">
+        <h1>发表新的评论</h1>
+        <form method="POST" name="newReplay">
+            <h2>评论内容</h2>
+            <textarea name="content" cols="80" rows="5"></textarea><br/><br/>
+            <input type="submit" value="发表" />
+        </form>
+    </div>
+
+
     每页${replys.pageSize}条回复， 第${replys.currentPageNo}/${replys.totalPageCount}页,共${replys.totalCount}条回复
     <c:if test="${replys.previousPage}">
         <a href="<c:url value="/user/topic/${singleTopic.id}?pageNo=${replys.currentPageNo-1}" />">上一页</a>
