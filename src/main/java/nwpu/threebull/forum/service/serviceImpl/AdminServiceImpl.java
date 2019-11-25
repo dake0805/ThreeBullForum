@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
     @Autowired
     private AdminRepository adminRepository;
 
     @Override
-    public Admin findAdminById(int id) {
-        return adminRepository.findAdminById(id);
+    public Admin findAdminByAdminNameAndPassword(String userName, String password) {
+        return adminRepository.findAdminByAdminNameAndPassword(userName, password);
     }
+
 }

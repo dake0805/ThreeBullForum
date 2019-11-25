@@ -25,13 +25,6 @@ public class DataConfig {
     private static String DBCONFIG = resource.getString("DBCONFIG");
     private static String USER = resource.getString("USER");
     private static String PASSWORD = resource.getString("PASSWORD");
-//
-//    private static String DRIVER = "com.mysql.jdbc.Driver";
-//    private static String URL = "jdbc:mysql://localhost:3307/";
-//    private static String DBNAME = "threebullforum";
-//    private static String DBCONFIG = "?useSSL=false&serverTimezone=UTC";
-//    private static String USER = "root";
-//    private static String PASSWORD = "123456";
 
     /**
      * 数据源设置，采用MySQL数据库，此处运用了数据源连接池BasicDataSource
@@ -46,9 +39,6 @@ public class DataConfig {
         dataSource.setUrl(URL + DBNAME + DBCONFIG);
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);
-//        dataSource.setInitialSize(5);
-//        dataSource.setMaxTotal(10);
-//        dataSource.setRemoveAbandonedTimeout(2000);
         return dataSource;
     }
 
@@ -63,3 +53,4 @@ public class DataConfig {
         return new JdbcTemplate(dataSource);
     }
 }
+

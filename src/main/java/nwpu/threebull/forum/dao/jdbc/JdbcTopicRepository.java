@@ -158,7 +158,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
 
-    private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
+    private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from topic t, user u where t.user_id = u.id";
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
 

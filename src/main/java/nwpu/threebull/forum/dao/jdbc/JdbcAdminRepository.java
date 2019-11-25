@@ -21,10 +21,14 @@ public class JdbcAdminRepository implements AdminRepository {
     }
 
     @Override
-    public Admin findAdminById(int id) {
+    public Admin findAdminByAdminNameAndPassword(String userName, String password) {
         Admin admin = null;
-        admin = jdbc.queryForObject(SELECT_ADMIN + " where id=?", new AdminRowMapper(),
-                id);
+        try {
+            admin = jdbc.queryForObject(SELECT_ADMIN + " where username=? and password=?", new AdminRowMapper(),
+                    userName, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return admin;
     }
 
