@@ -44,7 +44,8 @@
 </body>
 </html>
 <script>
-    var info = '<%=request.getParameter("info")%>';
+    <%--var info = '<%=request.getParameter("info")%>';--%>
+    var info = '${param.info}';
     if (info == 'empty_titleOrContent') {
         alert("主题或内容不能为空!");
     }
