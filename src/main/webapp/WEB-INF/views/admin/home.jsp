@@ -13,7 +13,7 @@
     </c:if>
 </h1>
 <a href="<c:url value="/admin/manageTopics"/>">Manage Topics</a>
-<a href="<c:url value="/user/newtopic"/>">新建主题</a>
+<a href="<c:url value="/admin/manageUsers"/>">Manage Users</a>
 <a href="<c:url value="/user/logout"/>">注销登录</a>
 <br>
 </body>

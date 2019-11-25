@@ -1,23 +1,17 @@
 package nwpu.threebull.forum.controller;
 
-import nwpu.threebull.forum.dao.AdminRepository;
 import nwpu.threebull.forum.entity.Admin;
 import nwpu.threebull.forum.entity.Topic;
-import nwpu.threebull.forum.entity.User;
 import nwpu.threebull.forum.service.AdminService;
 import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.service.TopicService;
+import nwpu.threebull.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @Controller
 @SessionAttributes({"admin"})
@@ -32,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private ReplyService replyService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
@@ -132,6 +129,25 @@ public class AdminController {
         } else {
             return "redirect:/admin/manageTopics";
         }
+    }
+
+    @RequestMapping(value = "/manageUsers", method = RequestMethod.GET)
+    public String manageUsers(Model model, HttpSession session) {
+        model.addAttribute("AllUsers", userService.findAllUsers());
+        return "admin/manageUsers";
+    }
+
+    @RequestMapping(value = "/lockUser/{userId}", method = RequestMethod.GET)
+    public String lockUser(@PathVariable("userId") int userId, Model model) {
+        // if (null != topic) {
+        //     model.addAttribute("singleTopic", topic);
+        //     model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+        //     return "admin/topic";
+        // } else {
+        //     return "redirect:/admin/manageTopics";
+        // }
+        userService.lockUserById(userId);
+        return "redirect:/admin/manageUsers";
     }
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {
