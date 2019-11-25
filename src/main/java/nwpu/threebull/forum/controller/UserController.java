@@ -44,10 +44,17 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        Reply reply=new Reply(0,topic.getId(),content,user,timestamp);
-        replyService.newReply(reply);
-        return "redirect:/user/topic/{topicId}";
+        if(content.length()>0){
+            Reply reply=new Reply(0,topic.getId(),content,user,timestamp);
+            replyService.newReply(reply);
+            return "redirect:/user/topic/{topicId}";
+        }else {
+            return "redirect:/user/topic/{topicId}?info=empty_content";
+        }
+
     }
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "user/login";
@@ -126,9 +133,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
-    public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
-
+    public String getTopic(@PathVariable("topicId") int topicId, Model model,HttpSession session,
+                           @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                           @RequestParam(value = "info", required = false) String info) {
+        if(info!=null){
+            model.addAttribute(info);
+        }
         User user = (User) session.getAttribute("user");
         Topic topic = topicService.findByTopicId(topicId);
         if (null != topic) {

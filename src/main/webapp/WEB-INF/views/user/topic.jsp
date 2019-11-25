@@ -57,3 +57,9 @@
 </div>
 </body>
 </html>
+<script>
+    var info = '<%=request.getParameter("info")%>';
+    if (info == 'empty_content') {
+        alert("回帖内容不能为空!");
+    }
+</script>
