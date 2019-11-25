@@ -7,8 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class JdbcAdminRepository implements AdminRepository {
@@ -32,6 +34,26 @@ public class JdbcAdminRepository implements AdminRepository {
         return admin;
     }
 
+    @Override
+    public List<Admin> findAllAdmins() {
+        return jdbc.query(SELECT_ADMIN, new AdminRowMapper());
+    }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        jdbc.update(INSERT_ADMIN, admin.getId(), admin.getUserName(), admin.getPassword());
+    }
+
+    @Override
+    public void deleteAdminById(int adminId) {
+        jdbc.execute(String.format("delete from admin where id = %d", adminId));
+    }
+
+    @Override
+    public void editAdmin(Admin admin) {
+        jdbc.update(UPDATE_ADMIN, admin.getId(), admin.getUserName(), admin.getPassword());
+    }
+
     private static class AdminRowMapper implements RowMapper<Admin> {
         public Admin mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Admin(rs.getInt("id"),
@@ -42,4 +64,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     private static final String SELECT_ADMIN = "select id, username, password from admin";
 
+    private static final String INSERT_ADMIN = "insert into admin (id, username, password) values (?, ?, ?)";
+
+    private static final String UPDATE_ADMIN = "update admin set id = ?, username = ?, password = ?";
 }

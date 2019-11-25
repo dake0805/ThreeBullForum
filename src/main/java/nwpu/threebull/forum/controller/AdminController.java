@@ -118,8 +118,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
-    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
-                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
+    public String editTopic(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
+                            @RequestParam(value = "content", defaultValue = "") String content, Model model) {
         topicService.updateTitleByTopicId(topicId, title, content);
         Topic topic = topicService.findByTopicId(topicId);
         if (null != topic) {
@@ -148,6 +148,18 @@ public class AdminController {
         // }
         userService.lockUserById(userId);
         return "redirect:/admin/manageUsers";
+    }
+
+    @RequestMapping(value = "/addAdmin", method = RequestMethod.GET)
+    public String addAdmin(Model model, HttpSession httpSession) {
+        return "admin/addAdmin";
+    }
+
+    @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
+    public String addAdmin(@RequestParam(value = "adminId", defaultValue = "") int adminId,
+                           @RequestParam(value = "username", defaultValue = "") int username,
+                           @RequestParam(value = "password", defaultValue = "") int password) {
+
     }
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {

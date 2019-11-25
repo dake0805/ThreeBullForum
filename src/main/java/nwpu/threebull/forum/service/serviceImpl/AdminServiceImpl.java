@@ -6,6 +6,8 @@ import nwpu.threebull.forum.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -16,6 +18,26 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin findAdminByAdminNameAndPassword(String userName, String password) {
         return adminRepository.findAdminByAdminNameAndPassword(userName, password);
+    }
+
+    @Override
+    public List<Admin> findAllAdmins() {
+        return adminRepository.findAllAdmins();
+    }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        adminRepository.addAdmin(admin);
+    }
+
+    @Override
+    public void deleteAdminById(int adminId) {
+        adminRepository.deleteAdminById(adminId);
+    }
+
+    @Override
+    public void editAdmin(Admin admin) {
+        adminRepository.editAdmin(admin);
     }
 
 }
