@@ -50,6 +50,11 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public void topTopic(int topicId) {
+        topicRepository.topTopic(topicId);
+    }
+
+    @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         return topicRepository.findPageByUserId(userId, pageNo, pageSize);
     }

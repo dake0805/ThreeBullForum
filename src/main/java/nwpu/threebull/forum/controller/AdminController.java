@@ -68,6 +68,17 @@ public class AdminController {
         }
         return "redirect:/admin/manageTopics";
     }
+
+    @RequestMapping(value = "/topTopic/{topicId}", method = RequestMethod.GET)
+    public String topTopic(@PathVariable("topicId") int topicId, Model model,
+                           HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            topicService.topTopic(topicId);
+        }
+        return "redirect:/admin/manageTopics";
+    }
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {
     //    request.setCharacterEncoding("utf-8");

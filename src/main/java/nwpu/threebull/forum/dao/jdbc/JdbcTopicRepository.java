@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -86,6 +87,13 @@ public class JdbcTopicRepository implements TopicRepository {
     @Override
     public void deleteTopic(int topicId) {
         jdbc.execute(String.format("delete from topic where id = %d", topicId));
+    }
+
+    @Override
+    public void topTopic(int topicId) {
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        jdbc.update("update topic set top_status = ?, top_time = ? where id = ?", 1, timestamp, topicId);
     }
 
     @Override

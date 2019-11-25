@@ -34,7 +34,7 @@
     <ul class="topicList">
         <c:forEach items="${AllTopics.items}" var="topic">
             <li id="topic_<c:out value="${topic.id}"/>">
-                <div class="topicTitle"><a href="<c:url value="/user/topic/${topic.id}" />"><c:out
+                <div class="topicTitle"><a href="<c:url value="/admin/topic/${topic.id}" />"><c:out
                         value="${topic.title}"/></a></div>
                 <div class="topicTime">
                     <fmt:formatDate value="${topic.postTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -43,6 +43,12 @@
                     回复数：<c:out value="${topic.followNum }"/>
                     <a href="<c:url value="/admin/deleteTopic/${topic.id}"/>">
                         Delete
+                    </a>
+                    <a href="<c:url value="/admin/editTopic/${topic.id}"/>">
+                        Edit
+                    </a>
+                    <a href="<c:url value="/admin/topTopic/${topic.id}"/>">
+                        Top
                     </a>
                 </div>
             </li>
