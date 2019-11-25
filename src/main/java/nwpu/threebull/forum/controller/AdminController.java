@@ -3,7 +3,9 @@ package nwpu.threebull.forum.controller;
 import nwpu.threebull.forum.dao.AdminRepository;
 import nwpu.threebull.forum.entity.Admin;
 import nwpu.threebull.forum.entity.Topic;
+import nwpu.threebull.forum.entity.User;
 import nwpu.threebull.forum.service.AdminService;
+import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +30,17 @@ public class AdminController {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private ReplyService replyService;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "admin/login";
+    }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String showHome(Model model) {
+        return "admin/home";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -69,6 +79,21 @@ public class AdminController {
         return "redirect:/admin/manageTopics";
     }
 
+    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
+    public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            topicService.updateClickNumByTopic(topic);
+            model.addAttribute("singleTopic", topic);
+            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
+            return "admin/topic";
+        } else {
+            return "redirect:/admin/manageTopics";
+        }
+    }
+
     @RequestMapping(value = "/topTopic/{topicId}", method = RequestMethod.GET)
     public String topTopic(@PathVariable("topicId") int topicId, Model model,
                            HttpSession session) {
@@ -78,6 +103,35 @@ public class AdminController {
             topicService.topTopic(topicId);
         }
         return "redirect:/admin/manageTopics";
+    }
+
+    @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
+    public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            model.addAttribute("singleTopic", topic);
+            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
+            return "admin/editTopic";
+        } else {
+            return "redirect:/admin/manageTopics";
+        }
+
+    }
+
+    @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
+    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
+                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
+        topicService.updateTitleByTopicId(topicId, title, content);
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            model.addAttribute("singleTopic", topic);
+            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+            return "admin/topic";
+        } else {
+            return "redirect:/admin/manageTopics";
+        }
     }
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {
