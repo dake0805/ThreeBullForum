@@ -71,7 +71,7 @@ public class JdbcReplyRepository implements ReplyRepository {
         }
     }
 
-    private static final String SELECT_REPLYS = "select r.id, u.id as userId, u.username, u.password, u.lock_status, r.topic_id, r.content, r.time from Reply r, User u where r.user_id = u.id";
+    private static final String SELECT_REPLYS = "select r.id, u.id as userId, u.username, u.password, u.lock_status, r.topic_id, r.content, r.time from reply r, user u where r.user_id = u.id";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_REPLYS + " and r.topic_id=?";
     private static final String SELECT_PAGE_REPLY_BY_TOPICID = SELECT_TOPIC_BY_TOPICID
             + " order by r.time desc limit ? offset  ?";

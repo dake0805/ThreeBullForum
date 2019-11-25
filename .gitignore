@@ -7,3 +7,7 @@ out/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+/lib
+ThreeBullForum.iml
+/.idea/libraries/*
+.idea/.name

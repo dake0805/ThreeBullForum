@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
@@ -43,6 +44,18 @@ public class JdbcUserRepository implements UserRepository {
         return user;
     }
 
+    @Override
+    public List<User> findAllUsers() {
+        return jdbc.query(SELECT_USER, new UserRowMapper());
+    }
+
+    @Override
+    public void lockUserById(int userId) {
+        // "1" means locked.
+        jdbc.update("update user set lock_status = ? where id = ?", 1, userId);
+    }
+
+
     private static class UserRowMapper implements RowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new User(rs.getInt("id"),
@@ -51,6 +64,7 @@ public class JdbcUserRepository implements UserRepository {
                     rs.getBoolean("lock_status"));
         }
     }
+
 
     private static final String SELECT_USER = "select id, username, password, lock_status from user";
 }

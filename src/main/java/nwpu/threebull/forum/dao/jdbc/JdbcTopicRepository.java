@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -81,6 +82,18 @@ public class JdbcTopicRepository implements TopicRepository {
     public void newTopic(Topic topic) {
         jdbc.update(INSERT_TOPIC,topic.getId(),topic.getTitle(),topic.getContent(),topic.getUser().getId(),topic.isTopicStatus(),topic.getTopTime(),
                 topic.getPostTime(),topic.getFollowNum(),topic.getClickNum());
+    }
+
+    @Override
+    public void deleteTopic(int topicId) {
+        jdbc.execute(String.format("delete from topic where id = %d", topicId));
+    }
+
+    @Override
+    public void topTopic(int topicId) {
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        jdbc.update("update topic set top_status = ?, top_time = ? where id = ?", 1, timestamp, topicId);
     }
 
     @Override
@@ -158,7 +171,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
 
-    private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from Topic t, User u where t.user_id = u.id";
+    private static final String SELECT_TOPIC = "select t.id, u.id as userId, u.username, u.password, u.lock_status, t.name, t.content, t.top_status, t.top_time, t.post_time, t.follow_number, t.click_number from topic t, user u where t.user_id = u.id";
     private static final String SELECT_TOPIC_BY_USERID = SELECT_TOPIC + " and u.id=?";
     private static final String SELECT_TOPIC_BY_TOPICID = SELECT_TOPIC + " and t.id=?";
 

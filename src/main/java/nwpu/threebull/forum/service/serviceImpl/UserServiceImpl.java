@@ -7,6 +7,8 @@ import nwpu.threebull.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -20,5 +22,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUserNameAndPassword(String userName, String password) {
         return userRepository.findUserByUserNameAndPassword(userName, password);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAllUsers();
+    }
+
+    @Override
+    public void lockUserById(int userId) {
+        userRepository.lockUserById(userId);
     }
 }

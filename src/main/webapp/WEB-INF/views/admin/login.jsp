@@ -4,14 +4,16 @@
 <%@ page session="true" %>
 <html>
 <head>
-    <title>Three Bull Forum</title>
-    <link rel="stylesheet"
-          type="text/css"
+    <title>吐槽吧</title>
+    <link rel="stylesheet" type="text/css"
           href="<c:url value="/resources/style.css" />" >
 </head>
 <body>
-<h1>登录有误，请重新尝试</h1>
-<a href="<c:url value="/user/login" />">登录</a> |
-<%--<a href="<c:url value="/spitter/register" />">注册</a>--%>
+<h1>登录</h1>
+<form method="POST">
+    用户名: <input type="text" name="userName" /><br/><br/>
+    　密码: <input type="password" name="password" /><br/><br/>
+    <input type="submit" value="登录" />
+</form>
 </body>
 </html>
