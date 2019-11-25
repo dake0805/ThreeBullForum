@@ -84,6 +84,11 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     @Override
+    public void deleteTopic(int topicId) {
+        jdbc.execute(String.format("delete from topic where id = %d", topicId));
+    }
+
+    @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         int totalCount = countByUserId(userId);
         int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);

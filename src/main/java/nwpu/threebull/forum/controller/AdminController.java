@@ -2,14 +2,13 @@ package nwpu.threebull.forum.controller;
 
 import nwpu.threebull.forum.dao.AdminRepository;
 import nwpu.threebull.forum.entity.Admin;
+import nwpu.threebull.forum.entity.Topic;
 import nwpu.threebull.forum.service.AdminService;
+import nwpu.threebull.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +21,12 @@ import java.io.UnsupportedEncodingException;
 @SessionAttributes({"admin"})
 @RequestMapping("/admin")
 public class AdminController {
-//    @Autowired
-//    private AdminRepository adminRepository;
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private TopicService topicService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
@@ -34,16 +34,39 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
+    public String processLogin(Model model,
+                               @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password,
                                HttpSession session) {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
+            // session.setAttribute("current_user", admin);
             model.addAttribute(admin);
             return "admin/home";
         }
         return "admin/loginError";
+    }
+
+    @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
+    public String manageTopics(Model model,
+                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+        model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
+        return "admin/manageTopics";
+    }
+
+    @RequestMapping(value = "/deleteTopic/{topicId}", method = RequestMethod.GET)
+    public String deleteTopic(@PathVariable("topicId") int topicId, Model model,
+                              @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                              HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            topicService.deleteTopic(topicId);
+        }
+        return "redirect:/admin/manageTopics";
     }
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {

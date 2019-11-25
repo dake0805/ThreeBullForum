@@ -1,20 +1,22 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: kehan
+  Date: 2019/11/25
+  Time: 下午8:55
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 <html>
 <head>
-    <title>主页</title>
+    <title>Manage Topics</title>
 </head>
 <body>
-<h1>欢迎
-    <c:if test="${not empty sessionScope.admin && not empty sessionScope.admin.id }">
-        ，<c:out value="${admin.userName}"/> <br/>
-    </c:if>
+<h1>
+    Topic List
 </h1>
-<a href="<c:url value="/admin/manageTopics"/>">Manage Topics</a>
-<a href="<c:url value="/user/newtopic"/>">新建主题</a>
-<a href="<c:url value="/user/logout"/>">注销登录</a>
 <div class="topicList">
     <form method="POST" action="<c:url value="/user/searchTopic"/>">
         <span>
@@ -39,6 +41,9 @@
                     by <c:out value="${topic.user.userName }"/>
                     点击数：<c:out value="${topic.clickNum }"/>
                     回复数：<c:out value="${topic.followNum }"/>
+                    <a href="<c:url value="/admin/deleteTopic/${topic.id}"/>">
+                        Delete
+                    </a>
                 </div>
             </li>
         </c:forEach>
