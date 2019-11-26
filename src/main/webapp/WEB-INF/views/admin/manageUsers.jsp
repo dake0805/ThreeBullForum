@@ -14,6 +14,7 @@
     <title>Manage Users</title>
 </head>
 <body>
+<a href="<c:url value="/admin/home"/>">Return Home</a>
 <h1>
     User List
 </h1>

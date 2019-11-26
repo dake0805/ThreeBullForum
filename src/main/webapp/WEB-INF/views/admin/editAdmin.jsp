@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: kehan
-  Date: 2019/11/25
-  Time: 下午11:30
+  Date: 2019/11/26
+  Time: 上午9:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,19 +15,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Add admin</title>
+    <title>Edit admin</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />" >
 </head>
 <body>
 <a href="<c:url value="/admin/home"/>">Return Home</a>
 <div class="spittleForm">
-    <h1>Please input new admin's information</h1>
+    <h1>Please edit the information</h1>
     <form method="POST" name="">
         <h2>Username</h2>
-        <input type="text" name="username" />
+        <input type="text" name="username" value="${SelectedAdmin.userName}"/>
         <h2>password</h2>
-        <input type="text" name="password" />
-        <input type="submit" value="Add" />
+        <input type="text" name="password" value="${SelectedAdmin.password}"/>
+        <input type="submit" value="Edit" />
     </form>
 </div>
 </body>

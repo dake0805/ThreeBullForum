@@ -14,11 +14,12 @@
     <title>Manage Topics</title>
 </head>
 <body>
+<a href="<c:url value="/admin/home"/>">Return Home</a>
 <h1>
     Topic List
 </h1>
 <div class="topicList">
-    <form method="POST" action="<c:url value="/user/searchTopic"/>">
+    <form method="POST" action="<c:url value="/admin/searchTopic"/>">
         <span>
             <select name="type">
                 <option value="TITLE">title</option>

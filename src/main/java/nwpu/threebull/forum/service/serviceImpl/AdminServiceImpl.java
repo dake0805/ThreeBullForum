@@ -16,6 +16,11 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
 
     @Override
+    public Admin findAdminById(int adminId) {
+        return adminRepository.findAdminById(adminId);
+    }
+
+    @Override
     public Admin findAdminByAdminNameAndPassword(String userName, String password) {
         return adminRepository.findAdminByAdminNameAndPassword(userName, password);
     }
@@ -39,5 +44,11 @@ public class AdminServiceImpl implements AdminService {
     public void editAdmin(Admin admin) {
         adminRepository.editAdmin(admin);
     }
+
+    @Override
+    public List<Admin> searchAdminByUsername(String userName) {
+        return adminRepository.searchAdminByUsername(userName);
+    }
+
 
 }

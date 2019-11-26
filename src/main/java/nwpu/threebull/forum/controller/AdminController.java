@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @SessionAttributes({"admin"})
@@ -55,12 +56,30 @@ public class AdminController {
         return "admin/loginError";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute("admin");
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
     public String manageTopics(Model model,
                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
         model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
         return "admin/manageTopics";
+    }
+
+    @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
+    public String searchTopic(@RequestParam(value = "info") String info, Model model,
+                              @RequestParam(value = "type") String type,
+                              @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, type, pageNo, pageSize));
+        model.addAttribute("info", info);
+        model.addAttribute("type", type);
+        return "/admin/searchTopic";
     }
 
     @RequestMapping(value = "/deleteTopic/{topicId}", method = RequestMethod.GET)
@@ -150,17 +169,57 @@ public class AdminController {
         return "redirect:/admin/manageUsers";
     }
 
+    @RequestMapping(value = "/manageAdmins", method = RequestMethod.GET)
+    public String manageAdmins(Model model) {
+        List<Admin> admins = adminService.findAllAdmins();
+        model.addAttribute("AdminList", admins);
+        return "admin/manageAdmin";
+    }
+
     @RequestMapping(value = "/addAdmin", method = RequestMethod.GET)
     public String addAdmin(Model model, HttpSession httpSession) {
         return "admin/addAdmin";
     }
 
     @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
-    public String addAdmin(@RequestParam(value = "adminId", defaultValue = "") int adminId,
-                           @RequestParam(value = "username", defaultValue = "") int username,
-                           @RequestParam(value = "password", defaultValue = "") int password) {
-
+    public String addAdmin(@RequestParam(value = "username", defaultValue = "") String username,
+                           @RequestParam(value = "password", defaultValue = "") String password) {
+        Admin admin = new Admin(0, username, password);
+        adminService.addAdmin(admin);
+        return "redirect:/admin/manageAdmins";
     }
+
+    @RequestMapping(value = "/deleteAdmin/{adminId}", method = RequestMethod.GET)
+    public String deleteAdmin(@PathVariable(value = "adminId") int adminId) {
+        adminService.deleteAdminById(adminId);
+        return "redirect:/admin/manageAdmins";
+    }
+
+    @RequestMapping(value = "/editAdmin/{adminId}", method = RequestMethod.GET)
+    public String editAdmin(@PathVariable(value = "adminId") int adminId, Model model) {
+        Admin admin = adminService.findAdminById(adminId);
+        model.addAttribute("SelectedAdmin", admin);
+        return "admin/editAdmin";
+    }
+
+    @RequestMapping(value = "/editAdmin/{adminId}", method = RequestMethod.POST)
+    public String editAdmin(@PathVariable(value = "adminId") int adminId,
+                            @RequestParam(value = "username", defaultValue = "") String username,
+                            @RequestParam(value = "password", defaultValue = "") String password,
+                            Model model) {
+        Admin admin = adminService.findAdminById(adminId);
+        admin.setUserName(username);
+        admin.setPassword(password);
+        adminService.editAdmin(admin);
+        return "redirect:/admin/manageAdmins";
+    }
+
+    @RequestMapping(value = "/searchAdmin", method = {RequestMethod.POST, RequestMethod.GET})
+    public String searchAdmin(@RequestParam(value = "username") String username, Model model) {
+        model.addAttribute("searchAdmins", adminService.searchAdminByUsername(username));
+        return "/admin/searchAdmin";
+    }
+
     // @RequestMapping("/SelectAdmin")
     // public String selectAdmin(Model model) throws IOException {
     //    request.setCharacterEncoding("utf-8");
