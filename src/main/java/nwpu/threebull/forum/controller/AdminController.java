@@ -56,6 +56,13 @@ public class AdminController {
         return "admin/loginError";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute("admin");
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
     public String manageTopics(Model model,
                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
