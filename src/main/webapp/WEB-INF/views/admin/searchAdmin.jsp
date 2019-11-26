@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: kehan
   Date: 2019/11/26
-  Time: 上午9:24
+  Time: 上午11:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,29 +11,12 @@
 <%@ page session="true" %>
 <html>
 <head>
-    <title>Manage Admins</title>
+    <title>搜索结果</title>
 </head>
 <body>
-<a href="<c:url value="/admin/home"/>">Return Home</a>
-<h1>
-    Admin List
-</h1>
-
-<h3>
-    <a href="<c:url value="/admin/addAdmin"/>">
-        Add new admin
-    </a>
-</h3>
-
-<div class="adminList">
-    <form method="POST" action="<c:url value="/admin/searchAdmin"/>">
-        <input name="username" class="text" type="text"
-               placeholder="输入你所要搜索的用户名">
-        <input type="submit" value="搜索"/>
-    </form>
-    <h1>All Admins</h1>
+<div class="topicList">
     <ul class="topicList">
-        <c:forEach items="${AdminList}" var="admin">
+        <c:forEach items="${searchAdmins}" var="admin">
             <div>
                 Username: ${admin.userName}
                 <a href="<c:url value="/admin/deleteAdmin/${admin.id}"/>">
@@ -47,5 +30,6 @@
     </ul>
 </div>
 <br>
+<a href="<c:url value="/admin/home"/>">返回主页</a>
 </body>
 </html>

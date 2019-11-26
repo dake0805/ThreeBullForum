@@ -45,4 +45,10 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.editAdmin(admin);
     }
 
+    @Override
+    public List<Admin> searchAdminByUsername(String userName) {
+        return adminRepository.searchAdminByUsername(userName);
+    }
+
+
 }

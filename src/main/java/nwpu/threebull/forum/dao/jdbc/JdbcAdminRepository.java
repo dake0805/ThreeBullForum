@@ -66,6 +66,11 @@ public class JdbcAdminRepository implements AdminRepository {
         jdbc.update(UPDATE_ADMIN, admin.getUserName(), admin.getPassword(), admin.getId());
     }
 
+    @Override
+    public List<Admin> searchAdminByUsername(String userName) {
+        return jdbc.query(SELECT_ADMIN + " where username like ?", new AdminRowMapper(), "%" + userName + "%");
+    }
+
     private static class AdminRowMapper implements RowMapper<Admin> {
         public Admin mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Admin(rs.getInt("id"),
