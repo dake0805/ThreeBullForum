@@ -10,12 +10,12 @@ public class User {
     private int id;
 
 
-    @NotBlank
+    @NotEmpty
     @Size(min = 2, max = 30)
     private
     String userName;
 
-    @NotBlank(message = "test")
+    @NotEmpty
     @Size(min = 2, max = 30)
     private
     String password;
