@@ -69,7 +69,7 @@ public class UserController {
         if (null != user) {
             model.addAttribute(user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-            return "user/home";
+            return "redirect:/user/home";
         }
         return "/user/loginError";
     }
