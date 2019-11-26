@@ -47,6 +47,7 @@ public class UserController {
         if (content.trim().length() > 0) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
+
             return "redirect:/user/topic/{topicId}";
         } else {
             return "redirect:/user/topic/{topicId}?info=empty_content";

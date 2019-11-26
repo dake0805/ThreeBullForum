@@ -34,4 +34,6 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
 
     PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, String type, int pageNo, int pageSize);
+
+    void updateFollowNumber(int topicId);
 }

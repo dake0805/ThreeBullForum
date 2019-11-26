@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />">
 </head>
 <body>
+<a href="<c:url value="/user/home"/>">返回首页</a>
 <div class="spittleForm">
     <h1>发表新的主题</h1>
     <form method="POST" name="">
