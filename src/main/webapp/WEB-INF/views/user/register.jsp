@@ -20,7 +20,7 @@
 <body>
 <h1>注册</h1>
 
-<sf:form method="POST" commandName="user">
+<sf:form method="post" modelAttribute="user">
     <sf:errors path="*" cssClass="error"/>
     <br/>
     用户名：<sf:input path="userName"/>
