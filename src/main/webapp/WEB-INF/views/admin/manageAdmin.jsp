@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: kehan
-  Date: 2019/11/25
-  Time: 下午10:29
+  Date: 2019/11/26
+  Time: 上午9:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,14 +11,21 @@
 <%@ page session="true" %>
 <html>
 <head>
-    <title>Manage Users</title>
+    <title>Manage Admins</title>
 </head>
 <body>
 <a href="<c:url value="/admin/home"/>">Return Home</a>
 <h1>
-    User List
+    Admin List
 </h1>
-<div class="userList">
+
+<h3>
+    <a href="<c:url value="/admin/addAdmin"/>">
+        Add new admin
+    </a>
+</h3>
+
+<div class="adminList">
     <%--    <form method="POST" action="<c:url value="/user/searchTopic"/>">--%>
     <%--        <span>--%>
     <%--            <select name="type">--%>
@@ -31,13 +38,16 @@
     <%--               placeholder="输入你所要搜索的内容">--%>
     <%--        <input type="submit" value="搜索"/>--%>
     <%--    </form>--%>
-    <h1>All Users</h1>
+    <h1>All Admins</h1>
     <ul class="topicList">
-        <c:forEach items="${AllUsers}" var="user">
+        <c:forEach items="${AdminList}" var="admin">
             <div>
-                Username: ${user.userName}
-                <a href="<c:url value="/admin/lockUser/${user.id}"/>">
-                    Lock
+                Username: ${admin.userName}
+                <a href="<c:url value="/admin/deleteAdmin/${admin.id}"/>">
+                    Delete
+                </a>
+                <a href="<c:url value="/admin/editAdmin/${admin.id}"/>">
+                    Edit
                 </a>
             </div>
         </c:forEach>

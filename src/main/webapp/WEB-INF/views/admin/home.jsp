@@ -14,7 +14,7 @@
 </h1>
 <a href="<c:url value="/admin/manageTopics"/>">Manage Topics</a>
 <a href="<c:url value="/admin/manageUsers"/>">Manage Users</a>
-<a href="<c:url value="/user/logout"/>">注销登录</a>
+<a href="<c:url value="/admin/manageAdmins"/>">Manage Admins</a>
 <br>
 </body>
 </html>

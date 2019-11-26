@@ -23,6 +23,18 @@ public class JdbcAdminRepository implements AdminRepository {
     }
 
     @Override
+    public Admin findAdminById(int adminId) {
+        Admin admin = null;
+        try {
+            admin = jdbc.queryForObject(SELECT_ADMIN + " where id=? ", new AdminRowMapper(),
+                    adminId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return admin;
+    }
+
+    @Override
     public Admin findAdminByAdminNameAndPassword(String userName, String password) {
         Admin admin = null;
         try {
@@ -51,7 +63,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     @Override
     public void editAdmin(Admin admin) {
-        jdbc.update(UPDATE_ADMIN, admin.getId(), admin.getUserName(), admin.getPassword());
+        jdbc.update(UPDATE_ADMIN, admin.getUserName(), admin.getPassword(), admin.getId());
     }
 
     private static class AdminRowMapper implements RowMapper<Admin> {
@@ -66,5 +78,5 @@ public class JdbcAdminRepository implements AdminRepository {
 
     private static final String INSERT_ADMIN = "insert into admin (id, username, password) values (?, ?, ?)";
 
-    private static final String UPDATE_ADMIN = "update admin set id = ?, username = ?, password = ?";
+    private static final String UPDATE_ADMIN = "update admin set username = ?, password = ? where id = ?";
 }

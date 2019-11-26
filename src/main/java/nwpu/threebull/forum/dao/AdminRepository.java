@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface AdminRepository {
 
+    Admin findAdminById(int adminId);
+
     Admin findAdminByAdminNameAndPassword(String userName, String password);
 
     List<Admin> findAllAdmins();

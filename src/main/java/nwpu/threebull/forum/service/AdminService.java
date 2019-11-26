@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AdminService {
 
+    Admin findAdminById(int adminId);
+
     Admin findAdminByAdminNameAndPassword(String name, String password);
 
     List<Admin> findAllAdmins();
