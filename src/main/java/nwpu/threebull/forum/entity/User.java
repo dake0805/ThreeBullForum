@@ -17,6 +17,10 @@ public class User {
     private
     boolean isLocked;
 
+    public User() {
+
+    }
+
     public User(int id, String userName, String password) {
         this.id = id;
         this.userName = userName;

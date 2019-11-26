@@ -55,6 +55,11 @@ public class JdbcUserRepository implements UserRepository {
         jdbc.update("update user set lock_status = ? where id = ?", 1, userId);
     }
 
+    @Override
+    public void addUser(User user) {
+
+    }
+
 
     private static class UserRowMapper implements RowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {

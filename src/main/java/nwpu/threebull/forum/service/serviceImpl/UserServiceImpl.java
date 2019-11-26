@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
     public void lockUserById(int userId) {
         userRepository.lockUserById(userId);
     }
+
+    @Override
+    public void addUser(User user) {
+        userRepository.addUser(user);
+    }
 }
