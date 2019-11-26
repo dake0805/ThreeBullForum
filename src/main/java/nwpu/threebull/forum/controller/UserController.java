@@ -36,18 +36,25 @@ public class UserController {
     private ReplyService replyService;
 
 
-    @RequestMapping(value = "/topic/{topicId}",method = RequestMethod.POST)
-    public String  newReply(Model model, HttpSession session,
-                            @RequestParam(value = "content", defaultValue = "") String content,
-                            @PathVariable int topicId){
-        User user=(User)session.getAttribute("user");
+    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.POST)
+    public String newReply(Model model, HttpSession session,
+                           @RequestParam(value = "content", defaultValue = "") String content,
+                           @PathVariable int topicId) {
+        User user = (User) session.getAttribute("user");
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        Reply reply=new Reply(0,topic.getId(),content,user,timestamp);
-        replyService.newReply(reply);
-        return "redirect:/user/topic/{topicId}";
+        if (content.length() > 0) {
+            Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
+            replyService.newReply(reply);
+            return "redirect:/user/topic/{topicId}";
+        } else {
+            return "redirect:/user/topic/{topicId}?info=empty_content";
+        }
+
     }
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "user/login";
@@ -89,13 +96,21 @@ public class UserController {
 
 
     @RequestMapping(value = "/newtopic", method = RequestMethod.GET)
-    public String newTopics(Model model, HttpSession httpSession) {
+    public String newTopics(Model model, HttpSession httpSession,
+                            @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if (null != user) {
-            return "user/newtopic";
-        } else {
-            return "redirect:/";
+        //normal
+//        if (null != user) {
+//            return "user/newtopic";
+//        } else {
+//            return "redirect:/user/newtopic";
+//        }
+        //异常操作
+        if (info != null) {
+            model.addAttribute(info);
         }
+        return "user/newtopic";
+
     }
 
     @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
@@ -105,17 +120,25 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
-        topicService.newTopic(topic);
-        return "/user/home";
+        if (title.length() > 0 && content.length() > 0) {
+            Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
+            topicService.newTopic(topic);
+            return "redirect:/user/home";
+        } else {
+            return "redirect:/user/newtopic?info=empty_titleOrContent";
+        }
+
     }
 
 
-
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
-    public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
-
+    public String getTopic(@PathVariable("topicId") int topicId, Model model, HttpSession session,
+                           @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                           @RequestParam(value = "info", required = false) String info) {
+        if (info != null) {
+            model.addAttribute(info);
+        }
         User user = (User) session.getAttribute("user");
         Topic topic = topicService.findByTopicId(topicId);
         if (null != topic) {
@@ -152,16 +175,21 @@ public class UserController {
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
     public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
                       @RequestParam(value = "content", defaultValue = "") String content, Model model) {
-        topicService.updateTitleByTopicId(topicId, title, content);
-        Topic topic = topicService.findByTopicId(topicId);
-        if (null != topic) {
-            model.addAttribute("singleTopic", topic);
-            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-            model.addAttribute("isMyself", true);
-            return "user/topic";
+        if (title.length() > 0 && content.length() > 0) {
+            topicService.updateTitleByTopicId(topicId, title, content);
+            Topic topic = topicService.findByTopicId(topicId);
+            if (null != topic) {
+                model.addAttribute("singleTopic", topic);
+                model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+                model.addAttribute("isMyself", true);
+                return "user/topic";
+            } else {
+                return "redirect:/";
+            }
         } else {
-            return "redirect:/";
+            return "redirect:/user/editTopic/{topicId}?info=empty_titleOrContent";
         }
+
     }
 
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})

@@ -80,8 +80,8 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     public void newTopic(Topic topic) {
-        jdbc.update(INSERT_TOPIC,topic.getId(),topic.getTitle(),topic.getContent(),topic.getUser().getId(),topic.isTopicStatus(),topic.getTopTime(),
-                topic.getPostTime(),topic.getFollowNum(),topic.getClickNum());
+        jdbc.update(INSERT_TOPIC, topic.getId(), topic.getTitle(), topic.getContent(), topic.getUser().getId(), topic.isTopicStatus(), topic.getTopTime(),
+                topic.getPostTime(), topic.getFollowNum(), topic.getClickNum());
     }
 
     @Override
@@ -179,19 +179,14 @@ public class JdbcTopicRepository implements TopicRepository {
     private static final String SELECT_TOPIC_BY_CONTENT = SELECT_TOPIC + " and t.content like ?";
     private static final String SELECT_TOPIC_BY_INFO = SELECT_TOPIC + " and( t.name like ? or t.content like ?)";
 
-    private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID
-            + " order by t.post_time desc limit ? offset  ?";
+    private static final String SELECT_TOPIC_ORDER_BY = " order by t.top_time desc ,t.post_time desc limit ? offset  ?";
 
-    private static final String SELECT_PAGE_TOPIC_BY_TITLE = SELECT_TOPIC_BY_TITLE
-            + " order by t.post_time desc limit ? offset  ?";
-    private static final String SELECT_PAGE_TOPIC_BY_CONTENT = SELECT_TOPIC_BY_CONTENT
-            + " order by t.post_time desc limit ? offset  ?";
-    private static final String SELECT_PAGE_TOPIC_BY_INFO = SELECT_TOPIC_BY_INFO
-            + " order by t.post_time desc limit ? offset  ?";
+    private static final String SELECT_PAGE_TOPIC_BY_USERID = SELECT_TOPIC_BY_USERID + SELECT_TOPIC_ORDER_BY;
+    private static final String SELECT_PAGE_TOPIC_BY_TITLE = SELECT_TOPIC_BY_TITLE + SELECT_TOPIC_ORDER_BY;
+    private static final String SELECT_PAGE_TOPIC_BY_CONTENT = SELECT_TOPIC_BY_CONTENT + SELECT_TOPIC_ORDER_BY;
+    private static final String SELECT_PAGE_TOPIC_BY_INFO = SELECT_TOPIC_BY_INFO + SELECT_TOPIC_ORDER_BY;
+    private static final String SELECT_PAGE_TOPIC = SELECT_TOPIC + SELECT_TOPIC_ORDER_BY;
 
-
-    private static final String SELECT_PAGE_TOPIC = SELECT_TOPIC
-            + " order by t.post_time desc limit ? offset  ?";
     private static final String INSERT_TOPIC = "insert into topic ( id,name, content, user_id,top_status,top_time," +
             "post_time,follow_number,click_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

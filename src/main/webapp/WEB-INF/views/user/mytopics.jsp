@@ -24,6 +24,10 @@
                     by <c:out value="${topic.user.userName }"/>
                     点击数：<c:out value="${topic.clickNum }"/>
                     回复数：<c:out value="${topic.followNum }"/>
+                    <c:if test="${topic.topicStatus}">
+                        置顶中，置顶时间:
+                        <fmt:formatDate value="${topic.topTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </c:if>
                 </div>
             </li>
         </c:forEach>
