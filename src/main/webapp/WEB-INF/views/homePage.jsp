@@ -40,16 +40,17 @@
                 <c:forEach items="${AllTopics.items}" var="topic">
                     <li>
                         <h2>
-                            <a href="jie/detail.html">${topic.title}</a>
+                            <a href="<c:url value="/topic/detail/${topic.id}" />">${topic.title}</a>
+                            <c:url value="/topic/detail/${topic.id}"/>
                         </h2>
                         <div class="fly-list-info">
-                            <a href="user/home.html" link="">
+                            <a href="#" link="">
                                 <cite>${topic.user.userName}</cite>
                             </a>
                                 ${topic.postTime}
                             <span class="fly-list-nums">
-                        点击数：<c:out value="${topic.clickNum }"/>
-                                        <i class="iconfont icon-pinglun1" title="回答"></i> ${topic.clickNum }
+                                        <i class="iconfont" title="点击">&#xe60b;</i> ${topic.clickNum}
+                                        <i class="iconfont icon-pinglun1" title="回答"></i> ${topic.followNum}
                                       </span>
                         </div>
                     </li>

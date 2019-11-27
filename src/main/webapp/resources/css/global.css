@@ -1343,7 +1343,7 @@ body .layui-edit-face .layui-layer-content {
 .detail-about {
     position: relative;
     line-height: 20px;
-    padding: 15px 15px 15px 75px;
+    padding: 15px 15px 15px 5px;
     font-size: 13px;
     background-color: #f8f8f8;
     color: #999;
@@ -1495,7 +1495,7 @@ body .layui-edit-face .layui-layer-content {
 }
 
 .detail-about-reply {
-    padding: 0 0 0 55px;
+    padding: 0 0 0 5px;
     background: none;
 }
 
