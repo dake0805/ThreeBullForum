@@ -45,9 +45,9 @@
                                               autocomplete="off" class="layui-input"/>
                                 </div>
                                 <sf:errors path="userName" cssClass="error"/>
-                                <br/>
-                                <div class="layui-form-mid layui-word-aux">将会成为您唯一的登入名</div>
                             </div>
+                            <br/>
+                            <jsp:text>将会成为您唯一的登入名</jsp:text>
 
                             <div class="layui-form-item">
                                 <label for="L_pass" class="layui-form-label">密码</label>
@@ -65,9 +65,7 @@
                                     <input type="password" id="L_repass" name="repass"
                                            autocomplete="off" class="layui-input">
                                 </div>
-                                <sf:errors path="password" cssClass="error"/>
                             </div>
-
                             <div class="layui-form-item">
                                 <button class="layui-btn" lay-filter="*" lay-submit="">立即注册</button>
                             </div>

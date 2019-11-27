@@ -1,6 +1,7 @@
 package nwpu.threebull.forum.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import javafx.scene.control.Alert;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.entity.User;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -64,10 +68,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = POST)
-    //TODO jsp中三个参数 多了一个确认密码参数 进行确认
-    public String processRegistration(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpSession session) {
+    public String processRegistration(HttpServletResponse response,
+                                      @Valid @ModelAttribute User user,
+                                      BindingResult bindingResult,
+                                      HttpSession session,
+                                      @RequestParam(value = "repass", defaultValue = "") String rePassword) throws IOException {
         if (bindingResult.hasErrors()) {
             return "user/register";
+        }
+        if (!user.getPassword().equals(rePassword)) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('repassword');</script>");
+            return null;
+        }
+        if (userService.findUserByUserName(user.getUserName()) != null) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('same name');</script>");
+            return null;
         }
         user.setId(0);
         userService.addUser(user);
