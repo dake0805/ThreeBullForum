@@ -64,10 +64,10 @@
             每页${AllTopics.pageSize}条主题，
             第${AllTopics.currentPageNo}/${AllTopics.totalPageCount}页,共${AllTopics.totalCount}条主题
             <c:if test="${AllTopics.previousPage}">
-                <a href="<c:url value="/user/home?pageNo=${AllTopics.currentPageNo-1}" />">上一页</a>
+                <a href="<c:url value="/?pageNo=${AllTopics.currentPageNo-1}" />">上一页</a>
             </c:if>
             <c:if test="${AllTopics.nextPage}">
-                <a href="<c:url value="/user/home?pageNo=${AllTopics.currentPageNo+1}" />">下一页</a>
+                <a href="<c:url value="/?pageNo=${AllTopics.currentPageNo+1}" />">下一页</a>
             </c:if>
         </div>
     </div>

@@ -5,7 +5,7 @@
     <nav class="navbar navbar-default" role="navigation" style="background-color: white">
         <div class="container-fluid" style="margin-left: 10%">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">ThreeBull Fourm</a>
+                <a class="navbar-brand" href="<c:url value="/"/>">ThreeBull Fourm</a>
             </div>
             <div>
                 <c:if test="${empty sessionScope.user && empty sessionScope.admin}">
@@ -23,7 +23,7 @@
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">查看我的主题</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/user/mytopics"/>">查看我的主题</a></p>
                         </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/register"/>">新建主题</a></p>
