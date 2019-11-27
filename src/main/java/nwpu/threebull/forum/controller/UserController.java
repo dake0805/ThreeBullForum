@@ -47,13 +47,12 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (content.trim().length() > 0) {
+        if (user.isLocked()==true) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
-
-            return "redirect:/user/topic/{topicId}";
+            return "redirect:/topic/detail/{topicId}";
         } else {
-            return "redirect:/user/topic/{topicId}?info=empty_content";
+            return "redirect:/topic/detail/{topicId}?info=user_locked";
         }
 
     }
@@ -169,9 +168,9 @@ public class UserController {
         if (title.trim().length() > 0 && content.trim().length() > 0) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
-            return "redirect:/user/home";
+            return "redirect:/";
         } else {
-            return "redirect:/user/newtopic?info=empty_titleOrContent";
+            return "redirect:/?info=empty_titleOrContent";
         }
 
     }

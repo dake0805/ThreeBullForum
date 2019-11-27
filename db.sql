@@ -116,6 +116,7 @@ insert  into `user`(`id`,`username`,`password`,`lock_status`) values
 (1,'user','123456',1),
 (2,'user2','123456',1),
 (3,'user3','123456',1);
+(4,'user4','123456',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

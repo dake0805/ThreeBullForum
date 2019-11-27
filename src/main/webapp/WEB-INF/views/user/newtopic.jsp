@@ -47,7 +47,7 @@
                                 <div class="layui-unselect fly-edit"><span type="face" title="插入表情"><i
                                         class="iconfont icon-yxj-expression" style="top: 1px;"></i></span></div>
                                 <textarea id="L_content" name="content" required="" lay-verify="required"
-                                          placeholder="详细描述"
+                                          placeholder="请输入主题内容"
                                           class="layui-textarea fly-editor" style="height: 260px;"></textarea>
                             </div>
                         </div>
