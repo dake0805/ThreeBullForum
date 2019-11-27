@@ -55,9 +55,9 @@
                             <c:forEach items="${AdminList}" var="admin">
                                 <li>
                                     <a class="jie-title" href="#" target="_blank">${admin.userName}</a>
-                                    <a class="mine-edit" href="/jie/edit/8116">删除</a>
+                                    <a class="mine-edit" href="<c:url value="/admin/deleteAdmin/${admin.id}"/>">删除</a>
                                     <a class="mine-edit"
-                                       href="<c:url value="/admin/editAdmin/${admin.id}"></c:url> ">编辑</a>
+                                       href="<c:url value="/admin/editAdmin/${admin.id}"/>">编辑</a>
                                 </li>
                             </c:forEach>
                         </ul>

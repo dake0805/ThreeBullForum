@@ -15,6 +15,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -228,7 +230,17 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/deleteAdmin/{adminId}", method = RequestMethod.GET)
-    public String deleteAdmin(@PathVariable(value = "adminId") int adminId) {
+    public String deleteAdmin(@PathVariable(value = "adminId") int adminId,
+                              HttpSession session,
+                              HttpServletResponse response) throws IOException {
+        Admin currentAdmin = (Admin) session.getAttribute("admin");
+        if (currentAdmin.getId() == adminId) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Can't delete yourself!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
         adminService.deleteAdminById(adminId);
         return "redirect:/admin/manageAdmins";
     }
@@ -244,8 +256,18 @@ public class AdminController {
     public String editAdmin(@PathVariable(value = "adminId") int adminId,
                             @RequestParam(value = "username", defaultValue = "") String username,
                             @RequestParam(value = "password", defaultValue = "") String password,
-                            Model model) {
+                            Model model,
+                            HttpServletResponse response) throws IOException {
         Admin admin = adminService.findAdminById(adminId);
+
+        if (adminService.findAdminByAdminName(username) != null) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Username already exist!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
+
         admin.setUserName(username);
         admin.setPassword(password);
         adminService.editAdmin(admin);

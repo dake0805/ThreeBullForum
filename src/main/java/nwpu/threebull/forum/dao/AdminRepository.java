@@ -11,6 +11,8 @@ public interface AdminRepository {
 
     Admin findAdminByAdminNameAndPassword(String userName, String password);
 
+    Admin findAdminByAdminName(String userName);
+
     List<Admin> searchAdminByUsername(String userName);
 
     List<Admin> findAllAdmins();
