@@ -42,68 +42,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-row layui-col-space15 layui-form-item layui-hide" id="LAY_quiz">
-                            <div class="layui-col-md3">
-                                <label class="layui-form-label">所属产品</label>
-                                <div class="layui-input-block">
-                                    <select name="project">
-                                        <option></option>
-                                        <option value="layui">layui</option>
-                                        <option value="独立版layer">独立版layer</option>
-                                        <option value="独立版layDate">独立版layDate</option>
-                                        <option value="LayIM">LayIM</option>
-                                        <option value="Fly社区模板">Fly社区模板</option>
-                                    </select>
-                                    <div class="layui-unselect layui-form-select">
-                                        <div class="layui-select-title"><input type="text" placeholder="请选择" value=""
-                                                                               readonly=""
-                                                                               class="layui-input layui-unselect"><i
-                                                class="layui-edge"></i></div>
-                                        <dl class="layui-anim layui-anim-upbit">
-                                            <dd lay-value="" class="layui-select-tips">请选择</dd>
-                                            <dd lay-value="layui" class="">layui</dd>
-                                            <dd lay-value="独立版layer" class="">独立版layer</dd>
-                                            <dd lay-value="独立版layDate" class="">独立版layDate</dd>
-                                            <dd lay-value="LayIM" class="">LayIM</dd>
-                                            <dd lay-value="Fly社区模板" class="">Fly社区模板</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-col-md3">
-                                <label class="layui-form-label" for="L_version">版本号</label>
-                                <div class="layui-input-block">
-                                    <input type="text" id="L_version" value="" name="version" autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-col-md6">
-                                <label class="layui-form-label" for="L_browser">浏览器</label>
-                                <div class="layui-input-block">
-                                    <input type="text" id="L_browser" value="" name="browser"
-                                           placeholder="浏览器名称及版本，如：IE 11"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                        </div>
                         <div class="layui-form-item layui-form-text">
                             <div class="layui-input-block">
                                 <div class="layui-unselect fly-edit"><span type="face" title="插入表情"><i
-                                        class="iconfont icon-yxj-expression" style="top: 1px;"></i></span><span
-                                        type="picture" title="插入图片：img[src]"><i
-                                        class="iconfont icon-tupian"></i></span><span type="href"
-                                                                                      title="超链接格式：a(href)[text]"><i
-                                        class="iconfont icon-lianjie"></i></span><span type="code" title="插入代码或引用"><i
-                                        class="iconfont icon-emwdaima" style="top: 1px;"></i></span><span type="hr"
-                                                                                                          title="插入水平线">hr</span><span
-                                        type="yulan" title="预览"><i class="iconfont icon-yulan1"></i></span></div>
+                                        class="iconfont icon-yxj-expression" style="top: 1px;"></i></span></div>
                                 <textarea id="L_content" name="content" required="" lay-verify="required"
                                           placeholder="详细描述"
                                           class="layui-textarea fly-editor" style="height: 260px;"></textarea>
                             </div>
                         </div>
-
-
                         <div class="layui-form-item">
                             <button class="layui-btn" lay-filter="*" lay-submit="">立即发布</button>
                         </div>

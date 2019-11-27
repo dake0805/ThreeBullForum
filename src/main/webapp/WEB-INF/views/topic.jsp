@@ -91,23 +91,16 @@
                             <a name="comment"></a>
                             <div class="layui-input-block">
                                 <div class="layui-unselect fly-edit"><span type="face" title="插入表情"><i
-                                        class="iconfont icon-yxj-expression" style="top: 1px;"></i></span><span
-                                        type="picture" title="插入图片：img[src]"><i
-                                        class="iconfont icon-tupian"></i></span><span type="href"
-                                                                                      title="超链接格式：a(href)[text]"><i
-                                        class="iconfont icon-lianjie"></i></span><span type="code" title="插入代码或引用"><i
-                                        class="iconfont icon-emwdaima" style="top: 1px;"></i></span><span type="hr"
-                                                                                                          title="插入水平线">hr</span><span
-                                        type="yulan" title="预览"><i class="iconfont icon-yulan1"></i></span></div>
-                                <textarea id="L_content" name="content" required="" lay-verify="required"
-                                          placeholder="请输入内容" class="layui-textarea fly-editor"
-                                          style="height: 150px;"></textarea>
+                                        class="iconfont icon-yxj-expression" style="top: 1px;"></i></span>>
+                                    <textarea id="L_content" name="content" required="" lay-verify="required"
+                                              placeholder="请输入内容" class="layui-textarea fly-editor"
+                                              style="height: 150px;"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <input type="hidden" name="jid" value="123">
-                            <button class="layui-btn" lay-filter="*" lay-submit="">提交回复</button>
-                        </div>
+                            <div class="layui-form-item">
+                                <input type="hidden" name="jid" value="123">
+                                <button class="layui-btn" lay-filter="*" lay-submit="">提交回复</button>
+                            </div>
                     </form>
                 </div>
             </c:if>

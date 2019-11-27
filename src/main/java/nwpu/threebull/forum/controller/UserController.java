@@ -24,7 +24,7 @@ import java.util.HashMap;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@SessionAttributes({"user"})
+//@SessionAttributes({"user"})
 @RequestMapping("/user")
 public class UserController {
 
@@ -87,7 +87,8 @@ public class UserController {
         User user;
         user = userService.findUserByUserNameAndPassword(userName, password);
         if (null != user) {
-            model.addAttribute(user);
+//            model.addAttribute(user);
+            session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
             return "homePage";
         }
