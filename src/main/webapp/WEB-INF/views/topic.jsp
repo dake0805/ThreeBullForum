@@ -21,7 +21,9 @@
         <div class="fly-panel detail-box">
             <h1>${singleTopic.title}</h1>
             <div class="fly-detail-info">
-                <span class="layui-badge layui-bg-black"></span>
+                <c:if test="${singleTopic.topicStatus}">
+                    <span class="layui-badge layui-bg-red">置顶</span>
+                </c:if>
                 <span class="fly-list-nums">
                                                             <i class="iconfont"
                                                                title="点击">&#xe60b;</i> ${singleTopic.clickNum}
@@ -38,7 +40,6 @@
                 <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                     <c:if test="${isMyself}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
-                        <%--                        <a href="<c:url value="/user/editTopic/${singleTopic.id}"/>"> 编辑主题内容</a>--%>
                     </c:if>
                 </div>
             </div>
@@ -81,6 +82,8 @@
             <c:if test="${replys.nextPage}">
                 <a href="<c:url value="/topic/detail/${singleTopic.id}?pageNo=${replys.currentPageNo+1}" />">下一页</a>
             </c:if>
+            <br>
+            <br>
             <c:if test="${not empty sessionScope.user && not empty sessionScope.user.id}">
                 <div class="layui-form layui-form-pane">
                     <form action="/jie/reply/" method="post">

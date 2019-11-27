@@ -41,7 +41,9 @@
                     <li>
                         <h2>
                             <a href="<c:url value="/topic/detail/${topic.id}" />">${topic.title}</a>
-                            <c:url value="/topic/detail/${topic.id}"/>
+                            <c:if test="${topic.topicStatus}">
+                                <span class="layui-badge layui-bg-red">置顶</span>
+                            </c:if>
                         </h2>
                         <div class="fly-list-info">
                             <a href="#" link="">

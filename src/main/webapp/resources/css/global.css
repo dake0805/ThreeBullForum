@@ -940,7 +940,7 @@ pre {
 }
 
 .fly-list-nums {
-    position: absolute;
+    position: relative;
     right: 0;
     top: 0;
     padding-right: 0 !important;
