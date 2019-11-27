@@ -44,7 +44,7 @@
         <div class="fly-panel fly-panel-user" pad20="">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <div class="layui-tab-title" id="LAY_mine">
-                    <a href=<c:url value="#"></c:url>
+                    <a href=<c:url value="/admin/addAdmin"></c:url>
                         <p style="line-height:40px; vertical-align: middle; float: left; margin-left: 10px">
                             <strong>增加管理员</strong></p>
                     </a>

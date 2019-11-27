@@ -223,7 +223,17 @@ public class AdminController {
 
     @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
     public String addAdmin(@RequestParam(value = "username", defaultValue = "") String username,
-                           @RequestParam(value = "password", defaultValue = "") String password) {
+                           @RequestParam(value = "password", defaultValue = "") String password,
+                           HttpServletResponse response) throws IOException {
+
+        if (adminService.findAdminByAdminName(username) != null) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Username already exist!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
+
         Admin admin = new Admin(0, username, password);
         adminService.addAdmin(admin);
         return "redirect:/admin/manageAdmins";

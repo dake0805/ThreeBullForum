@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li class="layui-nav-item layui-this">
-                <a href="<c:url value="/admin/manageUsers"/>">
+                <a href="<c:url value="/admin/manageAdmins"/>">
                     <i class="layui-icon"></i>
                     管理admin
                 </a>
