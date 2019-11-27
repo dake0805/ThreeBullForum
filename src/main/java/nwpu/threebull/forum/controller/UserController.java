@@ -59,7 +59,7 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-//        model.addAttribute(new User());
+        model.addAttribute(new User());
         return "user/register";
     }
 
