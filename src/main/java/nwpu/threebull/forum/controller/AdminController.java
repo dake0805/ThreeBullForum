@@ -86,13 +86,13 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
-    public String manageTopics(Model model,
-                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
-        model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-        return "admin/manageTopics";
-    }
+    // @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
+    // public String manageTopics(Model model,
+    //                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+    //                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+    //     model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
+    //     return "admin/manageTopics";
+    // }
 
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
