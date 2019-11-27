@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"admin"})
+//@SessionAttributes({"admin"})
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -49,7 +49,8 @@ public class AdminController {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
-            model.addAttribute(admin);
+//            model.addAttribute(admin);
+            session.setAttribute("admin", admin);
             return "homePage";
         }
         return "admin/loginError";
