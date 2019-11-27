@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/11/27
-  Time: 8:52
+  Time: 17:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,21 +23,9 @@
 <%@ include file="banner.jsp" %>
 <div class="container">
     <div class="layui-col-md-10">
-        <form method="POST" action="<c:url value="/searchTopic"/>">
-         <span>
-            <select style="width: 15%" name="type">
-                <option value="TITLE">title</option>
-                <option value="CONTENT">content</option>
-                <option value="TITLEORCONTENT">title or content</option>
-            </select>
-        </span>
-            <input style="width: 60%" name="info" class="text" type="text"
-                   placeholder="输入你所要搜索的内容">
-            <input type="submit" style="width: 15%;" value="搜索"/>
-        </form>
         <div class="fly-panel">
             <ul class="fly-list">
-                <c:forEach items="${AllTopics.items}" var="topic">
+                <c:forEach items="${searchTopics.items}" var="topic">
                     <li>
                         <h2>
                             <a href="<c:url value="/topic/detail/${topic.id}" />">${topic.title}</a>
@@ -61,13 +49,13 @@
             </ul>
         </div>
         <div>
-            每页${AllTopics.pageSize}条主题，
-            第${AllTopics.currentPageNo}/${AllTopics.totalPageCount}页,共${AllTopics.totalCount}条主题
-            <c:if test="${AllTopics.previousPage}">
-                <a href="<c:url value="/?pageNo=${AllTopics.currentPageNo-1}" />">上一页</a>
+            每页${searchTopics.pageSize}条主题，
+            第${searchTopics.currentPageNo}/${searchTopics.totalPageCount}页,共${searchTopics.totalCount}条主题
+            <c:if test="${searchTopics.previousPage}">
+                <a href="<c:url value="/searchTopic?pageNo=${searchTopics.currentPageNo-1}&type=${type}&info=${info}" />">上一页</a>
             </c:if>
-            <c:if test="${AllTopics.nextPage}">
-                <a href="<c:url value="/?pageNo=${AllTopics.currentPageNo+1}" />">下一页</a>
+            <c:if test="${searchTopics.nextPage}">
+                <a href="<c:url value="/searchTopic?pageNo=${searchTopics.currentPageNo+1}&type=${type}&info=${info}"/>">下一页</a>
             </c:if>
         </div>
     </div>

@@ -45,12 +45,14 @@ public class AdminController {
     public String processLogin(Model model,
                                @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password,
+                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                HttpSession session) {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
-//            model.addAttribute(admin);
             session.setAttribute("admin", admin);
+            model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
             return "homePage";
         }
         return "admin/loginError";

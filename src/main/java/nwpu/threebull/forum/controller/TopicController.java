@@ -40,18 +40,7 @@ public class TopicController {
             model.addAttribute(info);
         }
         User user = (User) session.getAttribute("user");
-        Admin admin = (Admin) session.getAttribute("admin");
-        if (user == null && admin == null) {
-            Topic topic = topicService.findByTopicId(topicId);
-            if (null != topic) {
-                topicService.updateClickNumByTopic(topic);
-                model.addAttribute("singleTopic", topic);
-                model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
-                return "topic";
-            } else {
-                return "homePage";
-            }
-        } else if (user != null) {
+        if (user != null) {
             Topic topic = topicService.findByTopicId(topicId);
             if (null != topic) {
                 topicService.updateClickNumByTopic(topic);
@@ -66,10 +55,16 @@ public class TopicController {
             } else {
                 return "homePage";
             }
-        } else if (admin != null) {
-            //TODO
-            return "homePage";
+        } else {
+            Topic topic = topicService.findByTopicId(topicId);
+            if (null != topic) {
+                topicService.updateClickNumByTopic(topic);
+                model.addAttribute("singleTopic", topic);
+                model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), pageNo, pageSize));
+                return "topic";
+            } else {
+                return "homePage";
+            }
         }
-        return "homePage";
     }
 }

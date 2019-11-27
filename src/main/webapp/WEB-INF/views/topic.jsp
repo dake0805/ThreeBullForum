@@ -39,7 +39,8 @@
                 </div>
                 <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                     <c:if test="${isMyself}">
-                        <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                        <span class="layui-btn layui-btn-xs jie-admin" type="edit"> <a
+                                href="<c:url value="/user/editTopic/${singleTopic.id}"/>">编辑此贴</a></span>
                     </c:if>
                 </div>
             </div>
@@ -101,6 +102,7 @@
                                 <input type="hidden" name="jid" value="123">
                                 <button class="layui-btn" lay-filter="*" lay-submit="">提交回复</button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </c:if>
