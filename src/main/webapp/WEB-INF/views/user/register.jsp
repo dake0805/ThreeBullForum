@@ -15,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>🐂🐂🐂 > 注册</title>
     <link rel="stylesheet" type="text/css"
-          href="<c:url value="/resources/style.css" />">
+          href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
 <h1>注册</h1>

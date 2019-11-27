@@ -6,7 +6,7 @@
 <head>
     <title>吐槽吧</title>
     <link rel="stylesheet" type="text/css"
-          href="<c:url value="/resources/style.css" />" >
+          href="<c:url value="/resources/css/style.css" />" >
 </head>
 <body>
 <h1>登录</h1>
