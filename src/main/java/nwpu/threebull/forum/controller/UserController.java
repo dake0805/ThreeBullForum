@@ -46,9 +46,10 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (content.length() > 0) {
+        if (content.trim().length() > 0) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
+
             return "redirect:/user/topic/{topicId}";
         } else {
             return "redirect:/user/topic/{topicId}?info=empty_content";
@@ -138,7 +139,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (title.length() > 0 && content.length() > 0) {
+        if (title.trim().length() > 0 && content.trim().length() > 0) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/user/home";

@@ -10,5 +10,6 @@ public interface ReplyService {
 
     void newReply(Reply reply);
 
+
     PaginationSupport<Reply> findPageByTopicId(int TopicId, int pageNo, int pageSize);
 }
