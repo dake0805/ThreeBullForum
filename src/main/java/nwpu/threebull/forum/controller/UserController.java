@@ -1,25 +1,27 @@
 package nwpu.threebull.forum.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import nwpu.threebull.forum.service.UserService;
 import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.ReplyService;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import nwpu.threebull.forum.entity.User;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @SessionAttributes({"user"})
@@ -55,6 +57,22 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model) {
+        model.addAttribute(new User());
+        return "user/register";
+    }
+
+    @RequestMapping(value = "/register", method = POST)
+    public String processRegistration(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "user/register";
+        }
+        user.setId(0);
+        userService.addUser(user);
+
+        return "redirect:/user/login";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {

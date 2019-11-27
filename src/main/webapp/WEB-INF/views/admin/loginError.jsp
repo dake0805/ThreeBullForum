@@ -7,7 +7,7 @@
     <title>Three Bull Forum</title>
     <link rel="stylesheet"
           type="text/css"
-          href="<c:url value="/resources/style.css" />" >
+          href="<c:url value="/resources/css/style.css" />" >
 </head>
 <body>
 <h1>登录有误，请重新尝试</h1>
