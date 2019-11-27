@@ -9,40 +9,67 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Manage Users</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-<a href="<c:url value="/admin/home"/>">Return Home</a>
-<h1>
-    User List
-</h1>
-<div class="userList">
-    <%--    <form method="POST" action="<c:url value="/user/searchTopic"/>">--%>
-    <%--        <span>--%>
-    <%--            <select name="type">--%>
-    <%--                <option value="TITLE">title</option>--%>
-    <%--                <option value="CONTENT">content</option>--%>
-    <%--                <option value="TITLEORCONTENT">title or content</option>--%>
-    <%--            </select>--%>
-    <%--        </span>--%>
-    <%--        <input name="info" class="text" type="text"--%>
-    <%--               placeholder="输入你所要搜索的内容">--%>
-    <%--        <input type="submit" value="搜索"/>--%>
-    <%--    </form>--%>
-    <h1>All Users</h1>
-    <ul class="topicList">
-        <c:forEach items="${AllUsers}" var="user">
-            <div>
-                Username: ${user.userName}
-                <a href="<c:url value="/admin/lockUser/${user.id}"/>">
-                    Lock
+<!-- 引入header文件 -->
+<%@ include file="../banner.jsp" %>
+<div class="container">
+    <div class="layui-container fly-marginTop fly-user-main">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+            <li class="layui-nav-item layui-this">
+                <a href="<c:url value="/admin/manageUsers"/>">
+                    <i class="layui-icon"></i>
+                    管理用户
                 </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="<c:url value="/admin/manageAdmins"/>">
+                    <i class="layui-icon"></i>
+                    管理admin
+                </a>
+            </li>
+
+            <span class="layui-nav-bar" style="top: 167.5px; height: 0px; opacity: 0;"></span></ul>
+
+
+        <div class="fly-panel fly-panel-user" pad20="">
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+
+                <div class="layui-tab-content" style="padding: 20px 0;">
+                    <div class="layui-tab-item layui-show">
+                        <ul class="mine-view jie-row">
+                            <li>
+                                <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
+                                <i>2017/3/14 上午8:30:00</i>
+                                <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                <em>661阅/10答</em>
+                            </li>
+                            <li>
+                                <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
+                                <i>2017/3/14 上午8:30:00</i>
+                                <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                <em>661阅/10答</em>
+                            </li>
+                        </ul>
+                        <div id="LAY_page"></div>
+                    </div>
+                </div>
             </div>
-        </c:forEach>
-    </ul>
+        </div>
+    </div>
 </div>
-<br>
+
+<!-- 引入footer文件-->
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

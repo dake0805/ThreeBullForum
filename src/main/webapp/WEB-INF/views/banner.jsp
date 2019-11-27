@@ -40,10 +40,10 @@
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">管理用户</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/admin/manageUsers"/>">管理用户</a></p>
                         </li>
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">管理admin</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/admin/manageAdmins"/>">管理admin</a></p>
                         </li>
                         <li>
                             <p class="navbar-text">欢迎，${sessionScope.admin.userName}</p>
