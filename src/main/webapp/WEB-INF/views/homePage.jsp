@@ -42,7 +42,21 @@
                         <h2>
                             <a href="<c:url value="/topic/detail/${topic.id}" />">${topic.title}</a>
                             <c:if test="${topic.topicStatus}">
-                                <span class="layui-badge layui-bg-red">置顶</span>
+                                <span class="layui-badge layui-bg-red">置顶中</span>
+                            </c:if>
+                            <c:if test="${not empty sessionScope.admin}">
+                                <c:if test="${topic.topicStatus}">
+                                    <a href="#"
+                                       class="layui-badge layui-bg-cyan" style="float: right">取消置顶</a>
+                                </c:if>
+                                <c:if test="${not topic.topicStatus}">
+                                    <a href="<c:url value="/admin/topTopic/${topic.id}"/>"
+                                       class="layui-badge layui-bg-red" style="float: right">置顶</a>
+                                </c:if>
+                                <a href="<c:url value="/admin/editTopic/${topic.id}"/>"
+                                   class="layui-badge layui-bg-blue" style="float: right">编辑帖子</a>
+                                <a href="<c:url value="/admin/deleteTopic/${topic.id}"/>"
+                                   class="layui-badge layui-bg-black" style="float: right">删除帖子</a>
                             </c:if>
                         </h2>
                         <div class="fly-list-info">
@@ -57,7 +71,6 @@
                         </div>
                     </li>
                 </c:forEach>
-                </li>
             </ul>
         </div>
         <div>
@@ -72,7 +85,6 @@
         </div>
     </div>
 </div>
-
 <!-- 引入footer文件-->
 <%@ include file="footer.jsp" %>
 </body>

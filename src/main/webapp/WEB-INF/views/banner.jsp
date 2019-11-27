@@ -40,9 +40,6 @@
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">管理话题</a></p>
-                        </li>
-                        <li>
                             <p class="navbar-text"><a href="<c:url value="/user/register"/>">管理用户</a></p>
                         </li>
                         <li>

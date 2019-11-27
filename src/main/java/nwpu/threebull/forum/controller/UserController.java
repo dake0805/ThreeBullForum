@@ -196,14 +196,13 @@ public class UserController {
                 model.addAttribute("singleTopic", topic);
                 model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
                 model.addAttribute("isMyself", true);
-                return "user/topic";
+                return "redirect:/topic/detail/" + topic.getId();
             } else {
                 return "redirect:/";
             }
         } else {
             return "redirect:/user/editTopic/{topicId}?info=empty_titleOrContent";
         }
-
     }
 
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})

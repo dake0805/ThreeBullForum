@@ -94,7 +94,7 @@ public class AdminController {
         if (null != topic) {
             topicService.deleteTopic(topicId);
         }
-        return "redirect:/admin/manageTopics";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
@@ -120,7 +120,7 @@ public class AdminController {
         if (null != topic) {
             topicService.topTopic(topicId);
         }
-        return "redirect:/admin/manageTopics";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
@@ -138,17 +138,22 @@ public class AdminController {
 
     }
 
+
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
-    public String editTopic(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
-                            @RequestParam(value = "content", defaultValue = "") String content, Model model) {
-        topicService.updateTitleByTopicId(topicId, title, content);
-        Topic topic = topicService.findByTopicId(topicId);
-        if (null != topic) {
-            model.addAttribute("singleTopic", topic);
-            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-            return "admin/topic";
+    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
+                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
+        if (title.length() > 0 && content.length() > 0) {
+            topicService.updateTitleByTopicId(topicId, title, content);
+            Topic topic = topicService.findByTopicId(topicId);
+            if (null != topic) {
+                model.addAttribute("singleTopic", topic);
+                model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+                return "redirect:/topic/detail/" + topic.getId();
+            } else {
+                return "redirect:/";
+            }
         } else {
-            return "redirect:/admin/manageTopics";
+            return "redirect:/user/editTopic/{topicId}?info=empty_titleOrContent";
         }
     }
 
