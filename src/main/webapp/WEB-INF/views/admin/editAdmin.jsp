@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="layui-nav-item layui-this">
-                <a href="<c:url value="/admin/manageUsers"/>">
+                <a href="<c:url value="/admin/manageAdmins"/>">
                     <i class="layui-icon"></i>
                     管理admin
                 </a>
@@ -87,9 +87,12 @@
 
                     <div class="layui-form-item">
                         <button class="layui-btn" lay-filter="*" lay-submit="">确认修改</button>
-                        <span style="padding-left:20px;">
-                </span>
+                        <span style="padding-left:20px;"></span>
                     </div>
+                    <a href="<c:url value="/admin/manageAdmins"/>"
+                       class="layui-form-item layui-btn" style="padding-left:20px;">
+                        返回
+                    </a>
                 </form>
             </div>
         </div>

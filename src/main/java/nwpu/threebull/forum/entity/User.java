@@ -66,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isLocked() {
+    public boolean getIsLocked() {
         return isLocked;
     }
 
-    public void setLocked(boolean locked) {
+    public void setIsLocked(boolean locked) {
         isLocked = locked;
     }
 

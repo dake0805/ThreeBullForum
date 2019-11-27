@@ -46,7 +46,7 @@
                             </c:if>
                             <c:if test="${not empty sessionScope.admin}">
                                 <c:if test="${topic.topicStatus}">
-                                    <a href="#"
+                                    <a href="<c:url value="/admin/unTopTopic/${topic.id}"/>"
                                        class="layui-badge layui-bg-cyan" style="float: right">取消置顶</a>
                                 </c:if>
                                 <c:if test="${not topic.topicStatus}">

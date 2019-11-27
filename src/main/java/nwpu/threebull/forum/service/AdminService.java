@@ -12,6 +12,8 @@ public interface AdminService {
 
     Admin findAdminByAdminNameAndPassword(String name, String password);
 
+    Admin findAdminByAdminName(String name);
+
     List<Admin> findAllAdmins();
 
     void addAdmin(Admin admin);

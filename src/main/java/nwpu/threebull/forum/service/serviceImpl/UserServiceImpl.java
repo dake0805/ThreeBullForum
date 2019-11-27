@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void unLockUserById(int userId) {
+        userRepository.unLockUserById(userId);
+    }
+
+    @Override
     public void addUser(User user) {
         userRepository.addUser(user);
     }

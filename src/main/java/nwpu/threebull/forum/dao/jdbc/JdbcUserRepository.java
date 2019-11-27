@@ -56,6 +56,12 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
+    public void unLockUserById(int userId) {
+        jdbc.update("update user set lock_status = ? where id = ?", 0, userId);
+    }
+
+
+    @Override
     public void addUser(User user) {
         jdbc.update(INSERT_USER, user.getId(), user.getUserName(), user.getPassword());
 

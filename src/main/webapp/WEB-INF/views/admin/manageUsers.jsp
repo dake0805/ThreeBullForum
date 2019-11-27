@@ -45,10 +45,11 @@
         <div class="fly-panel fly-panel-user" pad20="">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <div class="layui-tab-title" id="LAY_mine">
-                    <a href="librarian_add.jsp">
-                        <p style="line-height:40px; vertical-align: middle; float: left; margin-left: 10px">
-                            <strong>增加用户</strong></p>
-                    </a>
+                    <%--                    <a href="librarian_add.jsp">--%>
+                    <%--                        <p style="line-height:40px; vertical-align: middle; float: left; margin-left: 10px">--%>
+                    <%--                            <strong>增加用户</strong></p>--%>
+                    <%--                    </a>--%>
+                    <strong>用户列表</strong>
                 </div>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-tab-item layui-show">
@@ -56,14 +57,14 @@
                             <c:forEach items="${AllUsers}" var="user">
                                 <li>
                                     <a class="jie-title" href="#" target="_blank">${user.userName}</a>
-                                    <c:if test="${user.isLocked()}">
-                                        <a class="mine-edit" href="/jie/edit/8116">上锁</a>
+                                    <c:if test="${not user.isLocked}">
+                                        <a class="mine-edit" href="<c:url value="/admin/lockUser/${user.id}"/>">上锁</a>
                                     </c:if>
-                                    <c:if test="${not user.isLocked()}">
-                                        <a class="mine-edit" href="/jie/edit/8116">解锁</a>
+                                    <c:if test="${user.isLocked}">
+                                        <a class="mine-edit" href="<c:url value="/admin/unLockUser/${user.id}"/>">解锁</a>
                                     </c:if>
-                                    <a class="mine-edit" href="/jie/edit/8116">删除</a>
-                                    <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                        <%--                                    <a class="mine-edit" href="/admin/deleteUser/">删除</a>--%>
+                                        <%--                                    <a class="mine-edit" href="/jie/edit/8116">编辑</a>--%>
                                 </li>
                             </c:forEach>
                         </ul>
