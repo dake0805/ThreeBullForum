@@ -1,6 +1,7 @@
 package nwpu.threebull.forum.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import javafx.scene.control.Alert;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,14 @@ import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.entity.User;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -64,10 +70,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = POST)
-    //TODO jsp中三个参数 多了一个确认密码参数 进行确认
-    public String processRegistration(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpSession session) {
+    public String processRegistration(HttpServletResponse response,
+                                      @Valid @ModelAttribute User user,
+                                      BindingResult bindingResult,
+                                      HttpSession session,
+                                      @RequestParam(value = "repass", defaultValue = "") String rePassword) throws IOException {
         if (bindingResult.hasErrors()) {
             return "user/register";
+        }
+        if (!user.getPassword().equals(rePassword)) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('repassword');</script>");
+            return null;
+        }
+        if (userService.findUserByUserName(user.getUserName()) != null) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('same name');</script>");
+            return null;
         }
         user.setId(0);
         userService.addUser(user);
@@ -83,10 +104,26 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session,
+                               HttpServletRequest request, HttpServletResponse response) {
         User user;
         user = userService.findUserByUserNameAndPassword(userName, password);
         if (null != user) {
+            boolean judge = true;
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("user")) {
+                        cookies[i].setValue(user.getUserName());
+                        judge = false;
+                    }
+                }
+            }
+            if (judge) {
+                Cookie cookie = new Cookie("user", user.getUserName());
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
+            }
 //            model.addAttribute(user);
             session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
