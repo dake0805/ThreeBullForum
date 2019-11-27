@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,40 +32,47 @@
                 <li><a href="<c:url value="/user/login"/>">登入</a></li>
                 <li class="layui-this">注册</li>
             </ul>
-<%--            TODO 对应的control参数未一致--%>
+            <%--            TODO 对应的control参数未一致--%>
             <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form layui-form-pane">
-                        <form method="post">
+                        <sf:form method="post" modelAttribute="user">
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">账号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_email" name="email" required="" lay-verify="email"
-                                           autocomplete="off" class="layui-input">
+                                    <sf:input path="userName" type="text" id="L_email" name="email" required=""
+                                              lay-verify="email"
+                                              autocomplete="off" class="layui-input"/>
                                 </div>
+                                <sf:errors path="userName" cssClass="error"/>
+                                <br/>
                                 <div class="layui-form-mid layui-word-aux">将会成为您唯一的登入名</div>
                             </div>
 
                             <div class="layui-form-item">
                                 <label for="L_pass" class="layui-form-label">密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_pass" name="pass" required="" lay-verify="required"
-                                           autocomplete="off" class="layui-input">
+                                    <sf:input path="password" type="password" id="L_pass" name="pass" required=""
+                                              lay-verify="required"
+                                              autocomplete="off" class="layui-input"/>
                                 </div>
+                                <sf:errors path="password" cssClass="error"/>
+
                             </div>
                             <div class="layui-form-item">
                                 <label for="L_repass" class="layui-form-label">确认密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_repass" name="repass" required="" lay-verify="required"
+                                    <input type="password" id="L_repass" name="repass"
                                            autocomplete="off" class="layui-input">
                                 </div>
+                                <sf:errors path="password" cssClass="error"/>
                             </div>
 
                             <div class="layui-form-item">
                                 <button class="layui-btn" lay-filter="*" lay-submit="">立即注册</button>
                             </div>
 
-                        </form>
+                        </sf:form>
                     </div>
                 </div>
             </div>
@@ -77,29 +85,4 @@
 <%@ include file="../footer.jsp" %>
 </body>
 </html>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>--%>
-<%--    <title>🐂🐂🐂 > 注册</title>--%>
-<%--    <link rel="stylesheet" type="text/css"--%>
-<%--          href="<c:url value="/resources/css/style.css" />">--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h1>注册</h1>--%>
-
-<%--<sf:form method="post" modelAttribute="user">--%>
-<%--    <sf:errors path="*" cssClass="error"/>--%>
-<%--    <br/>--%>
-<%--    用户名：<sf:input path="userName"/>--%>
-<%--    <sf:errors path="userName" cssClass="error"/>--%>
-<%--    <br/>--%>
-<%--    <br/>--%>
-<%--    　密码：<sf:password path="password"/>--%>
-<%--    <sf:errors path="password" cssClass="error"/>--%>
-<%--    <br/>--%>
-<%--    <br/>--%>
-<%--    <input type="submit" value="注册"/>--%>
-<%--</sf:form>--%>
-<%--</body>--%>
-<%--</html>--%>
 
