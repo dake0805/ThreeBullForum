@@ -46,7 +46,7 @@
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">账号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_email" name="userName" required="" lay-verify="required"
+                                    <input type="text" id="L_email" name="userName" value="${cookie.user.value}" required="" lay-verify="required"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>

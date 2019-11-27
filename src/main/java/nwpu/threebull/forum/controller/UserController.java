@@ -15,6 +15,8 @@ import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.entity.User;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -102,10 +104,26 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session,
+                               HttpServletRequest request, HttpServletResponse response) {
         User user;
         user = userService.findUserByUserNameAndPassword(userName, password);
         if (null != user) {
+            boolean judge = true;
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("user")) {
+                        cookies[i].setValue(user.getUserName());
+                        judge = false;
+                    }
+                }
+            }
+            if (judge) {
+                Cookie cookie = new Cookie("user", user.getUserName());
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
+            }
 //            model.addAttribute(user);
             session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
