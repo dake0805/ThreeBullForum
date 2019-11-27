@@ -49,9 +49,8 @@ public class AdminController {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
-            // session.setAttribute("current_user", admin);
             model.addAttribute(admin);
-            return "admin/home";
+            return "homePage";
         }
         return "admin/loginError";
     }
@@ -220,28 +219,4 @@ public class AdminController {
         return "/admin/searchAdmin";
     }
 
-    // @RequestMapping("/SelectAdmin")
-    // public String selectAdmin(Model model) throws IOException {
-    //    request.setCharacterEncoding("utf-8");
-    //    response.setCharacterEncoding("utf-8");
-
-    // long personId = Long.parseLong(request.getParameter("id"));
-    // Person person = personService.findPersonById(personId);
-
-    // ObjectMapper mapper = new ObjectMapper();
-
-    // response.getWriter().write(mapper.writeValueAsString(person));
-    // response.getWriter().close();
-    //
-    // int adminId = 1;
-    // Admin admin = adminService.findAdminById(adminId);
-    //
-    // if (admin != null) {
-    //     model.addAttribute(admin);
-    //     return "admin/AdminProfile";
-    // } else {
-    //     return "redirect:/";
-    // }
-
-    // }
 }

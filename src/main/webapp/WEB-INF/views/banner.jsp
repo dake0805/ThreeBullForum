@@ -19,9 +19,15 @@
                         </li>
                     </ul>
                 </c:if>
-                <c:if test="${not empty sessionScope.user }">
+                <c:if test="${not empty sessionScope.user && not empty sessionScope.user.id}">
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">查看我的主题</a></p>
+                        </li>
+                        <li>
+                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">新建主题</a></p>
+                        </li>
                         <li>
                             <p class="navbar-text">欢迎，${sessionScope.user.userName}</p>
                         </li>
@@ -34,7 +40,16 @@
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text">欢迎，${sessionScope.admin.adminName}</p>
+                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">管理话题</a></p>
+                        </li>
+                        <li>
+                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">管理用户</a></p>
+                        </li>
+                        <li>
+                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">管理admin</a></p>
+                        </li>
+                        <li>
+                            <p class="navbar-text">欢迎，${sessionScope.admin.userName}</p>
                         </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/admin/logout"/>">登出</a></p>

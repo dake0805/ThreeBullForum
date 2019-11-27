@@ -35,7 +35,6 @@ public class VisitorController {
     public String showIndex(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-        model.addAttribute("AccountType", "visitor");
         return "homePage";
     }
 //

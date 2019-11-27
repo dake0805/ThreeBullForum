@@ -89,7 +89,7 @@ public class UserController {
         if (null != user) {
             model.addAttribute(user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-            return "redirect:/user/home";
+            return "homePage";
         }
         return "/user/loginError";
     }
@@ -218,7 +218,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session, Model model) {
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         session.invalidate();
         return "redirect:/";
