@@ -197,14 +197,13 @@ public class AdminController {
 
     @RequestMapping(value = "/lockUser/{userId}", method = RequestMethod.GET)
     public String lockUser(@PathVariable("userId") int userId, Model model) {
-        // if (null != topic) {
-        //     model.addAttribute("singleTopic", topic);
-        //     model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-        //     return "admin/topic";
-        // } else {
-        //     return "redirect:/admin/manageTopics";
-        // }
         userService.lockUserById(userId);
+        return "redirect:/admin/manageUsers";
+    }
+
+    @RequestMapping(value = "/unLockUser/{userId}", method = RequestMethod.GET)
+    public String unLockUser(@PathVariable("userId") int userId, Model model) {
+        userService.unLockUserById(userId);
         return "redirect:/admin/manageUsers";
     }
 
