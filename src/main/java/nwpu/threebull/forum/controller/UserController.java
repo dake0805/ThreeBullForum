@@ -39,23 +39,7 @@ public class UserController {
     private ReplyService replyService;
 
 
-    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.POST)
-    public String newReply(Model model, HttpSession session,
-                           @RequestParam(value = "content", defaultValue = "") String content,
-                           @PathVariable int topicId) {
-        User user = (User) session.getAttribute("user");
-        Topic topic = topicService.findByTopicId(topicId);
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.isLocked()==true) {
-            Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
-            replyService.newReply(reply);
-            return "redirect:/topic/detail/{topicId}";
-        } else {
-            return "redirect:/topic/detail/{topicId}?info=user_locked";
-        }
 
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
@@ -165,12 +149,12 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (title.trim().length() > 0 && content.trim().length() > 0) {
+        if (user.isLocked()==true) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/";
         } else {
-            return "redirect:/?info=empty_titleOrContent";
+            return "redirect:/?info=user_locked";
         }
 
     }
@@ -198,6 +182,24 @@ public class UserController {
             return "user/topic";
         } else {
             return "redirect:/user/home";
+        }
+
+    }
+
+    @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.POST)
+    public String newReply(Model model, HttpSession session,
+                           @RequestParam(value = "content", defaultValue = "") String content,
+                           @PathVariable int topicId) {
+        User user = (User) session.getAttribute("user");
+        Topic topic = topicService.findByTopicId(topicId);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        if (user.isLocked()==true) {
+            Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
+            replyService.newReply(reply);
+            return "redirect:/topic/detail/{topicId}";
+        } else {
+            return "redirect:/topic/detail/{topicId}?info=user_locked";
         }
 
     }

@@ -119,6 +119,6 @@
     <%--var info = '<%=request.getParameter("info")%>';--%>
     var info = '${param.info}';
     if (info == 'user_locked') {
-        alert("您的账户已经被锁定，请及时联系管理员！！!");
+        alert("您的用户已经被锁定，请及时联系管理员！！！\n\r 联系方式：18659632595");
     }
 </script>
