@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -47,10 +50,28 @@ public class AdminController {
                                @RequestParam(value = "password", defaultValue = "") String password,
                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                               HttpSession session) {
+                               HttpSession session,
+                               HttpServletRequest request, HttpServletResponse response) {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
+            boolean cookies_has = false;
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                if (cookies != null) {
+                    for (int i = 0; i < cookies.length; i++) {
+                        if (cookies[i].getName().equals("admin")) {
+                            cookies[i].setValue(admin.getUserName());
+                            cookies_has = true;
+                        }
+                    }
+                }
+            }
+            if (!cookies_has) {
+                Cookie cookie = new Cookie("admin", admin.getUserName());
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
+            }
             session.setAttribute("admin", admin);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
             return "homePage";
