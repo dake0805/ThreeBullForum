@@ -23,10 +23,10 @@
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/mytopics"/>">查看我的主题</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/user/mytopics"/>">查看我的帖子</a></p>
                         </li>
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">新建主题</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/user/newtopic"/>">发布新帖</a></p>
                         </li>
                         <li>
                             <p class="navbar-text">欢迎，${sessionScope.user.userName}</p>
