@@ -144,6 +144,17 @@ public class AdminController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/unTopTopic/{topicId}", method = RequestMethod.GET)
+    public String unTopTopic(@PathVariable("topicId") int topicId, Model model,
+                             HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            topicService.unTopTopic(topicId);
+        }
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
     public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {

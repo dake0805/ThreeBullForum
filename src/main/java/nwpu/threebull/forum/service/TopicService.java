@@ -22,6 +22,8 @@ public interface TopicService {
 
     void topTopic(int topicId);
 
+    void unTopTopic(int topicId);
+
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
 
     PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);

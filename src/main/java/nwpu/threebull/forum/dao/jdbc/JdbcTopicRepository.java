@@ -97,6 +97,11 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     @Override
+    public void unTopTopic(int topicId) {
+        jdbc.update("update topic set top_status = ? where id = ?", 0, topicId);
+    }
+
+    @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         int totalCount = countByUserId(userId);
         int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
