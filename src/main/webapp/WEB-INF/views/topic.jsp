@@ -78,10 +78,10 @@
             </ul>
             每页${replys.pageSize}条回复， 第${replys.currentPageNo}/${replys.totalPageCount}页,共${replys.totalCount}条回复
             <c:if test="${replys.previousPage}">
-                <a href="<c:url value="/?pageNo=${replys.currentPageNo-1}" />">上一页</a>
+                <a href="<c:url value="/topic/detail/${singleTopic.id}?pageNo=${replys.currentPageNo-1}" />">上一页</a>
             </c:if>
             <c:if test="${replys.nextPage}">
-                <a href="<c:url value="/?pageNo=${replys.currentPageNo+1}" />">下一页</a>
+                <a href="<c:url value="/topic/detail/${singleTopic.id}?pageNo=${replys.currentPageNo+1}" />">下一页</a>
             </c:if>
             <br>
             <br>
