@@ -58,11 +58,12 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        model.addAttribute(new User());
+//        model.addAttribute(new User());
         return "user/register";
     }
 
     @RequestMapping(value = "/register", method = POST)
+    //TODO jsp中三个参数 多了一个确认密码参数 进行确认
     public String processRegistration(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "user/register";
@@ -117,13 +118,6 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        //normal
-//        if (null != user) {
-//            return "user/newtopic";
-//        } else {
-//            return "redirect:/user/newtopic";
-//        }
-        //异常操作
         if (info != null) {
             model.addAttribute(info);
         }
@@ -223,7 +217,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, Model model) {
         session.removeAttribute("user");
         session.invalidate();
         return "redirect:/";

@@ -8,33 +8,33 @@
                 <a class="navbar-brand" href="/">ThreeBull Fourm</a>
             </div>
             <div>
-                <c:if test="${empty user && empty admin}">
+                <c:if test="${empty sessionScope.user && empty sessionScope.admin}">
                     <!--未登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/login"/>">登录</a></p>
                         </li>
                         <li>
-                            <p class="navbar-text"><a href="/#">注册</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/user/register"/>">注册</a></p>
                         </li>
                     </ul>
                 </c:if>
-                <c:if test="${not empty user }">
+                <c:if test="${not empty sessionScope.user }">
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text">欢迎，${user.userName}</p>
+                            <p class="navbar-text">欢迎，${sessionScope.user.userName}</p>
                         </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/logout"/>">登出</a></p>
                         </li>
                     </ul>
                 </c:if>
-                <c:if test="${not empty admin}">
+                <c:if test="${not empty sessionScope.admin}">
                     <!--已登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text">欢迎，${admin.adminName}</p>
+                            <p class="navbar-text">欢迎，${sessionScope.admin.adminName}</p>
                         </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/admin/logout"/>">登出</a></p>
