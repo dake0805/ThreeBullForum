@@ -1,6 +1,7 @@
 package nwpu.threebull.forum.service.serviceImpl;
 
 import nwpu.threebull.forum.dao.ReplyRepository;
+import nwpu.threebull.forum.dao.TopicRepository;
 import nwpu.threebull.forum.dao.support.PaginationSupport;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.service.ReplyService;
@@ -15,6 +16,9 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+    private TopicRepository topicRepository;
+
     @Override
     public List<Reply> findByTopicId(int TopicId) {
         return replyRepository.findByTopicId(TopicId);
@@ -23,6 +27,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void newReply(Reply reply) {
         replyRepository.newReply(reply);
+        topicRepository.updateFollowNumber(reply.getTopicId());
     }
 
     @Override

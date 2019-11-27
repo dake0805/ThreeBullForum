@@ -1,28 +1,36 @@
 package nwpu.threebull.forum.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import javafx.scene.control.Alert;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import nwpu.threebull.forum.service.UserService;
 import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.ReplyService;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import nwpu.threebull.forum.entity.User;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @Controller
-@SessionAttributes({"user"})
+//@SessionAttributes({"user"})
 @RequestMapping("/user")
 public class UserController {
 
@@ -44,9 +52,10 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (content.length() > 0) {
+        if (content.trim().length() > 0) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
+
             return "redirect:/user/topic/{topicId}";
         } else {
             return "redirect:/user/topic/{topicId}?info=empty_content";
@@ -54,6 +63,38 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model) {
+        model.addAttribute(new User());
+        return "user/register";
+    }
+
+    @RequestMapping(value = "/register", method = POST)
+    public String processRegistration(HttpServletResponse response,
+                                      @Valid @ModelAttribute User user,
+                                      BindingResult bindingResult,
+                                      HttpSession session,
+                                      @RequestParam(value = "repass", defaultValue = "") String rePassword) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "user/register";
+        }
+        if (!user.getPassword().equals(rePassword)) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('repassword');</script>");
+            return null;
+        }
+        if (userService.findUserByUserName(user.getUserName()) != null) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('same name');</script>");
+            return null;
+        }
+        user.setId(0);
+        userService.addUser(user);
+
+        return "redirect:/user/login";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
@@ -63,13 +104,30 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session,
+                               HttpServletRequest request, HttpServletResponse response) {
         User user;
         user = userService.findUserByUserNameAndPassword(userName, password);
         if (null != user) {
-            model.addAttribute(user);
+            boolean judge = true;
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("user")) {
+                        cookies[i].setValue(user.getUserName());
+                        judge = false;
+                    }
+                }
+            }
+            if (judge) {
+                Cookie cookie = new Cookie("user", user.getUserName());
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
+            }
+//            model.addAttribute(user);
+            session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-            return "user/home";
+            return "homePage";
         }
         return "/user/loginError";
     }
@@ -99,13 +157,6 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        //normal
-//        if (null != user) {
-//            return "user/newtopic";
-//        } else {
-//            return "redirect:/user/newtopic";
-//        }
-        //异常操作
         if (info != null) {
             model.addAttribute(info);
         }
@@ -120,7 +171,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (title.length() > 0 && content.length() > 0) {
+        if (title.trim().length() > 0 && content.trim().length() > 0) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/user/home";
@@ -182,14 +233,13 @@ public class UserController {
                 model.addAttribute("singleTopic", topic);
                 model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
                 model.addAttribute("isMyself", true);
-                return "user/topic";
+                return "redirect:/topic/detail/" + topic.getId();
             } else {
                 return "redirect:/";
             }
         } else {
             return "redirect:/user/editTopic/{topicId}?info=empty_titleOrContent";
         }
-
     }
 
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})

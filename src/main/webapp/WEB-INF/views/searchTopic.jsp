@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/11/27
-  Time: 8:52
+  Time: 17:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,12 +20,12 @@
 </head>
 <body>
 <!-- 引入header文件 -->
-<%@ include file="../banner.jsp" %>
+<%@ include file="banner.jsp" %>
 <div class="container">
     <div class="layui-col-md-10">
         <div class="fly-panel">
             <ul class="fly-list">
-                <c:forEach items="${MyTopics.items}" var="topic">
+                <c:forEach items="${searchTopics.items}" var="topic">
                     <li>
                         <h2>
                             <a href="<c:url value="/topic/detail/${topic.id}" />">${topic.title}</a>
@@ -49,19 +49,19 @@
             </ul>
         </div>
         <div>
-            每页${MyTopics.pageSize}条主题，
-            第${AllTopics.currentPageNo}/${MyTopics.totalPageCount}页,共${MyTopics.totalCount}条主题
-            <c:if test="${MyTopics.previousPage}">
-                <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo-1}" />">上一页</a>
+            每页${searchTopics.pageSize}条主题，
+            第${searchTopics.currentPageNo}/${searchTopics.totalPageCount}页,共${searchTopics.totalCount}条主题
+            <c:if test="${searchTopics.previousPage}">
+                <a href="<c:url value="/searchTopic?pageNo=${searchTopics.currentPageNo-1}&type=${type}&info=${info}" />">上一页</a>
             </c:if>
-            <c:if test="${MyTopics.nextPage}">
-                <a href="<c:url value="/user/mytopics?pageNo=${MyTopics.currentPageNo+1}" />">下一页</a>
+            <c:if test="${searchTopics.nextPage}">
+                <a href="<c:url value="/searchTopic?pageNo=${searchTopics.currentPageNo+1}&type=${type}&info=${info}"/>">下一页</a>
             </c:if>
         </div>
     </div>
 </div>
 
 <!-- 引入footer文件-->
-<%@ include file="../footer.jsp" %>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

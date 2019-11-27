@@ -14,4 +14,6 @@ public interface UserRepository {
     List<User> findAllUsers();
 
     void lockUserById(int userId);
+
+    void addUser(User user);
 }

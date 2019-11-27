@@ -55,6 +55,12 @@ public class JdbcUserRepository implements UserRepository {
         jdbc.update("update user set lock_status = ? where id = ?", 1, userId);
     }
 
+    @Override
+    public void addUser(User user) {
+        jdbc.update(INSERT_USER, user.getId(), user.getUserName(), user.getPassword());
+
+    }
+
 
     private static class UserRowMapper implements RowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -67,4 +73,6 @@ public class JdbcUserRepository implements UserRepository {
 
 
     private static final String SELECT_USER = "select id, username, password, lock_status from user";
+    private static final String INSERT_USER = "insert into user (id, username, password) values (?, ?, ?)";
+
 }

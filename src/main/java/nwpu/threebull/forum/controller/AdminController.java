@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"admin"})
+//@SessionAttributes({"admin"})
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -45,13 +45,15 @@ public class AdminController {
     public String processLogin(Model model,
                                @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password,
+                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                HttpSession session) {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
-            // session.setAttribute("current_user", admin);
-            model.addAttribute(admin);
-            return "admin/home";
+            session.setAttribute("admin", admin);
+            model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
+            return "homePage";
         }
         return "admin/loginError";
     }
@@ -92,7 +94,7 @@ public class AdminController {
         if (null != topic) {
             topicService.deleteTopic(topicId);
         }
-        return "redirect:/admin/manageTopics";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
@@ -118,7 +120,7 @@ public class AdminController {
         if (null != topic) {
             topicService.topTopic(topicId);
         }
-        return "redirect:/admin/manageTopics";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
@@ -136,17 +138,22 @@ public class AdminController {
 
     }
 
+
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
-    public String editTopic(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
-                            @RequestParam(value = "content", defaultValue = "") String content, Model model) {
-        topicService.updateTitleByTopicId(topicId, title, content);
-        Topic topic = topicService.findByTopicId(topicId);
-        if (null != topic) {
-            model.addAttribute("singleTopic", topic);
-            model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-            return "admin/topic";
+    public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
+                      @RequestParam(value = "content", defaultValue = "") String content, Model model) {
+        if (title.length() > 0 && content.length() > 0) {
+            topicService.updateTitleByTopicId(topicId, title, content);
+            Topic topic = topicService.findByTopicId(topicId);
+            if (null != topic) {
+                model.addAttribute("singleTopic", topic);
+                model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
+                return "redirect:/topic/detail/" + topic.getId();
+            } else {
+                return "redirect:/";
+            }
         } else {
-            return "redirect:/admin/manageTopics";
+            return "redirect:/user/editTopic/{topicId}?info=empty_titleOrContent";
         }
     }
 
@@ -220,28 +227,4 @@ public class AdminController {
         return "/admin/searchAdmin";
     }
 
-    // @RequestMapping("/SelectAdmin")
-    // public String selectAdmin(Model model) throws IOException {
-    //    request.setCharacterEncoding("utf-8");
-    //    response.setCharacterEncoding("utf-8");
-
-    // long personId = Long.parseLong(request.getParameter("id"));
-    // Person person = personService.findPersonById(personId);
-
-    // ObjectMapper mapper = new ObjectMapper();
-
-    // response.getWriter().write(mapper.writeValueAsString(person));
-    // response.getWriter().close();
-    //
-    // int adminId = 1;
-    // Admin admin = adminService.findAdminById(adminId);
-    //
-    // if (admin != null) {
-    //     model.addAttribute(admin);
-    //     return "admin/AdminProfile";
-    // } else {
-    //     return "redirect:/";
-    // }
-
-    // }
 }
