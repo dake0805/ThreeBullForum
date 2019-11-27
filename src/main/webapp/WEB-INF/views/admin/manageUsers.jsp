@@ -9,40 +9,73 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Manage Users</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-<a href="<c:url value="/admin/home"/>">Return Home</a>
-<h1>
-    User List
-</h1>
-<div class="userList">
-    <%--    <form method="POST" action="<c:url value="/user/searchTopic"/>">--%>
-    <%--        <span>--%>
-    <%--            <select name="type">--%>
-    <%--                <option value="TITLE">title</option>--%>
-    <%--                <option value="CONTENT">content</option>--%>
-    <%--                <option value="TITLEORCONTENT">title or content</option>--%>
-    <%--            </select>--%>
-    <%--        </span>--%>
-    <%--        <input name="info" class="text" type="text"--%>
-    <%--               placeholder="输入你所要搜索的内容">--%>
-    <%--        <input type="submit" value="搜索"/>--%>
-    <%--    </form>--%>
-    <h1>All Users</h1>
-    <ul class="topicList">
-        <c:forEach items="${AllUsers}" var="user">
-            <div>
-                Username: ${user.userName}
-                <a href="<c:url value="/admin/lockUser/${user.id}"/>">
-                    Lock
+<!-- 引入header文件 -->
+<%@ include file="../banner.jsp" %>
+<div class="container">
+    <div class="layui-container fly-marginTop fly-user-main">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+            <li class="layui-nav-item layui-this">
+                <a href="<c:url value="/admin/manageUsers"/>">
+                    <i class="layui-icon"></i>
+                    管理用户
                 </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="<c:url value="/admin/manageAdmins"/>">
+                    <i class="layui-icon"></i>
+                    管理admin
+                </a>
+            </li>
+
+            <span class="layui-nav-bar" style="top: 167.5px; height: 0px; opacity: 0;"></span></ul>
+
+
+        <div class="fly-panel fly-panel-user" pad20="">
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <div class="layui-tab-title" id="LAY_mine">
+                    <a href="librarian_add.jsp">
+                        <p style="line-height:40px; vertical-align: middle; float: left; margin-left: 10px">
+                            <strong>增加用户</strong></p>
+                    </a>
+                </div>
+                <div class="layui-tab-content" style="padding: 20px 0;">
+                    <div class="layui-tab-item layui-show">
+                        <ul class="mine-view jie-row">
+                            <c:forEach items="${AllUsers}" var="user">
+                                <li>
+                                    <a class="jie-title" href="#" target="_blank">${user.userName}</a>
+                                    <c:if test="${user.isLocked()}">
+                                        <a class="mine-edit" href="/jie/edit/8116">上锁</a>
+                                    </c:if>
+                                    <c:if test="${not user.isLocked()}">
+                                        <a class="mine-edit" href="/jie/edit/8116">解锁</a>
+                                    </c:if>
+                                    <a class="mine-edit" href="/jie/edit/8116">删除</a>
+                                    <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                        <div id="LAY_page"></div>
+                    </div>
+                </div>
             </div>
-        </c:forEach>
-    </ul>
+        </div>
+    </div>
 </div>
-<br>
+
+<!-- 引入footer文件-->
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

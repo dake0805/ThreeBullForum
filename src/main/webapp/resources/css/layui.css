@@ -2930,7 +2930,6 @@ body .layui-table-tips .layui-layer-content {
     left: 0;
     height: 40px;
     white-space: nowrap;
-    font-size: 0;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     transition: all .2s;

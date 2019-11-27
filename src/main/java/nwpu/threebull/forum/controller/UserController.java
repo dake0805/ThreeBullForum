@@ -1,31 +1,26 @@
 package nwpu.threebull.forum.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import javafx.scene.control.Alert;
 import nwpu.threebull.forum.entity.Reply;
 import nwpu.threebull.forum.entity.Topic;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
-import nwpu.threebull.forum.service.UserService;
-import nwpu.threebull.forum.service.TopicService;
-import nwpu.threebull.forum.service.ReplyService;
 import nwpu.threebull.forum.entity.User;
+import nwpu.threebull.forum.service.ReplyService;
+import nwpu.threebull.forum.service.TopicService;
+import nwpu.threebull.forum.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
