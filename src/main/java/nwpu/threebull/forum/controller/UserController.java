@@ -40,8 +40,6 @@ public class UserController {
     private ReplyService replyService;
 
 
-
-
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute(new User());
@@ -150,7 +148,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.isLocked()==true) {
+        if (user.getIsLocked() == true) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/";
@@ -195,7 +193,7 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.isLocked()==true) {
+        if (user.getIsLocked() == true) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
             return "redirect:/topic/detail/{topicId}";
