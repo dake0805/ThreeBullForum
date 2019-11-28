@@ -44,20 +44,29 @@
         <div class="fly-panel fly-panel-user" pad20="">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <div class="layui-tab-title" id="LAY_mine">
-                    <a href=<c:url value="#"></c:url>
+                    <a href="<c:url value="/admin/addAdmin"/>">
                         <p style="line-height:40px; vertical-align: middle; float: left; margin-left: 10px">
                             <strong>增加管理员</strong></p>
                     </a>
                 </div>
+
+                <div class="layui-col-md-10">
+                    <form method="POST" action="<c:url value="/admin/searchAdmin"/>">
+                        <input style="width: 60%" name="username" class="text" type="text"
+                               placeholder="输入你所要搜索的管理员用户名">
+                        <input type="submit" style="width: 15%;" value="搜索"/>
+                    </form>
+                </div>
+
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-tab-item layui-show">
                         <ul class="mine-view jie-row">
                             <c:forEach items="${AdminList}" var="admin">
                                 <li>
                                     <a class="jie-title" href="#" target="_blank">${admin.userName}</a>
-                                    <a class="mine-edit" href="/jie/edit/8116">删除</a>
+                                    <a class="mine-edit" href="<c:url value="/admin/deleteAdmin/${admin.id}"/>">删除</a>
                                     <a class="mine-edit"
-                                       href="<c:url value="/admin/editAdmin/${admin.id}"></c:url> ">编辑</a>
+                                       href="<c:url value="/admin/editAdmin/${admin.id}"/>">编辑</a>
                                 </li>
                             </c:forEach>
                         </ul>

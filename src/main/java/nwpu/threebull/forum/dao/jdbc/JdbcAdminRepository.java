@@ -47,6 +47,19 @@ public class JdbcAdminRepository implements AdminRepository {
     }
 
     @Override
+    public Admin findAdminByAdminName(String userName) {
+        Admin admin = null;
+        try {
+            admin = jdbc.queryForObject(SELECT_ADMIN + " where username=? ", new AdminRowMapper(),
+                    userName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return admin;
+    }
+
+
+    @Override
     public List<Admin> findAllAdmins() {
         return jdbc.query(SELECT_ADMIN, new AdminRowMapper());
     }

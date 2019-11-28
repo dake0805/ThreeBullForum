@@ -26,6 +26,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Admin findAdminByAdminName(String userName) {
+        return adminRepository.findAdminByAdminName(userName);
+    }
+
+    @Override
     public List<Admin> findAllAdmins() {
         return adminRepository.findAllAdmins();
     }

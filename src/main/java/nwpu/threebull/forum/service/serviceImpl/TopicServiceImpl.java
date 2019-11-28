@@ -55,6 +55,11 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public void unTopTopic(int topicId) {
+        topicRepository.unTopTopic(topicId);
+    }
+
+    @Override
     public PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize) {
         return topicRepository.findPageByUserId(userId, pageNo, pageSize);
     }

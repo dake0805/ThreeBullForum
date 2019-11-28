@@ -14,5 +14,7 @@ public interface UserService {
 
     void lockUserById(int userId);
 
+    void unLockUserById(int userId);
+
     void addUser(User user);
 }

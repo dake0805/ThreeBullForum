@@ -11,7 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -47,10 +52,28 @@ public class AdminController {
                                @RequestParam(value = "password", defaultValue = "") String password,
                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                               HttpSession session) {
+                               HttpSession session,
+                               HttpServletRequest request, HttpServletResponse response) {
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
+            boolean cookies_has = false;
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                if (cookies != null) {
+                    for (int i = 0; i < cookies.length; i++) {
+                        if (cookies[i].getName().equals("admin")) {
+                            cookies[i].setValue(admin.getUserName());
+                            cookies_has = true;
+                        }
+                    }
+                }
+            }
+            if (!cookies_has) {
+                Cookie cookie = new Cookie("admin", admin.getUserName());
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
+            }
             session.setAttribute("admin", admin);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
             return "homePage";
@@ -65,13 +88,13 @@ public class AdminController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
-    public String manageTopics(Model model,
-                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
-        model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-        return "admin/manageTopics";
-    }
+    // @RequestMapping(value = "/manageTopics", method = RequestMethod.GET)
+    // public String manageTopics(Model model,
+    //                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+    //                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+    //     model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
+    //     return "admin/manageTopics";
+    // }
 
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
@@ -123,6 +146,17 @@ public class AdminController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/unTopTopic/{topicId}", method = RequestMethod.GET)
+    public String unTopTopic(@PathVariable("topicId") int topicId, Model model,
+                             HttpSession session) {
+
+        Topic topic = topicService.findByTopicId(topicId);
+        if (null != topic) {
+            topicService.unTopTopic(topicId);
+        }
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
     public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
@@ -165,14 +199,13 @@ public class AdminController {
 
     @RequestMapping(value = "/lockUser/{userId}", method = RequestMethod.GET)
     public String lockUser(@PathVariable("userId") int userId, Model model) {
-        // if (null != topic) {
-        //     model.addAttribute("singleTopic", topic);
-        //     model.addAttribute("replys", replyService.findPageByTopicId(topic.getId(), 1, 10));
-        //     return "admin/topic";
-        // } else {
-        //     return "redirect:/admin/manageTopics";
-        // }
         userService.lockUserById(userId);
+        return "redirect:/admin/manageUsers";
+    }
+
+    @RequestMapping(value = "/unLockUser/{userId}", method = RequestMethod.GET)
+    public String unLockUser(@PathVariable("userId") int userId, Model model) {
+        userService.unLockUserById(userId);
         return "redirect:/admin/manageUsers";
     }
 
@@ -190,14 +223,34 @@ public class AdminController {
 
     @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
     public String addAdmin(@RequestParam(value = "username", defaultValue = "") String username,
-                           @RequestParam(value = "password", defaultValue = "") String password) {
+                           @RequestParam(value = "password", defaultValue = "") String password,
+                           HttpServletResponse response) throws IOException {
+
+        if (adminService.findAdminByAdminName(username) != null) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Username already exist!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
+
         Admin admin = new Admin(0, username, password);
         adminService.addAdmin(admin);
         return "redirect:/admin/manageAdmins";
     }
 
     @RequestMapping(value = "/deleteAdmin/{adminId}", method = RequestMethod.GET)
-    public String deleteAdmin(@PathVariable(value = "adminId") int adminId) {
+    public String deleteAdmin(@PathVariable(value = "adminId") int adminId,
+                              HttpSession session,
+                              HttpServletResponse response) throws IOException {
+        Admin currentAdmin = (Admin) session.getAttribute("admin");
+        if (currentAdmin.getId() == adminId) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Can't delete yourself!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
         adminService.deleteAdminById(adminId);
         return "redirect:/admin/manageAdmins";
     }
@@ -213,8 +266,18 @@ public class AdminController {
     public String editAdmin(@PathVariable(value = "adminId") int adminId,
                             @RequestParam(value = "username", defaultValue = "") String username,
                             @RequestParam(value = "password", defaultValue = "") String password,
-                            Model model) {
+                            Model model,
+                            HttpServletResponse response) throws IOException {
         Admin admin = adminService.findAdminById(adminId);
+
+        if (adminService.findAdminByAdminName(username) != null) {
+            // TODO Alert didn't work
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Username already exist!');</script>");
+            return "redirect:/admin/manageAdmins";
+        }
+
         admin.setUserName(username);
         admin.setPassword(password);
         adminService.editAdmin(admin);
