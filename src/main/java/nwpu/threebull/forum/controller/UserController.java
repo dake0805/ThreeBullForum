@@ -51,26 +51,27 @@ public class UserController {
                                       @Valid @ModelAttribute User user,
                                       BindingResult bindingResult,
                                       HttpSession session,
-                                      @RequestParam(value = "repass", defaultValue = "") String rePassword) throws IOException {
+                                      @RequestParam(value = "repass", defaultValue = "") String rePassword, Model model) throws IOException {
         if (bindingResult.hasErrors()) {
             return "user/register";
         }
         if (!user.getPassword().equals(rePassword)) {
-            response.setContentType("text/html; charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('repassword');</script>");
-            return null;
+//            response.setContentType("text/html; charset=utf-8");
+//            PrintWriter out = response.getWriter();
+//            out.println("<script>alert('repassword');</script>");
+            return "redirect:/user/register?info=repassword";
         }
         if (userService.findUserByUserName(user.getUserName()) != null) {
-            response.setContentType("text/html; charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('same name');</script>");
-            return null;
+//            response.setContentType("text/html; charset=utf-8");
+//            PrintWriter out = response.getWriter();
+//            out.println("<script>alert('same name');</script>");
+            return "redirect:/user/register?info=samename";
         }
         user.setId(0);
         userService.addUser(user);
-
-        return "redirect:/user/login";
+        session.setAttribute("user", user);
+        model.addAttribute("AllTopics", topicService.findPageTopics(1, 10));
+        return "homePage";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

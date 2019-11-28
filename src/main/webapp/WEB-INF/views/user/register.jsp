@@ -84,3 +84,12 @@
 </body>
 </html>
 
+<script>
+    <%--var info = '<%=request.getParameter("info")%>';--%>
+    var info = '${param.info}';
+    if (info == 'samename') {
+        alert("该用户名称已被注册")
+    } else if (info == 'repassword') {
+        alert("密码不一致");``
+    }
+</script>
