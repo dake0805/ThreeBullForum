@@ -9,6 +9,7 @@ import nwpu.threebull.forum.service.TopicService;
 import nwpu.threebull.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +70,7 @@ public class UserController {
         }
         user.setId(0);
         userService.addUser(user);
+        user = userService.findUserByUserName(user.getUserName());
         session.setAttribute("user", user);
         model.addAttribute("AllTopics", topicService.findPageTopics(1, 10));
         return "homePage";
@@ -135,10 +137,14 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if (info != null) {
-            model.addAttribute(info);
+        if(user != null){
+            if (info != null) {
+                model.addAttribute(info);
+            }
+            return "user/newtopic";
+        }else {
+            return "user/login";
         }
-        return "user/newtopic";
 
     }
 
@@ -149,7 +155,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.getIsLocked() == false) {
+        if (!user.getIsLocked()) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/";
@@ -194,7 +200,7 @@ public class UserController {
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.getIsLocked() == true) {
+        if (!user.getIsLocked()) {
             Reply reply = new Reply(0, topic.getId(), content, user, timestamp);
             replyService.newReply(reply);
             return "redirect:/topic/detail/{topicId}";

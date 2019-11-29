@@ -82,3 +82,13 @@
 <%@ include file="../footer.jsp" %>
 </body>
 </html>
+
+<script>
+    var info = '${param.info}';
+    if (info === 'userNameExist') {
+        alert("用户名已存在!");
+    }
+    if (info === 'deleteSelf') {
+        alert("删除操作不能删除自己!");
+    }
+</script>

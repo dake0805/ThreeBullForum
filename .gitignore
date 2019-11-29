@@ -12,3 +12,4 @@ ThreeBullForum.iml
 /.idea/libraries/*
 .idea/.name
 .idea/dataSources.xml
+src/main/resources/dbconfig.properties
