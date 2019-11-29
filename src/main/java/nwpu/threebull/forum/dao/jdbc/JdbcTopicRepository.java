@@ -64,7 +64,6 @@ public class JdbcTopicRepository implements TopicRepository {
         jdbc.update("update topic set click_number = ? where id = ?", clickNum, topic.getId());
     }
 
-
     @Override
     public List<Topic> findByUserId(int userId) {
         return jdbc.query(SELECT_TOPIC_BY_USERID, new TopicRowMapper(), userId);

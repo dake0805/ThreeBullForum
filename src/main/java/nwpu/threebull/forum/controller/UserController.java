@@ -149,7 +149,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("user");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        if (user.getIsLocked() == true) {
+        if (user.getIsLocked() == false) {
             Topic topic = new Topic(0, title, content, user, false, null, timestamp, 0, 0);
             topicService.newTopic(topic);
             return "redirect:/";
