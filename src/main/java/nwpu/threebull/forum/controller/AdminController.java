@@ -227,11 +227,7 @@ public class AdminController {
                            HttpServletResponse response) throws IOException {
 
         if (adminService.findAdminByAdminName(username) != null) {
-            // TODO Alert didn't work
-            response.setContentType("text/html; charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('Username already exist!');</script>");
-            return "redirect:/admin/manageAdmins";
+            return "redirect:/admin/manageAdmins?info=userNameExist";
         }
 
         Admin admin = new Admin(0, username, password);
@@ -245,11 +241,7 @@ public class AdminController {
                               HttpServletResponse response) throws IOException {
         Admin currentAdmin = (Admin) session.getAttribute("admin");
         if (currentAdmin.getId() == adminId) {
-            // TODO Alert didn't work
-            response.setContentType("text/html; charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('Can't delete yourself!');</script>");
-            return "redirect:/admin/manageAdmins";
+            return "redirect:/admin/manageAdmins?info=deleteSelf";
         }
         adminService.deleteAdminById(adminId);
         return "redirect:/admin/manageAdmins";
@@ -271,11 +263,10 @@ public class AdminController {
         Admin admin = adminService.findAdminById(adminId);
 
         if (adminService.findAdminByAdminName(username) != null) {
-            // TODO Alert didn't work
-            response.setContentType("text/html; charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('Username already exist!');</script>");
-            return "redirect:/admin/manageAdmins";
+            // response.setContentType("text/html; charset=utf-8");
+            // PrintWriter out = response.getWriter();
+            // out.println("<script>alert(\"Username already exist!\");</script>");
+            return "redirect:/admin/manageAdmins?info=userNameExist";
         }
 
         admin.setUserName(username);
