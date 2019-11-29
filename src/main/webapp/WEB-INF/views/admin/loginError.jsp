@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>登录有误，请重新尝试</h1>
-<a href="<c:url value="/user/login" />">登录</a> |
+<a href="<c:url value="/admin/login" />">登录</a> |
 <%--<a href="<c:url value="/spitter/register" />">注册</a>--%>
 </body>
 </html>
