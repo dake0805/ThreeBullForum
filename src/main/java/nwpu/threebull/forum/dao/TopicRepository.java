@@ -17,7 +17,7 @@ public interface TopicRepository {
 
     int countSearchMyTopics(int userID, String info, String type);
 
-    void updateClickNumByTopic(Topic topic);
+    Topic updateClickNumByTopic(Topic topic);
 
     List<Topic> findByUserId(int userId);
 

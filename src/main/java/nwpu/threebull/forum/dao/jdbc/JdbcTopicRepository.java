@@ -76,10 +76,12 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     @Override
-    public void updateClickNumByTopic(Topic topic) {
+    public Topic updateClickNumByTopic(Topic topic) {
         int clickNum = topic.getClickNum();
         clickNum++;
         jdbc.update("update topic set click_number = ? where id = ?", clickNum, topic.getId());
+        topic.setClickNum(topic.getClickNum()+1);
+        return topic;
     }
 
 
