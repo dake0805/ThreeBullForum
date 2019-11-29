@@ -1,4 +1,4 @@
-package nwpu.threebull.forum.tool;
+package nwpu.threebull.forum.tool.tag;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;

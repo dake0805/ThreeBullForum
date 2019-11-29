@@ -1,5 +1,7 @@
 package nwpu.threebull.forum.config;
 
+import nwpu.threebull.forum.tool.interceptor.AdminInterceptor;
+import nwpu.threebull.forum.tool.interceptor.UserInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -61,6 +63,12 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new UserInterceptor())
+                .addPathPatterns("/user/**")//添加拦截
+                .excludePathPatterns(new String[] { "/user/register", "/user/login"});// excludePathPatterns 排除拦截
+        registry.addInterceptor(new AdminInterceptor())
+                .addPathPatterns("/admin/**")//添加拦截
+                .excludePathPatterns("/admin/login");// excludePathPatterns 排除拦截
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
