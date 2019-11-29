@@ -9,13 +9,13 @@
 
     <tag>
         <name>infoTag</name>
-        <tag-class>nwpu.threebull.forum.tool.InfoTag</tag-class>
+        <tag-class>nwpu.threebull.forum.tool.tag.InfoTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
         <name>footerTag</name>
-        <tag-class>nwpu.threebull.forum.tool.FooterTag</tag-class>
+        <tag-class>nwpu.threebull.forum.tool.tag.FooterTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>

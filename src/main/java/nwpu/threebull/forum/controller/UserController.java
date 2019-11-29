@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
@@ -107,7 +108,7 @@ public class UserController {
 //            model.addAttribute(user);
             session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-            return "homePage";
+            return "redirect:/";
         }
         return "/user/loginError";
     }
@@ -265,4 +266,27 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/editUser", method = GET)
+    public String editUser(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("SelectedUser", user);
+        return "user/editUser";
+    }
+
+    @RequestMapping(value = "/editUser", method = POST)
+    public String editUser(@RequestParam(value = "username", defaultValue = "") String username,
+                           @RequestParam(value = "password", defaultValue = "") String password,
+                           @RequestParam(value = "newPassword", defaultValue = "") String newPassword,
+                           Model model, HttpSession session,
+                           HttpServletResponse response) throws IOException {
+        User user = (User) session.getAttribute("user");
+        if (!user.getPassword().equals(password)) {
+            return "redirect:editUser";
+        }
+        user.setUserName(username);
+        user.setPassword(newPassword);
+        userService.editUser(user);
+        session.setAttribute("user", user);
+        return "redirect:/";
+    }
 }

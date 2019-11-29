@@ -84,7 +84,6 @@ public class JdbcTopicRepository implements TopicRepository {
         return topic;
     }
 
-
     @Override
     public List<Topic> findByUserId(int userId) {
         return jdbc.query(SELECT_TOPIC_BY_USERID, new TopicRowMapper(), userId);

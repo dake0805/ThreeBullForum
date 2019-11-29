@@ -32,9 +32,6 @@
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/newtopic"/>">发布新帖</a></p>
                         </li>
-                            <%--<li>
-                                <p class="navbar-text">欢迎，${sessionScope.user.userName}</p>
-                            </li>--%>
                         <tbfTag:infoTag/>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/logout"/>">登出</a></p>
