@@ -137,10 +137,14 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if (info != null) {
-            model.addAttribute(info);
+        if(user != null){
+            if (info != null) {
+                model.addAttribute(info);
+            }
+            return "user/newtopic";
+        }else {
+            return "user/login";
         }
-        return "user/newtopic";
 
     }
 
