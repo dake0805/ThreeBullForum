@@ -11,6 +11,7 @@ public class User {
 
 
     @NotEmpty
+    @NotBlank
     @Size(min = 2, max = 30)
     private
     String userName;
