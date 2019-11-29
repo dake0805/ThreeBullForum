@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
 
 @Controller
@@ -54,6 +55,12 @@ public class AdminController {
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                HttpSession session,
                                HttpServletRequest request, HttpServletResponse response) {
+
+        Enumeration em = request.getSession().getAttributeNames();
+        while (em.hasMoreElements()) {
+            request.getSession().removeAttribute(em.nextElement().toString());
+        }
+
         Admin admin;
         admin = adminService.findAdminByAdminNameAndPassword(userName, password);
         if (null != admin) {
