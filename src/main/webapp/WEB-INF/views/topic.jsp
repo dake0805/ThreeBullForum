@@ -19,7 +19,8 @@
 <div class="container">
     <div class="">
         <div class="fly-panel detail-box">
-            <h1>${singleTopic.title}</h1>
+            <h1>标题：</h1>
+            <h2>${singleTopic.title}</h2>
             <div class="fly-detail-info">
                 <c:if test="${singleTopic.topicStatus}">
                     <span class="layui-badge layui-bg-red">置顶</span>
@@ -47,7 +48,9 @@
             <div class="detail-body photos">
                 <hr>
                 <p>
-                    <c:out value="${singleTopic.content}"/>
+                    <h1>主题内容:</h1>
+                    <h2>${singleTopic.content}</h2>
+<%--                    <c:out value="${singleTopic.content}"/>--%>
                 </p>
             </div>
         </div>
@@ -87,7 +90,7 @@
             <br>
             <c:if test="${not empty sessionScope.user && not empty sessionScope.user.id}">
                 <div class="layui-form layui-form-pane">
-                    <form action="/jie/reply/" method="post">
+                    <form  method="POST" name="newReplay" action="<c:url value="/user/topic/${singleTopic.id}" />">
                         <div class="layui-form-item layui-form-text">
                             <a name="comment"></a>
                             <div class="layui-input-block">
@@ -112,10 +115,10 @@
 <%@ include file="footer.jsp" %>
 </body>
 </html>
-<%--<script>--%>
-<%--    &lt;%&ndash;var info = '<%=request.getParameter("info")%>';&ndash;%&gt;--%>
-<%--    var info = '${param.info}';--%>
-<%--    if (info == 'empty_content') {--%>
-<%--        alert("回帖内容不能为空!");--%>
-<%--    }--%>
-<%--</script>--%>
+<script>
+    <%--var info = '<%=request.getParameter("info")%>';--%>
+    var info = '${param.info}';
+    if (info == 'user_locked') {
+        alert("您的用户已经被锁定，请及时联系管理员！！！\n\r 联系方式：18659632595");
+    }
+</script>

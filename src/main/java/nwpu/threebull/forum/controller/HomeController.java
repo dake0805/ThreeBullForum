@@ -33,8 +33,13 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                            @RequestParam(value = "info", required = false) String info) {
+        if (info != null) {
+            model.addAttribute(info);
+        }
         model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
+        model.addAttribute("info");
         return "homePage";
     }
 
