@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
@@ -107,7 +108,7 @@ public class UserController {
 //            model.addAttribute(user);
             session.setAttribute("user", user);
             model.addAttribute("AllTopics", topicService.findPageTopics(pageNo, pageSize));
-            return "homePage";
+            return "redirect:/";
         }
         return "/user/loginError";
     }
@@ -137,12 +138,12 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if(user != null){
+        if (user != null) {
             if (info != null) {
                 model.addAttribute(info);
             }
             return "user/newtopic";
-        }else {
+        } else {
             return "user/login";
         }
 
@@ -263,4 +264,22 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/editUser", method = GET)
+    public String editUser(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("SelectedUser", user);
+        return "user/editUser";
+    }
+
+    @RequestMapping(value = "/editUser", method = POST)
+    public String editUser(@RequestParam(value = "username", defaultValue = "") String username,
+                           @RequestParam(value = "password", defaultValue = "") String password,
+                           Model model, HttpSession session,
+                           HttpServletResponse response) throws IOException {
+        User user = (User) session.getAttribute("user");
+        user.setUserName(username);
+        user.setPassword(password);
+        userService.editUser(user);
+        return "redirect:/";
+    }
 }

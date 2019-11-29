@@ -18,4 +18,6 @@ public interface UserRepository {
     void unLockUserById(int userId);
 
     void addUser(User user);
+
+    void editUser(User user);
 }

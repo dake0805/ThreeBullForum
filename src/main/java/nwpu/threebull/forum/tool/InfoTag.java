@@ -20,12 +20,13 @@ public class InfoTag extends SimpleTagSupport {
             Admin admin = (Admin) session.getAttribute("admin");
 
             if (null != user) {
-                getJspContext().getOut().println("<li><p class=\"navbar-text\">欢迎，" + user.getUserName() + "</p></li>");
+                getJspContext().getOut().println("<li><p class=\"navbar-text\">欢迎，<a href=\"/user/editUser\">" + user.getUserName() + "</a></p></li>");
             } else if (null != admin) {
                 getJspContext().getOut().println("<li><p class=\"navbar-text\">欢迎，" + admin.getUserName() + "</p></li>");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 }
