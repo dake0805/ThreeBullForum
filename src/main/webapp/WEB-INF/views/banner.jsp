@@ -13,7 +13,7 @@
                     <!--未登陆-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <p class="navbar-text"><a href="<c:url value="/user/newtopic"/>">发布新帖</a></p>
+                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">发布新帖</a></p>
                         </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/login"/>">登录</a></p>
