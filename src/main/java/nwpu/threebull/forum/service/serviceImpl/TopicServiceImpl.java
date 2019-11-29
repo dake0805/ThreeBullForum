@@ -40,7 +40,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void newTopic(Topic topic){
+    public void newTopic(Topic topic) {
         topicRepository.newTopic(topic);
     }
 
@@ -72,5 +72,10 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public PaginationSupport<Topic> findPageByTopicTitleOrContent(String info, String type, int pageNo, int pageSize) {
         return topicRepository.findPageTopicsByTitleOrContent(info, type, pageNo, pageSize);
+    }
+
+    @Override
+    public PaginationSupport<Topic> findPageByMyTopicTitleOrContent(String info, int userID, String type, int pageNo, int pageSize) {
+        return topicRepository.findPageMyTopicsByTitleOrContent(info, userID, type, pageNo, pageSize);
     }
 }

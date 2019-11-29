@@ -23,6 +23,18 @@
 <%@ include file="../banner.jsp" %>
 <div class="container">
     <div class="layui-col-md-10">
+        <form method="POST" action="<c:url value="/user/searchMyTopic"/>">
+         <span>
+            <select style="width: 15%" name="type">
+                <option value="TITLE">title</option>
+                <option value="CONTENT">content</option>
+                <option value="TITLEORCONTENT">title or content</option>
+            </select>
+        </span>
+            <input style="width: 60%" name="info" class="text" type="text"
+                   placeholder="输入你所要搜索的内容">
+            <input type="submit" style="width: 15%;" value="搜索"/>
+        </form>
         <div class="fly-panel">
             <ul class="fly-list">
                 <c:forEach items="${MyTopics.items}" var="topic">

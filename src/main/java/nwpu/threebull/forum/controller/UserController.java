@@ -137,12 +137,12 @@ public class UserController {
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
         User user = (User) httpSession.getAttribute("user");
-        if(user != null){
+        if (user != null) {
             if (info != null) {
                 model.addAttribute(info);
             }
             return "user/newtopic";
-        }else {
+        } else {
             return "user/login";
         }
 
@@ -244,15 +244,17 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/searchMyTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
                               @RequestParam(value = "type") String type,
                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        model.addAttribute("searchTopics", topicService.findPageByTopicTitleOrContent(info, type, pageNo, pageSize));
+                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("MyTopics", topicService.findPageByMyTopicTitleOrContent(info, user.getId(), type, pageNo, pageSize));
+
         model.addAttribute("info", info);
         model.addAttribute("type", type);
-        return "/user/searchTopic";
+        return "/user/mytopics";
     }
 
 
