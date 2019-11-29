@@ -28,16 +28,11 @@
 <div class="container">
     <div class="layui-container fly-marginTop fly-user-main">
         <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
-            <li class="layui-nav-item">
-                <a href="<c:url value="/admin/manageUsers"/>">
-                    <i class="layui-icon"></i>
-                    管理用户
-                </a>
-            </li>
+
             <li class="layui-nav-item layui-this">
-                <a href="<c:url value="/admin/manageAdmins"/>">
-                    <i class="layui-icon"></i>
-                    管理admin
+                <a href="<c:url value="/user/editUser"/>">
+                    <i class="layui-icon"> </i>
+                    修改密码
                 </a>
             </li>
             <span class="layui-nav-bar" style="top: 167.5px; height: 0px; opacity: 0;"></span></ul>
@@ -50,15 +45,25 @@
 
                             <input type="text" name="username" id="L_email" value="${SelectedUser.userName}"
                                    required=""
+                                   readonly
                                    lay-verify="required"
                                    autocomplete="off" class="layui-input"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label for="L_pass" class="layui-form-label" style="text-align:left">密码</label>
+                        <label for="L_pass" class="layui-form-label" style="text-align:left">旧密码</label>
                         <div class=" layui-input-inline">
-                            <input type="text" id="L_pass" name="password" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input" value="${SelectedUser.password}">
+                            <input type="password" id="password" name="password" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input" value="">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label" style="text-align:left">新密码</label>
+                        <div class=" layui-input-inline">
+                            <input type="password" id="newPassword" name="newPassword" required=""
+                                   lay-verify="required"
+                                   autocomplete="off" class="layui-input" value="">
                         </div>
                     </div>
 

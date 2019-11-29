@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="threebull" />
+        <module name="ThreeBullForum" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="threebull" target="1.8" />
+      <module name="ThreeBullForum" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

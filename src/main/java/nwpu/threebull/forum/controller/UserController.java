@@ -276,12 +276,17 @@ public class UserController {
     @RequestMapping(value = "/editUser", method = POST)
     public String editUser(@RequestParam(value = "username", defaultValue = "") String username,
                            @RequestParam(value = "password", defaultValue = "") String password,
+                           @RequestParam(value = "newPassword", defaultValue = "") String newPassword,
                            Model model, HttpSession session,
                            HttpServletResponse response) throws IOException {
         User user = (User) session.getAttribute("user");
+        if (!user.getPassword().equals(password)) {
+            return "redirect:editUser";
+        }
         user.setUserName(username);
-        user.setPassword(password);
+        user.setPassword(newPassword);
         userService.editUser(user);
+        session.setAttribute("user", user);
         return "redirect:/";
     }
 }
