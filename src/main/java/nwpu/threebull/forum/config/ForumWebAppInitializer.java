@@ -21,6 +21,10 @@ public class ForumWebAppInitializer
         return new String[]{"/"};
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter c = new CharacterEncodingFilter();

@@ -26,6 +26,13 @@ import java.util.Date;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+/**
+ * user相关的控制类
+ * 前置路径为“/user”
+ *
+ * @author ThreeBullForumTeam
+ * @version 1.0
+ */
 @Controller
 //@SessionAttributes({"user"})
 @RequestMapping("/user")
@@ -40,13 +47,28 @@ public class UserController {
     @Autowired
     private ReplyService replyService;
 
-
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute(new User());
         return "user/register";
     }
 
+    /**
+     *
+     * @param response
+     * @param user
+     * @param bindingResult
+     * @param session
+     * @param rePassword
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/register", method = POST)
     public String processRegistration(HttpServletResponse response,
                                       @Valid @ModelAttribute User user,
@@ -76,11 +98,28 @@ public class UserController {
         return "homePage";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "user/login";
     }
 
+    /**
+     *
+     * @param model
+     * @param userName
+     * @param password
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam(value = "userName", defaultValue = "") String userName,
                                @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -112,6 +151,13 @@ public class UserController {
         return "/user/loginError";
     }
 
+    /**
+     *
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHome(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
@@ -119,6 +165,14 @@ public class UserController {
         return "user/home";
     }
 
+    /**
+     *
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/mytopics", method = RequestMethod.GET)
     public String showMyTopics(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
@@ -132,7 +186,13 @@ public class UserController {
         }
     }
 
-
+    /**
+     *
+     * @param model
+     * @param httpSession
+     * @param info
+     * @return
+     */
     @RequestMapping(value = "/newtopic", method = RequestMethod.GET)
     public String newTopics(Model model, HttpSession httpSession,
                             @RequestParam(value = "info", required = false) String info) {
@@ -148,6 +208,14 @@ public class UserController {
 
     }
 
+    /**
+     *
+     * @param model
+     * @param httpSession
+     * @param title
+     * @param content
+     * @return
+     */
     @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
     public String creatNewTopics(Model model, HttpSession httpSession,
                                  @RequestParam(value = "title", defaultValue = "") String title,
@@ -165,7 +233,16 @@ public class UserController {
 
     }
 
-
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param session
+     * @param pageNo
+     * @param pageSize
+     * @param info
+     * @return
+     */
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, HttpSession session,
                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -192,6 +269,14 @@ public class UserController {
 
     }
 
+    /**
+     *
+     * @param model
+     * @param session
+     * @param content
+     * @param topicId
+     * @return
+     */
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.POST)
     public String newReply(Model model, HttpSession session,
                            @RequestParam(value = "content", defaultValue = "") String content,
@@ -210,6 +295,15 @@ public class UserController {
 
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
     public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
@@ -225,6 +319,14 @@ public class UserController {
 
     }
 
+    /**
+     *
+     * @param topicId
+     * @param title
+     * @param content
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
     public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
                       @RequestParam(value = "content", defaultValue = "") String content, Model model) {
@@ -244,6 +346,15 @@ public class UserController {
         }
     }
 
+    /**
+     *
+     * @param info
+     * @param model
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
                               @RequestParam(value = "type") String type,
@@ -255,7 +366,11 @@ public class UserController {
         return "/user/searchTopic";
     }
 
-
+    /**
+     *
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("user");

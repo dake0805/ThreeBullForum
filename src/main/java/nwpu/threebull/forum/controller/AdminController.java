@@ -19,6 +19,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ *
+ * Admin相关的控制类
+ * 请求路径包括/admin
+ *
+ * @author ThreeBullForumTeam
+ * @version 1.0
+ */
 @Controller
 //@SessionAttributes({"admin"})
 @RequestMapping("/admin")
@@ -36,16 +44,38 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLogin(Model model) {
         return "admin/login";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHome(Model model) {
         return "admin/home";
     }
 
+    /***
+     *
+     * @param model
+     * @param userName
+     * @param password
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String processLogin(Model model,
                                @RequestParam(value = "userName", defaultValue = "") String userName,
@@ -81,6 +111,11 @@ public class AdminController {
         return "admin/loginError";
     }
 
+    /**
+     *
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("admin");
@@ -96,6 +131,15 @@ public class AdminController {
     //     return "admin/manageTopics";
     // }
 
+    /**
+     *
+     * @param info
+     * @param model
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
                               @RequestParam(value = "type") String type,
@@ -107,6 +151,15 @@ public class AdminController {
         return "/admin/searchTopic";
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/deleteTopic/{topicId}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("topicId") int topicId, Model model,
                               @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -120,6 +173,15 @@ public class AdminController {
         return "redirect:/";
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
@@ -135,6 +197,13 @@ public class AdminController {
         }
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/topTopic/{topicId}", method = RequestMethod.GET)
     public String topTopic(@PathVariable("topicId") int topicId, Model model,
                            HttpSession session) {
@@ -146,6 +215,13 @@ public class AdminController {
         return "redirect:/";
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/unTopTopic/{topicId}", method = RequestMethod.GET)
     public String unTopTopic(@PathVariable("topicId") int topicId, Model model,
                              HttpSession session) {
@@ -157,6 +233,15 @@ public class AdminController {
         return "redirect:/";
     }
 
+    /**
+     *
+     * @param topicId
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
     public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, HttpSession session) {
@@ -172,7 +257,14 @@ public class AdminController {
 
     }
 
-
+    /**
+     *
+     * @param topicId
+     * @param title
+     * @param content
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
     public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
                       @RequestParam(value = "content", defaultValue = "") String content, Model model) {
@@ -191,24 +283,47 @@ public class AdminController {
         }
     }
 
+    /**
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/manageUsers", method = RequestMethod.GET)
     public String manageUsers(Model model, HttpSession session) {
         model.addAttribute("AllUsers", userService.findAllUsers());
         return "admin/manageUsers";
     }
 
+    /**
+     *
+     * @param userId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/lockUser/{userId}", method = RequestMethod.GET)
     public String lockUser(@PathVariable("userId") int userId, Model model) {
         userService.lockUserById(userId);
         return "redirect:/admin/manageUsers";
     }
 
+    /**
+     *
+     * @param userId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/unLockUser/{userId}", method = RequestMethod.GET)
     public String unLockUser(@PathVariable("userId") int userId, Model model) {
         userService.unLockUserById(userId);
         return "redirect:/admin/manageUsers";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/manageAdmins", method = RequestMethod.GET)
     public String manageAdmins(Model model) {
         List<Admin> admins = adminService.findAllAdmins();
@@ -216,11 +331,25 @@ public class AdminController {
         return "admin/manageAdmin";
     }
 
+    /**
+     *
+     * @param model
+     * @param httpSession
+     * @return
+     */
     @RequestMapping(value = "/addAdmin", method = RequestMethod.GET)
     public String addAdmin(Model model, HttpSession httpSession) {
         return "admin/addAdmin";
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
     public String addAdmin(@RequestParam(value = "username", defaultValue = "") String username,
                            @RequestParam(value = "password", defaultValue = "") String password,
@@ -235,6 +364,14 @@ public class AdminController {
         return "redirect:/admin/manageAdmins";
     }
 
+    /**
+     *
+     * @param adminId
+     * @param session
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/deleteAdmin/{adminId}", method = RequestMethod.GET)
     public String deleteAdmin(@PathVariable(value = "adminId") int adminId,
                               HttpSession session,
@@ -247,6 +384,12 @@ public class AdminController {
         return "redirect:/admin/manageAdmins";
     }
 
+    /**
+     *
+     * @param adminId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/editAdmin/{adminId}", method = RequestMethod.GET)
     public String editAdmin(@PathVariable(value = "adminId") int adminId, Model model) {
         Admin admin = adminService.findAdminById(adminId);
@@ -254,6 +397,16 @@ public class AdminController {
         return "admin/editAdmin";
     }
 
+    /**
+     *
+     * @param adminId
+     * @param username
+     * @param password
+     * @param model
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/editAdmin/{adminId}", method = RequestMethod.POST)
     public String editAdmin(@PathVariable(value = "adminId") int adminId,
                             @RequestParam(value = "username", defaultValue = "") String username,
@@ -275,6 +428,12 @@ public class AdminController {
         return "redirect:/admin/manageAdmins";
     }
 
+    /**
+     *
+     * @param username
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/searchAdmin", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchAdmin(@RequestParam(value = "username") String username, Model model) {
         model.addAttribute("searchAdmins", adminService.searchAdminByUsername(username));
