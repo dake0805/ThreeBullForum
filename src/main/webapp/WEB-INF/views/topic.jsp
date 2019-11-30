@@ -33,7 +33,7 @@
             </div>
             <div class="detail-about">
                 <div class="fly-detail-user">
-                    <a href="../user/home.html" class="fly-link">
+                    <a href="<c:url value=""></c:url> " class="fly-link">
                         <cite>${singleTopic.user.userName}</cite>
                     </a>
                     <span>${singleTopic.postTime}</span>
