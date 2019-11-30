@@ -59,7 +59,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param response
      * @param user
      * @param bindingResult
@@ -99,7 +98,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @return
      */
@@ -109,7 +107,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @param userName
      * @param password
@@ -152,7 +149,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @param pageNo
      * @param pageSize
@@ -166,7 +162,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @param pageNo
      * @param pageSize
@@ -187,7 +182,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @param httpSession
      * @param info
@@ -209,18 +203,22 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
-     * @param httpSession
+     * @param session
      * @param title
      * @param content
      * @return
      */
     @RequestMapping(value = "/newtopic", method = RequestMethod.POST)
-    public String creatNewTopics(Model model, HttpSession httpSession,
+    public String creatNewTopics(Model model, HttpSession session,
                                  @RequestParam(value = "title", defaultValue = "") String title,
                                  @RequestParam(value = "content", defaultValue = "") String content) {
-        User user = (User) httpSession.getAttribute("user");
+
+        User user = (User) session.getAttribute("user");
+        user = userService.findUserByUserName(user.getUserName());
+        session.removeAttribute("user");
+        session.setAttribute("user", user);
+
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         if (!user.getIsLocked()) {
@@ -234,7 +232,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param topicId
      * @param model
      * @param session
@@ -270,7 +267,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param model
      * @param session
      * @param content
@@ -281,7 +277,11 @@ public class UserController {
     public String newReply(Model model, HttpSession session,
                            @RequestParam(value = "content", defaultValue = "") String content,
                            @PathVariable int topicId) {
+
         User user = (User) session.getAttribute("user");
+        user = userService.findUserByUserName(user.getUserName());
+        session.removeAttribute("user");
+        session.setAttribute("user", user);
         Topic topic = topicService.findByTopicId(topicId);
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
@@ -296,7 +296,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param topicId
      * @param model
      * @param pageNo
@@ -320,7 +319,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param topicId
      * @param title
      * @param content
@@ -347,7 +345,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param info
      * @param model
      * @param type
@@ -369,7 +366,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param session
      * @return
      */
