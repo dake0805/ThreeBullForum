@@ -25,12 +25,14 @@ CREATE TABLE `admin` (
   `username` varchar(11) DEFAULT NULL,
   `password` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;f
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `admin` */
 
 insert  into `admin`(`id`,`username`,`password`) values 
-(1,'admin','12345');
+(1,'admin','12345'),
+(2,'ad12321','12345'),
+(3,'add','123123');
 
 /*Table structure for table `reply` */
 
@@ -39,31 +41,18 @@ DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `topic_id` int(11) DEFAULT NULL,
-  `content` varchar(1100) DEFAULT NULL,
+  `content` text,
   `user_id` int(11) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `reply` */
 
--- insert  into `reply`(`id`,`topic_id`,`content`,`user_id`,`time`) values
--- (1,10,'This is a reply.',1,'2019-08-31 12:00:00'),
--- (2,10,'This is a reply.',2,'2019-08-31 12:00:01'),
--- (3,10,'This is a reply.',3,'2019-08-31 12:00:02'),
--- (4,10,'This is a reply.',1,'2019-08-31 12:00:03'),
--- (5,10,'This is a reply.',2,'2019-08-31 12:00:04'),
--- (6,10,'This is a reply.',3,'2019-08-31 12:00:05'),
--- (7,10,'This is a reply.',1,'2019-08-31 12:00:06'),
--- (8,10,'This is a reply.',2,'2019-08-31 12:00:07'),
--- (9,10,'This is a reply.',3,'2019-08-31 12:00:08'),
--- (10,10,'This is a reply.',1,'2019-08-31 12:00:09'),
--- (11,10,'This is a reply.',2,'2019-08-31 12:00:10'),
--- (12,10,'This is a reply.',3,'2019-08-31 12:00:11'),
--- (13,10,'This is a reply.',1,'2019-08-31 12:00:12'),
--- (14,12,'我是回复',1,'2019-11-24 23:28:31'),
--- (15,12,'我是恢复2',1,'2019-11-24 23:28:42'),
--- (16,12,'',1,'2019-11-24 23:32:13');
+insert  into `reply`(`id`,`topic_id`,`content`,`user_id`,`time`) values 
+(17,14,'?',4,'2019-11-29 16:27:38'),
+(18,14,'?',4,'2019-11-29 16:27:48'),
+(19,13,'111',4,'2019-11-29 17:00:39');
 
 /*Table structure for table `topic` */
 
@@ -71,8 +60,8 @@ DROP TABLE IF EXISTS `topic`;
 
 CREATE TABLE `topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varbinary(1100) DEFAULT NULL,
-  `content` varchar(1100) DEFAULT NULL,
+  `name` varchar(1100) DEFAULT NULL,
+  `content` text,
   `user_id` int(11) DEFAULT NULL,
   `top_status` tinyint(1) DEFAULT '0',
   `top_time` datetime DEFAULT NULL,
@@ -80,22 +69,18 @@ CREATE TABLE `topic` (
   `follow_number` int(11) DEFAULT NULL,
   `click_number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `topic` */
--- insert  into `topic`(`id`,`name`,`content`,`user_id`,`top_status`,`top_time`,`post_time`,`follow_number`,`click_number`) values
--- (1,'111','11111111',1,0,NULL,'2017-08-31 00:00:00',5,8),
--- (2,'222','11111111',1,0,NULL,'2017-08-31 02:00:00',7,4),
--- (3,'333','11111111',1,0,NULL,'2017-08-31 04:00:00',3,6),
--- (4,'444','11111111',1,0,NULL,'2017-08-31 05:00:00',5,8),
--- (5,'555','11111111',1,0,NULL,'2017-08-31 06:00:00',7,4),
--- (6,'666','11111111',1,0,NULL,'2017-08-31 07:00:00',3,7),
--- (7,'777','11111111',1,0,NULL,'2017-08-31 08:00:00',5,9),
--- (8,'888','11111111',1,0,NULL,'2017-08-31 09:00:00',7,7),
--- (9,'999','11111111',1,0,NULL,'2017-08-31 10:00:00',3,6),
--- (10,'101010','11111111',1,0,NULL,'2017-08-31 11:00:00',5,11),
--- (11,'111111','11111111',1,0,NULL,'2017-08-31 12:00:00',7,8),
--- (12,'121212测试','11111111特色他大蘇打撒',1,0,NULL,'2017-08-31 13:00:00',3,54);
+
+insert  into `topic`(`id`,`name`,`content`,`user_id`,`top_status`,`top_time`,`post_time`,`follow_number`,`click_number`) values 
+(14,'??','?',4,1,'2019-11-29 17:38:13','2019-11-29 16:27:24',2,8),
+(15,'e2r','1341',0,0,NULL,'2019-11-29 16:38:43',0,0),
+(16,'32414','144',0,0,NULL,'2019-11-29 16:38:56',0,0),
+(18,'123124','14',8,0,NULL,'2019-11-29 16:44:51',0,0),
+(19,'fasf','asdsaa',4,0,NULL,'2019-11-29 17:22:16',0,0),
+(20,'111','11111111111111111',4,0,NULL,'2019-11-29 17:22:20',0,0),
+(21,'22222','222222222222222',4,1,'2019-11-29 17:38:15','2019-11-29 17:22:23',0,0);
 
 /*Table structure for table `user` */
 
@@ -105,17 +90,19 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(11) DEFAULT NULL,
   `password` varchar(11) DEFAULT NULL,
-  `lock_status` tinyint(1) DEFAULT '1',
+  `lock_status` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`username`,`password`,`lock_status`) values 
-(1,'user','123456',1);
--- (2,'user2','123456',1),
--- (3,'user3','123456',1);
--- (4,'user4','123456',0);
+(4,'user','123456',0),
+(5,'user1','123456',0),
+(6,'test','123456',0),
+(7,'testtest','123456',0),
+(8,'zzz','123',0),
+(9,'      ','123',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
