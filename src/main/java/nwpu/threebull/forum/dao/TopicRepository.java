@@ -8,8 +8,7 @@ import java.util.*;
 import nwpu.threebull.forum.dao.support.PaginationSupport;
 
 /**
- *
- *关于Topic的一些接口
+ * 关于Topic的一些接口
  *
  * @author ThreeBullForumTeam
  * @vwesion 1.0
@@ -48,10 +47,9 @@ public interface TopicRepository {
      *
      * @param topic
      */
-    void updateClickNumByTopic(Topic topic);
+
 
     /**
-     *
      * 根据userId找到该用户发的所有topic
      *
      * @param userId
@@ -60,7 +58,6 @@ public interface TopicRepository {
     List<Topic> findByUserId(int userId);
 
     /**
-     *
      * 根据topicId找到该topic
      *
      * @param topicId
@@ -69,7 +66,6 @@ public interface TopicRepository {
     Topic findByTopicId(int topicId);
 
     /**
-     *
      * 根据topicId更新topic的主题和内容
      *
      * @param topicId
@@ -79,7 +75,6 @@ public interface TopicRepository {
     void updateTitleByTopicId(int topicId, String title, String content);
 
     /**
-     *
      * 根据topic对象新建一个topic并插入到数据库中
      *
      * @param topic
@@ -87,7 +82,6 @@ public interface TopicRepository {
     void newTopic(Topic topic);
 
     /**
-     *
      * 根据topicId删除topic
      *
      * @param topicId
@@ -95,7 +89,6 @@ public interface TopicRepository {
     void deleteTopic(int topicId);
 
     /**
-     *
      * 根据topicId将相应的topic置顶状态改为true
      *
      * @param topicId
@@ -103,7 +96,6 @@ public interface TopicRepository {
     void topTopic(int topicId);
 
     /**
-     *
      * 根据topicId将topic改为非置顶状态
      *
      * @param topicId
@@ -111,7 +103,6 @@ public interface TopicRepository {
     void unTopTopic(int topicId);
 
     /**
-     *
      * 关于topic的分页处理
      *
      * @param userId
@@ -122,7 +113,6 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageByUserId(int userId, int pageNo, int pageSize);
 
     /**
-     *
      * 关于topic的分页处理
      *
      * @param pageNo
@@ -132,7 +122,6 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageTopics(int pageNo, int pageSize);
 
     /**
-     *
      * 关于topic的分页处理
      *
      * @param info
@@ -144,8 +133,10 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, String type, int pageNo, int pageSize);
 
     /**
-     *
      * @param topicId
      */
     void updateFollowNumber(int topicId);
+
+    PaginationSupport<Topic> findPageMyTopicsByTitleOrContent(String info, int userID, String type, int pageNo,
+                                                              int pageSize);
 }

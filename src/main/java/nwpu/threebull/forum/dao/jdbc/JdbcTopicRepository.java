@@ -29,7 +29,6 @@ public class JdbcTopicRepository implements TopicRepository {
     private JdbcTemplate jdbc;
 
     /**
-     *
      * @param jdbc
      */
     @Autowired
@@ -38,7 +37,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 通过userId查找一个用户发表了多少主题
      *
      * @param userId
@@ -51,7 +49,8 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *返回所有topic的数目
+     * 返回所有topic的数目
+     *
      * @return count
      */
     @Override
@@ -61,8 +60,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
-     *同过info中的类型，查找相关的主题并返回主题的数目
+     * 同过info中的类型，查找相关的主题并返回主题的数目
      *
      * @param info
      * @param type
@@ -87,8 +85,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
-     *根据topic对象更新点击数
+     * 根据topic对象更新点击数
      *
      * @param topic
      */
@@ -115,12 +112,11 @@ public class JdbcTopicRepository implements TopicRepository {
         int clickNum = topic.getClickNum();
         clickNum++;
         jdbc.update("update topic set click_number = ? where id = ?", clickNum, topic.getId());
-        topic.setClickNum(topic.getClickNum()+1);
+        topic.setClickNum(topic.getClickNum() + 1);
         return topic;
     }
 
     /**
-     *
      * 根据userId找到该用户发的所有topic
      *
      * @param userId
@@ -132,7 +128,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topicId找到该topic
      *
      * @param topicId
@@ -143,7 +138,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *根据topicId更新topic的主题和内容
+     * 根据topicId更新topic的主题和内容
      *
      * @param topicId
      * @param title
@@ -154,7 +149,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topic对象新建一个topic并插入到数据库中
      *
      * @param topic
@@ -165,7 +159,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topicId删除topic
      *
      * @param topicId
@@ -176,7 +169,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topicId将相应的topic置顶状态改为true
      *
      * @param
@@ -189,7 +181,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topicId将topic改为非置顶状态
      *
      * @param
@@ -200,7 +191,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 关于topic的分页处理
      *
      * @param userId
@@ -221,7 +211,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据当前页和页大小找到页
      *
      * @param pageNo
@@ -241,7 +230,6 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * topic的搜索支持函数
      *
      * @param info
@@ -279,10 +267,14 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
      * 根据topicId更新跟贴数
      *
-     * @param topicId
+     * @param info
+     * @param userID
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
      */
     @Override
     public PaginationSupport<Topic> findPageMyTopicsByTitleOrContent(String info, int userID, String type, int pageNo, int pageSize) {
