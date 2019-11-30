@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="tbfTag" prefix="tbfTag"%>
+<%@ taglib uri="tbfTag" prefix="tbfTag" %>
 
 <header>
     <nav class="navbar navbar-default" role="navigation" style="background-color: white">
@@ -12,6 +12,9 @@
                 <c:if test="${empty sessionScope.user && empty sessionScope.admin}">
                     <!--未登陆-->
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text"><a href="<c:url value="/user/login"/>">发布新帖</a></p>
+                        </li>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/login"/>">登录</a></p>
                         </li>
@@ -29,10 +32,7 @@
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/newtopic"/>">发布新帖</a></p>
                         </li>
-                        <%--<li>
-                            <p class="navbar-text">欢迎，${sessionScope.user.userName}</p>
-                        </li>--%>
-                        <tbfTag:infoTag />
+                        <tbfTag:infoTag/>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/user/logout"/>">登出</a></p>
                         </li>
@@ -47,10 +47,10 @@
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/admin/manageAdmins"/>">管理admin</a></p>
                         </li>
-                        <%--<li>
-                            <p class="navbar-text">欢迎，${sessionScope.admin.userName}</p>
-                        </li>--%>
-                        <tbfTag:infoTag />
+                            <%--<li>
+                                <p class="navbar-text">欢迎，${sessionScope.admin.userName}</p>
+                            </li>--%>
+                        <tbfTag:infoTag/>
                         <li>
                             <p class="navbar-text"><a href="<c:url value="/admin/logout"/>">登出</a></p>
                     </ul>

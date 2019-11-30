@@ -1,4 +1,5 @@
-package nwpu.threebull.forum.tool;
+package nwpu.threebull.forum.tool.tag;
+
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;

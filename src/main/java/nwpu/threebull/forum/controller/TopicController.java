@@ -17,6 +17,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Topic相关的控制类
+ * 前置路径为“/topic”
+ *
+ * @author ThreeBullForumTeam
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/topic")
 
@@ -31,6 +38,15 @@ public class TopicController {
     @Autowired
     private ReplyService replyService;
 
+    /**
+     * @param topicId
+     * @param model
+     * @param session
+     * @param pageNo
+     * @param pageSize
+     * @param info
+     * @return
+     */
     @RequestMapping(value = "/detail/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, HttpSession session,
                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,

@@ -17,6 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * Home的控制类
+ * 前置路径为“/”
+ *
+ * @author ThreeBullForumTeam
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -30,7 +37,13 @@ public class HomeController {
     @Autowired
     private ReplyService replyService;
 
-
+    /**
+     * @param model
+     * @param pageNo
+     * @param pageSize
+     * @param info
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
@@ -43,6 +56,14 @@ public class HomeController {
         return "homePage";
     }
 
+    /**
+     * @param info
+     * @param model
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
                               @RequestParam(value = "type") String type,
