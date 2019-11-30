@@ -48,9 +48,9 @@
             <div class="detail-body photos">
                 <hr>
                 <p>
-                    <h1>主题内容:</h1>
-                    <h2>${singleTopic.content}</h2>
-<%--                    <c:out value="${singleTopic.content}"/>--%>
+                <h1>主题内容:</h1>
+                <h2 style="white-space: pre;">${singleTopic.content}</h2>
+                <%--                    <c:out value="${singleTopic.content}"/>--%>
                 </p>
             </div>
         </div>
@@ -90,7 +90,7 @@
             <br>
             <c:if test="${not empty sessionScope.user && not empty sessionScope.user.id}">
                 <div class="layui-form layui-form-pane">
-                    <form  method="POST" name="newReplay" action="<c:url value="/user/topic/${singleTopic.id}" />">
+                    <form method="POST" name="newReplay" action="<c:url value="/user/topic/${singleTopic.id}" />">
                         <div class="layui-form-item layui-form-text">
                             <a name="comment"></a>
                             <div class="layui-input-block">

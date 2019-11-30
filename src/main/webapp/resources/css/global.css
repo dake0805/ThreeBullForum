@@ -1405,11 +1405,6 @@ body .layui-edit-face .layui-layer-content {
     word-wrap: break-word;
 }
 
-.detail-body h2,
-.detail-body p {
-    white-space: pre-line;
-}
-
 .detail-body p {
     margin-bottom: 15px;
 }
