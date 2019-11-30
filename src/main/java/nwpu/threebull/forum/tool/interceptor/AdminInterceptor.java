@@ -11,7 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nwpu.threebull.forum.entity.Admin;
 
-public class AdminInterceptor implements HandlerInterceptor {
+public class AdminInterceptor implements HandlerInterceptor{
+
     private final static Log log = LogFactory.getLog(AdminInterceptor.class);
 
     @Override
@@ -39,7 +40,7 @@ public class AdminInterceptor implements HandlerInterceptor {
             return true;
         }
         // 不符合条件的转发到登录页面
-        response.sendRedirect(request.getContextPath() + "/admin/login");
+        response.sendRedirect(request.getContextPath()+"/admin/login");
         return false;
     }
 }

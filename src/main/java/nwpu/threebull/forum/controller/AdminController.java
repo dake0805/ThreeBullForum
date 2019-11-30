@@ -64,6 +64,7 @@ public class AdminController {
     }
 
     /***
+     * @brief process login
      *
      * @param model
      * @param userName
@@ -117,6 +118,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process logout action
      *
      * @param session
      * @return
@@ -137,6 +139,7 @@ public class AdminController {
     // }
 
     /**
+     * @brief process search topic service
      *
      * @param info
      * @param model
@@ -157,6 +160,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process delete topic service
      *
      * @param topicId
      * @param model
@@ -179,6 +183,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process get topic service
      *
      * @param topicId
      * @param model
@@ -203,6 +208,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process top topic action
      *
      * @param topicId
      * @param model
@@ -221,6 +227,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process untop topic action
      *
      * @param topicId
      * @param model
@@ -239,6 +246,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process edit topic action
      *
      * @param topicId
      * @param model
@@ -263,6 +271,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process get topic action
      *
      * @param topicId
      * @param title
@@ -289,6 +298,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process manage users action
      *
      * @param model
      * @param session
@@ -301,6 +311,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process lock user action
      *
      * @param userId
      * @param model
@@ -313,6 +324,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process unlock users action
      *
      * @param userId
      * @param model
@@ -325,6 +337,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process manage admin action
      *
      * @param model
      * @return
@@ -337,6 +350,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process add admin GET action
      *
      * @param model
      * @param httpSession
@@ -348,6 +362,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process add admin POST action
      *
      * @param username
      * @param password
@@ -370,6 +385,7 @@ public class AdminController {
     }
 
     /**
+     * @brief process delete admin action
      *
      * @param adminId
      * @param session
