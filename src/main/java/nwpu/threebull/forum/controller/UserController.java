@@ -49,6 +49,8 @@ public class UserController {
     private ReplyService replyService;
 
     /**
+     * 获得注册页面
+     *
      * @param model
      * @return
      */
@@ -59,6 +61,8 @@ public class UserController {
     }
 
     /**
+     * 注册
+     *
      * @param response
      * @param user
      * @param bindingResult
@@ -98,6 +102,8 @@ public class UserController {
     }
 
     /**
+     * 获得登录页面
+     *
      * @param model
      * @return
      */
@@ -107,6 +113,8 @@ public class UserController {
     }
 
     /**
+     * 登录
+     *
      * @param model
      * @param userName
      * @param password
@@ -149,6 +157,8 @@ public class UserController {
     }
 
     /**
+     * 返回主页
+     *
      * @param model
      * @param pageNo
      * @param pageSize
@@ -162,6 +172,8 @@ public class UserController {
     }
 
     /**
+     * 查看我的主题
+     *
      * @param model
      * @param pageNo
      * @param pageSize
@@ -182,6 +194,8 @@ public class UserController {
     }
 
     /**
+     * 获得新建主题页面
+     *
      * @param model
      * @param httpSession
      * @param info
@@ -203,6 +217,8 @@ public class UserController {
     }
 
     /**
+     * 新建主题
+     *
      * @param model
      * @param session
      * @param title
@@ -232,6 +248,8 @@ public class UserController {
     }
 
     /**
+     * 查看主题
+     *
      * @param topicId
      * @param model
      * @param session
@@ -267,6 +285,8 @@ public class UserController {
     }
 
     /**
+     * 更新主题
+     *
      * @param model
      * @param session
      * @param content
@@ -296,6 +316,8 @@ public class UserController {
     }
 
     /**
+     * 获得主题编辑界面
+     *
      * @param topicId
      * @param model
      * @param pageNo
@@ -319,6 +341,8 @@ public class UserController {
     }
 
     /**
+     * 编辑主题
+     *
      * @param topicId
      * @param title
      * @param content
@@ -345,6 +369,8 @@ public class UserController {
     }
 
     /**
+     * 主题搜索结果
+     *
      * @param info
      * @param model
      * @param type
@@ -366,6 +392,8 @@ public class UserController {
     }
 
     /**
+     * 注销登录
+     *
      * @param session
      * @return
      */
@@ -376,6 +404,13 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * 获得用户个人信息更改界面
+     *
+     * @param session
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/editUser", method = GET)
     public String editUser(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -383,6 +418,18 @@ public class UserController {
         return "user/editUser";
     }
 
+    /**
+     * 更改用户个人信息
+     *
+     * @param username
+     * @param password
+     * @param newPassword
+     * @param model
+     * @param session
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/editUser", method = POST)
     public String editUser(@RequestParam(value = "username", defaultValue = "") String username,
                            @RequestParam(value = "password", defaultValue = "") String password,

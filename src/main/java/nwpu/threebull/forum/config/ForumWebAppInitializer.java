@@ -9,6 +9,7 @@ import javax.servlet.Filter;
 
 public class ForumWebAppInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{RootConfig.class};
     }

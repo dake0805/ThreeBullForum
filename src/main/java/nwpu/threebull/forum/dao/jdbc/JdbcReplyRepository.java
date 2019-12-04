@@ -35,7 +35,6 @@ public class JdbcReplyRepository implements ReplyRepository {
     }
 
     /**
-     *
      * 通过topicId查找同一个主题的回复
      *
      * @param TopicId
@@ -48,7 +47,6 @@ public class JdbcReplyRepository implements ReplyRepository {
     }
 
     /**
-     *
      * 通过topicId返回所有的reply
      *
      * @param TopicId
@@ -60,7 +58,6 @@ public class JdbcReplyRepository implements ReplyRepository {
     }
 
     /**
-     *
      * reply的分页的支持函数
      *
      * @param TopicId
@@ -81,7 +78,6 @@ public class JdbcReplyRepository implements ReplyRepository {
     }
 
     /**
-     *
      * 新建reply实体，并添加到数据库
      *
      * @param
@@ -93,7 +89,7 @@ public class JdbcReplyRepository implements ReplyRepository {
     }
 
     /**
-     *
+     * 将数据库查找结果映射为实体对象
      */
     private static final class ReplyRowMapper implements RowMapper<Reply> {
         public Reply mapRow(ResultSet rs, int rowNum) throws SQLException {

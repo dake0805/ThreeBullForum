@@ -33,6 +33,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过adminId找到admin对象
+     *
      * @param adminId
      * @return admin
      */
@@ -50,6 +51,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过userName，password找到admin对象
+     *
      * @param userName
      * @param password
      * @return admin
@@ -68,6 +70,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过userName找到admin对象
+     *
      * @param userName
      * @return admin
      */
@@ -85,6 +88,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 找到所有的管理员
+     *
      * @return List<Admin>
      */
     @Override
@@ -94,6 +98,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过admin对象将admin添加到数据库
+     *
      * @param
      */
     @Override
@@ -103,6 +108,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过adminId删除admin对象
+     *
      * @param
      */
     @Override
@@ -112,6 +118,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过新的admin对象来更新admin对象
+     *
      * @param admin
      */
     @Override
@@ -121,6 +128,7 @@ public class JdbcAdminRepository implements AdminRepository {
 
     /**
      * 通过userName查找所有同名的admin
+     *
      * @param userName
      * @return List<Admin>
      */
@@ -130,7 +138,7 @@ public class JdbcAdminRepository implements AdminRepository {
     }
 
     /**
-     *
+     * 将数据库查找结果映射为实体对象
      */
     private static class AdminRowMapper implements RowMapper<Admin> {
         public Admin mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -38,6 +38,8 @@ public class HomeController {
     private ReplyService replyService;
 
     /**
+     * 获得主页
+     *
      * @param model
      * @param pageNo
      * @param pageSize
@@ -57,6 +59,8 @@ public class HomeController {
     }
 
     /**
+     * 搜索主题
+     *
      * @param info
      * @param model
      * @param type

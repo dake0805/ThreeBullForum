@@ -310,7 +310,7 @@ public class JdbcTopicRepository implements TopicRepository {
     }
 
     /**
-     *
+     * 将数据库查找结果映射为实体对象
      */
     private static final class TopicRowMapper implements RowMapper<Topic> {
         public Topic mapRow(ResultSet rs, int rowNum) throws SQLException {

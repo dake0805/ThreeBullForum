@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据userName找到user对象
+     *
      * @param userName
      * @return
      */
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据userName和password找到user对象
+     *
      * @param userName
      * @param password
      * @return
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 返回所有的user
+     *
      * @return
      */
     @Override
@@ -55,6 +58,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据userId将user设置为上锁状态
+     *
      * @param userId
      */
     @Override
@@ -64,6 +68,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据userId将user设置为未上锁状态
+     *
      * @param userId
      */
     @Override
@@ -73,6 +78,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 添加user对象到数据库中
+     *
      * @param user
      */
     @Override
@@ -80,6 +86,11 @@ public class UserServiceImpl implements UserService {
         userRepository.addUser(user);
     }
 
+    /**
+     * 更新user对象到数据库中
+     *
+     * @param user
+     */
     @Override
     public void editUser(User user) {
         userRepository.editUser(user);

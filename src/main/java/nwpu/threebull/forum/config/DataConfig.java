@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 @Configuration
 @ComponentScan(basePackages = {"nwpu.threebull.forum"}, excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 public class DataConfig {
+    
     // 读取数据库配置文件
     private static ResourceBundle resource = ResourceBundle.getBundle("dbconfig");
 

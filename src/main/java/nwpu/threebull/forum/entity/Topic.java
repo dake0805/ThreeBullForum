@@ -13,6 +13,7 @@ import java.util.Date;
  * @vwesion 1.0
  */
 public class Topic {
+
     private int id;
 
     @NotNull
@@ -61,7 +62,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public int getId() {
@@ -69,7 +69,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param id
      */
     public void setId(int id) {
@@ -77,7 +76,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public String getTitle() {
@@ -85,7 +83,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param title
      */
     public void setTitle(String title) {
@@ -93,7 +90,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public String getContent() {
@@ -101,7 +97,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param content
      */
     public void setContent(String content) {
@@ -109,7 +104,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public User getUser() {
@@ -117,7 +111,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param user
      */
     public void setUser(User user) {
@@ -125,7 +118,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public boolean isTopicStatus() {
@@ -133,7 +125,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param topicStatus
      */
     public void setTopicStatus(boolean topicStatus) {
@@ -141,7 +132,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public Timestamp getTopTime() {
@@ -149,7 +139,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param topTime
      */
     public void setTopTime(Timestamp topTime) {
@@ -157,7 +146,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public Timestamp getPostTime() {
@@ -165,7 +153,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param postTime
      */
     public void setPostTime(Timestamp postTime) {
@@ -173,7 +160,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public int getClickNum() {
@@ -181,7 +167,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param clickNum
      */
     public void setClickNum(int clickNum) {
@@ -189,7 +174,6 @@ public class Topic {
     }
 
     /**
-     *
      * @return
      */
     public int getFollowNum() {
@@ -197,7 +181,6 @@ public class Topic {
     }
 
     /**
-     *
      * @param followNum
      */
     public void setFollowNum(int followNum) {

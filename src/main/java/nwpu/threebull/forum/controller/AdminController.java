@@ -54,7 +54,6 @@ public class AdminController {
     }
 
     /**
-     *
      * @param model
      * @return
      */
@@ -118,10 +117,9 @@ public class AdminController {
     }
 
     /**
-     * @brief process logout action
-     *
      * @param session
      * @return
+     * @brief process logout action
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
@@ -139,14 +137,13 @@ public class AdminController {
     // }
 
     /**
-     * @brief process search topic service
-     *
      * @param info
      * @param model
      * @param type
      * @param pageNo
      * @param pageSize
      * @return
+     * @brief process search topic service
      */
     @RequestMapping(value = "/searchTopic", method = {RequestMethod.POST, RequestMethod.GET})
     public String searchTopic(@RequestParam(value = "info") String info, Model model,
@@ -160,14 +157,13 @@ public class AdminController {
     }
 
     /**
-     * @brief process delete topic service
-     *
      * @param topicId
      * @param model
      * @param pageNo
      * @param pageSize
      * @param session
      * @return
+     * @brief process delete topic service
      */
     @RequestMapping(value = "/deleteTopic/{topicId}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("topicId") int topicId, Model model,
@@ -183,14 +179,13 @@ public class AdminController {
     }
 
     /**
-     * @brief process get topic service
-     *
      * @param topicId
      * @param model
      * @param pageNo
      * @param pageSize
      * @param session
      * @return
+     * @brief process get topic service
      */
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
     public String getTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -208,12 +203,11 @@ public class AdminController {
     }
 
     /**
-     * @brief process top topic action
-     *
      * @param topicId
      * @param model
      * @param session
      * @return
+     * @brief process top topic action
      */
     @RequestMapping(value = "/topTopic/{topicId}", method = RequestMethod.GET)
     public String topTopic(@PathVariable("topicId") int topicId, Model model,
@@ -227,12 +221,11 @@ public class AdminController {
     }
 
     /**
-     * @brief process untop topic action
-     *
      * @param topicId
      * @param model
      * @param session
      * @return
+     * @brief process untop topic action
      */
     @RequestMapping(value = "/unTopTopic/{topicId}", method = RequestMethod.GET)
     public String unTopTopic(@PathVariable("topicId") int topicId, Model model,
@@ -246,14 +239,13 @@ public class AdminController {
     }
 
     /**
-     * @brief process edit topic action
-     *
      * @param topicId
      * @param model
      * @param pageNo
      * @param pageSize
      * @param session
      * @return
+     * @brief process edit topic action
      */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.GET)
     public String editTopic(@PathVariable("topicId") int topicId, Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -271,13 +263,12 @@ public class AdminController {
     }
 
     /**
-     * @brief process get topic action
-     *
      * @param topicId
      * @param title
      * @param content
      * @param model
      * @return
+     * @brief process get topic action
      */
     @RequestMapping(value = "/editTopic/{topicId}", method = RequestMethod.POST)
     public String get(@PathVariable("topicId") int topicId, @RequestParam(value = "title", defaultValue = "") String title,
@@ -298,11 +289,10 @@ public class AdminController {
     }
 
     /**
-     * @brief process manage users action
-     *
      * @param model
      * @param session
      * @return
+     * @brief process manage users action
      */
     @RequestMapping(value = "/manageUsers", method = RequestMethod.GET)
     public String manageUsers(Model model, HttpSession session) {
@@ -311,11 +301,10 @@ public class AdminController {
     }
 
     /**
-     * @brief process lock user action
-     *
      * @param userId
      * @param model
      * @return
+     * @brief process lock user action
      */
     @RequestMapping(value = "/lockUser/{userId}", method = RequestMethod.GET)
     public String lockUser(@PathVariable("userId") int userId, Model model) {
@@ -324,11 +313,10 @@ public class AdminController {
     }
 
     /**
-     * @brief process unlock users action
-     *
      * @param userId
      * @param model
      * @return
+     * @brief process unlock users action
      */
     @RequestMapping(value = "/unLockUser/{userId}", method = RequestMethod.GET)
     public String unLockUser(@PathVariable("userId") int userId, Model model) {
@@ -337,10 +325,9 @@ public class AdminController {
     }
 
     /**
-     * @brief process manage admin action
-     *
      * @param model
      * @return
+     * @brief process manage admin action
      */
     @RequestMapping(value = "/manageAdmins", method = RequestMethod.GET)
     public String manageAdmins(Model model) {
@@ -350,11 +337,10 @@ public class AdminController {
     }
 
     /**
-     * @brief process add admin GET action
-     *
      * @param model
      * @param httpSession
      * @return
+     * @brief process add admin GET action
      */
     @RequestMapping(value = "/addAdmin", method = RequestMethod.GET)
     public String addAdmin(Model model, HttpSession httpSession) {
@@ -362,13 +348,12 @@ public class AdminController {
     }
 
     /**
-     * @brief process add admin POST action
-     *
      * @param username
      * @param password
      * @param response
      * @return
      * @throws IOException
+     * @brief process add admin POST action
      */
     @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
     public String addAdmin(@RequestParam(value = "username", defaultValue = "") String username,
@@ -385,13 +370,12 @@ public class AdminController {
     }
 
     /**
-     * @brief process delete admin action
-     *
      * @param adminId
      * @param session
      * @param response
      * @return
      * @throws IOException
+     * @brief process delete admin action
      */
     @RequestMapping(value = "/deleteAdmin/{adminId}", method = RequestMethod.GET)
     public String deleteAdmin(@PathVariable(value = "adminId") int adminId,
@@ -406,7 +390,6 @@ public class AdminController {
     }
 
     /**
-     *
      * @param adminId
      * @param model
      * @return
@@ -419,7 +402,6 @@ public class AdminController {
     }
 
     /**
-     *
      * @param adminId
      * @param username
      * @param password
@@ -450,7 +432,6 @@ public class AdminController {
     }
 
     /**
-     *
      * @param username
      * @param model
      * @return

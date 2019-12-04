@@ -33,6 +33,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topic对象更新点击数
+     *
      * @param topic
      */
     @Override
@@ -42,6 +43,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据userId找到该用户发的所有topic
+     *
      * @param userId
      * @return
      */
@@ -52,6 +54,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topicId找到该topic
+     *
      * @param topicId
      * @return
      */
@@ -62,6 +65,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topicId更新topic的主题和内容
+     *
      * @param topicId
      * @param title
      * @param content
@@ -73,6 +77,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topic对象新建一个topic并插入到数据库中
+     *
      * @param topic
      */
     @Override
@@ -82,6 +87,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topicId删除topic
+     *
      * @param topicId
      */
     @Override
@@ -90,7 +96,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     /**
-     *根据topicId将相应的topic置顶状态改为true
+     * 根据topicId将相应的topic置顶状态改为true
+     *
      * @param topicId
      */
     @Override
@@ -100,6 +107,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 根据topicId将topic改为非置顶状态
+     *
      * @param topicId
      */
     @Override
@@ -109,6 +117,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 关于topic的分页处理
+     *
      * @param userId
      * @param pageNo
      * @param pageSize
@@ -121,6 +130,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 关于topic的分页处理
+     *
      * @param pageNo
      * @param pageSize
      * @return
@@ -132,6 +142,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 关于topic的分页处理
+     *
      * @param info
      * @param type
      * @param pageNo
@@ -143,6 +154,16 @@ public class TopicServiceImpl implements TopicService {
         return topicRepository.findPageTopicsByTitleOrContent(info, type, pageNo, pageSize);
     }
 
+    /**
+     * 关于mytopic的分页处理
+     *
+     * @param info
+     * @param userID
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @Override
     public PaginationSupport<Topic> findPageByMyTopicTitleOrContent(String info, int userID, String type, int pageNo, int pageSize) {
         return topicRepository.findPageMyTopicsByTitleOrContent(info, userID, type, pageNo, pageSize);

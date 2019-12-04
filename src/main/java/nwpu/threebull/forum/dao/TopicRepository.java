@@ -38,16 +38,22 @@ public interface TopicRepository {
      */
     int countSearchTopics(String info, String type);
 
+    /**
+     * 同过info中的类型，查找我的相关的主题并返回主题的数目
+     *
+     * @param userID
+     * @param info
+     * @param type
+     * @return
+     */
     int countSearchMyTopics(int userID, String info, String type);
 
-    Topic updateClickNumByTopic(Topic topic);
     /**
-     *
      * 根据topic对象更新点击数
      *
      * @param topic
      */
-
+    Topic updateClickNumByTopic(Topic topic);
 
     /**
      * 根据userId找到该用户发的所有topic
@@ -133,10 +139,22 @@ public interface TopicRepository {
     PaginationSupport<Topic> findPageTopicsByTitleOrContent(String info, String type, int pageNo, int pageSize);
 
     /**
+     * 根据id更新跟贴数
+     *
      * @param topicId
      */
     void updateFollowNumber(int topicId);
 
+    /**
+     * 分页查找当前用户的搜索内容
+     *
+     * @param info
+     * @param userID
+     * @param type
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     PaginationSupport<Topic> findPageMyTopicsByTitleOrContent(String info, int userID, String type, int pageNo,
                                                               int pageSize);
 }

@@ -23,19 +23,20 @@ public interface ReplyRepository {
 
     /**
      * 新建reply对象
+     *
      * @param reply
      */
     void newReply(Reply reply);
 
     /**
      * 通过TopicId找到reply
+     *
      * @param TopicId
      * @return
      */
     List<Reply> findByTopicId(int TopicId);
 
     /**
-     *
      * reply的分页的支持函数
      *
      * @param TopicId

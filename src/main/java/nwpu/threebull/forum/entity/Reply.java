@@ -11,6 +11,7 @@ import java.sql.Timestamp;
  * @vwesion 1.0
  */
 public class Reply {
+
     int id;
 
     @NotNull
@@ -41,7 +42,6 @@ public class Reply {
     }
 
     /**
-     *
      * @return
      */
     public int getId() {
@@ -49,7 +49,6 @@ public class Reply {
     }
 
     /**
-     *
      * @param id
      */
     public void setId(int id) {
@@ -57,7 +56,6 @@ public class Reply {
     }
 
     /**
-     *
      * @return
      */
     public int getTopicId() {
@@ -65,7 +63,6 @@ public class Reply {
     }
 
     /**
-     *
      * @param topicId
      */
     public void setTopicId(int topicId) {
@@ -73,7 +70,6 @@ public class Reply {
     }
 
     /**
-     *
      * @return
      */
     public String getContent() {
@@ -81,7 +77,6 @@ public class Reply {
     }
 
     /**
-     *
      * @param content
      */
     public void setContent(String content) {
@@ -89,7 +84,6 @@ public class Reply {
     }
 
     /**
-     *
      * @return
      */
     public User getUser() {
@@ -97,7 +91,6 @@ public class Reply {
     }
 
     /**
-     *
      * @param user
      */
     public void setUser(User user) {
@@ -105,7 +98,6 @@ public class Reply {
     }
 
     /**
-     *
      * @return
      */
     public Timestamp getTime() {
@@ -113,7 +105,6 @@ public class Reply {
     }
 
     /**
-     *
      * @param time
      */
     public void setTime(Timestamp time) {

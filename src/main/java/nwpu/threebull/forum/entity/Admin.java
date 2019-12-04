@@ -8,8 +8,8 @@ import com.sun.istack.internal.NotNull;
  * @author ThreeBullForumTeam
  * @vwesion 1.0
  */
-
 public class Admin {
+
     private int id;
 
     @NotNull
@@ -39,7 +39,6 @@ public class Admin {
     }
 
     /**
-     *
      * @param id
      */
     public void setId(int id) {
@@ -47,7 +46,6 @@ public class Admin {
     }
 
     /**
-     *
      * @return
      */
     public String getUserName() {
@@ -55,7 +53,6 @@ public class Admin {
     }
 
     /**
-     *
      * @param userName
      */
     public void setUserName(String userName) {
@@ -63,7 +60,6 @@ public class Admin {
     }
 
     /**
-     *
      * @return
      */
     public String getPassword() {
@@ -71,7 +67,6 @@ public class Admin {
     }
 
     /**
-     *
      * @param password
      */
     public void setPassword(String password) {
@@ -79,7 +74,6 @@ public class Admin {
     }
 
     /**
-     *
      * @return
      */
     @Override

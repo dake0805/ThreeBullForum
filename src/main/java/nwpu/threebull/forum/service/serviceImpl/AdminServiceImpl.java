@@ -33,6 +33,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 通过userName，password找到admin对象
+     *
      * @param userName
      * @param password
      * @return
@@ -43,7 +44,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     *  通过userName查找所有同名的admin
+     * 通过userName查找所有同名的admin
+     *
      * @param userName
      * @return
      */
@@ -54,6 +56,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 找到所有的管理员
+     *
      * @return
      */
     @Override
@@ -63,6 +66,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 通过admin对象将admin添加到数据库
+     *
      * @param admin
      */
     @Override
@@ -72,6 +76,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 通过adminId删除admin对象
+     *
      * @param adminId
      */
     @Override
@@ -81,6 +86,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 通过新的admin对象来更新admin对象
+     *
      * @param admin
      */
     @Override
@@ -90,6 +96,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 通过userName找到admin对象
+     *
      * @param userName
      * @return
      */

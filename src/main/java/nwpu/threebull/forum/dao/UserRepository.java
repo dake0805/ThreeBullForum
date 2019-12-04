@@ -22,7 +22,6 @@ public interface UserRepository {
     User findUserByUserName(String userName);
 
     /**
-     *
      * 根据userName和password找到user对象
      *
      * @param userName
@@ -32,7 +31,6 @@ public interface UserRepository {
     User findUserByUserNameAndPassword(String userName, String password);
 
     /**
-     *
      * 返回所有的user
      *
      * @return
@@ -40,7 +38,6 @@ public interface UserRepository {
     List<User> findAllUsers();
 
     /**
-     *
      * 根据userId将user设置为上锁状态
      *
      * @param userId
@@ -48,7 +45,6 @@ public interface UserRepository {
     void lockUserById(int userId);
 
     /**
-     *
      * 根据userId将user设置为未上锁状态
      *
      * @param userId
@@ -56,12 +52,16 @@ public interface UserRepository {
     void unLockUserById(int userId);
 
     /**
-     *
      * 添加user对象到数据库中
      *
      * @param user
      */
     void addUser(User user);
 
+    /**
+     * 更新user对象到数据库中
+     *
+     * @param user
+     */
     void editUser(User user);
 }

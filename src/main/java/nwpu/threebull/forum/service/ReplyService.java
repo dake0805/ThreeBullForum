@@ -22,17 +22,18 @@ public interface ReplyService {
 
     /**
      * 新建reply对象
+     *
      * @param reply
      */
     void newReply(Reply reply);
 
     /**
      * reply的分页的支持函数
+     *
      * @param TopicId
      * @param pageNo
      * @param pageSize
      * @return
      */
-
     PaginationSupport<Reply> findPageByTopicId(int TopicId, int pageNo, int pageSize);
 }

@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
  * @vwesion 1.0
  */
 public class User {
-    private int id;
 
+    private int id;
 
     @NotEmpty
     @NotBlank
@@ -48,7 +48,6 @@ public class User {
     }
 
     /**
-     *
      * @param id
      * @param userName
      * @param password
@@ -62,7 +61,6 @@ public class User {
     }
 
     /**
-     *
      * @return
      */
     public int getId() {
@@ -70,7 +68,6 @@ public class User {
     }
 
     /**
-     *
      * @param id
      */
     public void setId(int id) {
@@ -78,7 +75,6 @@ public class User {
     }
 
     /**
-     *
      * @return
      */
     public String getUserName() {
@@ -86,7 +82,6 @@ public class User {
     }
 
     /**
-     *
      * @param userName
      */
     public void setUserName(String userName) {
@@ -94,7 +89,6 @@ public class User {
     }
 
     /**
-     *
      * @return
      */
     public String getPassword() {
@@ -102,7 +96,6 @@ public class User {
     }
 
     /**
-     *
      * @param password
      */
     public void setPassword(String password) {
@@ -110,17 +103,23 @@ public class User {
     }
 
     /**
-     *
      * @return
      */
     public boolean getIsLocked() {
         return isLocked;
     }
 
+    /**
+     * @param locked
+     */
     public void setIsLocked(boolean locked) {
         isLocked = locked;
     }
 
+    /**
+     * @param user
+     * @return
+     */
     public boolean equals(User user) {
         return user.getId() == this.id;
     }

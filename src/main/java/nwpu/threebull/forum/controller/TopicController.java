@@ -39,6 +39,8 @@ public class TopicController {
     private ReplyService replyService;
 
     /**
+     * 查看主题详情
+     *
      * @param topicId
      * @param model
      * @param session

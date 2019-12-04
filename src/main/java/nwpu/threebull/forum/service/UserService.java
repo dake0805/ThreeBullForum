@@ -1,6 +1,5 @@
 package nwpu.threebull.forum.service;
 
-import nwpu.threebull.forum.dao.support.PaginationSupport;
 import nwpu.threebull.forum.entity.User;
 
 import java.util.List;
@@ -22,6 +21,7 @@ public interface UserService {
 
     /**
      * 根据userName和password找到user对象
+     *
      * @param userName
      * @param password
      * @return
@@ -30,27 +30,36 @@ public interface UserService {
 
     /**
      * 返回所有的user
+     *
      * @return
      */
     List<User> findAllUsers();
 
     /**
      * 根据userId将user设置为上锁状态
+     *
      * @param userId
      */
     void lockUserById(int userId);
 
     /**
      * 根据userId将user设置为未上锁状态
+     *
      * @param userId
      */
     void unLockUserById(int userId);
 
     /**
      * 添加user对象到数据库中
+     *
      * @param user
      */
     void addUser(User user);
 
+    /**
+     * 修改user对象到数据库中
+     *
+     * @param user
+     */
     void editUser(User user);
 }

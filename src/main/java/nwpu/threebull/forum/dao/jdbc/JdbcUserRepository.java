@@ -31,7 +31,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 根据userName找到user对象
      *
      * @param userName
@@ -49,7 +48,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 根据userName和password找到user对象
      *
      * @param userName
@@ -69,7 +67,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 返回所有的user
      *
      * @return
@@ -80,7 +77,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 根据userId将user设置为上锁状态
      *
      * @param userId
@@ -92,7 +88,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 根据userId将user设置为未上锁状态
      *
      * @param userId
@@ -103,7 +98,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     *
      * 添加user对象到数据库中
      *
      * @param user
@@ -114,6 +108,11 @@ public class JdbcUserRepository implements UserRepository {
 
     }
 
+    /**
+     * 更新user对象到数据库
+     *
+     * @param user
+     */
     @Override
     public void editUser(User user) {
         jdbc.update(UPDATE_USER, user.getUserName(), user.getPassword(), user.getId());
@@ -121,7 +120,7 @@ public class JdbcUserRepository implements UserRepository {
 
 
     /**
-     *
+     * 将数据库查找结果映射为实体对象
      */
     private static class UserRowMapper implements RowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -131,7 +130,6 @@ public class JdbcUserRepository implements UserRepository {
                     rs.getBoolean("lock_status"));
         }
     }
-
 
     private static final String SELECT_USER = "select id, username, password, lock_status from user";
     private static final String INSERT_USER = "insert into user (id, username, password) values (?, ?, ?)";
