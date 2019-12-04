@@ -1,20 +1,29 @@
 package nwpu.threebull.forum.tool.tag;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import nwpu.threebull.forum.entity.User;
 import nwpu.threebull.forum.entity.Admin;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
 
+/**
+ * banner欢迎信息的Tag
+ *
+ * @author ThreeBullForumTeam
+ * @vwesion 1.0
+ */
 @Component
 public class InfoTag extends SimpleTagSupport {
+
+    /**
+     * 输出banner欢迎信息
+     *
+     * @throws JspException
+     */
     @Override
     public void doTag() throws JspException {
         try {
@@ -32,6 +41,5 @@ public class InfoTag extends SimpleTagSupport {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

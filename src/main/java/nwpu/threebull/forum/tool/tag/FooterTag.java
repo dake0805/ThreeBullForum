@@ -1,10 +1,16 @@
 package nwpu.threebull.forum.tool.tag;
 
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
 import org.springframework.stereotype.Component;
 
+/**
+ * foot输出信息的标签
+ *
+ * @author ThreeBullForumTeam
+ * @vwesion 1.0
+ */
 @Component
 public class FooterTag extends SimpleTagSupport {
 
@@ -14,6 +20,11 @@ public class FooterTag extends SimpleTagSupport {
 
     private static String slogan = "I am so vegetable";
 
+    /**
+     * 输出foot信息
+     *
+     * @throws JspException
+     */
     @Override
     public void doTag() throws JspException {
         try {
@@ -21,7 +32,7 @@ public class FooterTag extends SimpleTagSupport {
                     + name + "</a> 2019 © <a href=\"https://github.com/dake0805/ThreeBullForum\" target=\"_blank\">"
                     + company + "</a></p><p><a href=\"#\" target=\"_blank\">"
                     + slogan + "</a></p>");
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

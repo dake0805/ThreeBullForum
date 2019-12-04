@@ -7,14 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import nwpu.threebull.forum.entity.User;
 
 /**
  * 利用拦截器对用户访问路径进行登录校验
  *
- * @author dingy
+ * @author ThreeBullForumTeam
+ * @vwesion 1.0
  */
 public class UserInterceptor implements HandlerInterceptor {
 

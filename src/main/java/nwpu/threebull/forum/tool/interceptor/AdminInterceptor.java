@@ -13,9 +13,10 @@ import nwpu.threebull.forum.entity.Admin;
 /**
  * 利用拦截器对管理员访问路径进行登录校验
  *
- * @author dingy
+ * @author ThreeBullForumTeam
+ * @vwesion 1.0
  */
-public class AdminInterceptor implements HandlerInterceptor{
+public class AdminInterceptor implements HandlerInterceptor {
 
     private final static Log log = LogFactory.getLog(AdminInterceptor.class);
 
@@ -39,7 +40,7 @@ public class AdminInterceptor implements HandlerInterceptor{
             return true;
         }
         // 不符合条件的转发到登录页面
-        response.sendRedirect(request.getContextPath()+"/admin/login");
+        response.sendRedirect(request.getContextPath() + "/admin/login");
         return false;
     }
 }
