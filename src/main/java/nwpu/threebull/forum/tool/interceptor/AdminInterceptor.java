@@ -7,31 +7,30 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import nwpu.threebull.forum.entity.Admin;
 
+/**
+ * 利用拦截器对管理员访问路径进行登录校验
+ *
+ * @author dingy
+ */
 public class AdminInterceptor implements HandlerInterceptor{
 
     private final static Log log = LogFactory.getLog(AdminInterceptor.class);
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object obj,
-                                Exception exception) throws Exception {
-        log.debug("3.Called after rendering the view");
-
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object obj, ModelAndView model)
-            throws Exception {
-        log.debug("2.Called after handler method request completion, before rendering the view");
-
-    }
-
+    /**
+     * 在控制器类的处理方法被调用之前检查session中是否存在admin
+     *
+     * @param request
+     * @param response
+     * @param arg2
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-        log.debug("1.Called before handler method");
+        //log.debug("1.Called before handler method");
         // 获取session
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("admin");
