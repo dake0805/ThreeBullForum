@@ -1,6 +1,7 @@
 package nwpu.threebull.forum.entity;
 
-import com.sun.istack.internal.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * admin实体
